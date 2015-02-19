@@ -1,7 +1,7 @@
 package feathers.extension.ahhenderson.data.service.mvc.actor {
 
 	import ahhenderson.core.mvc.interfaces.IMediatorActor;
-	import feathers.extension.ahhenderson.data.service.helpers.DataServiceFacadeHelper;
+	import feathers.extension.ahhenderson.data.service.helpers.DS_FacadeHelper;
 	import feathers.extension.ahhenderson.mvc.actor.FeathersMediator;
 
 
@@ -16,7 +16,7 @@ package feathers.extension.ahhenderson.data.service.mvc.actor {
 
 		override protected function setMessageFilter():void {
 
-			DataServiceFacadeHelper.registerMediator( this, _messageFilter );
+			DS_FacadeHelper.registerMediator( this, _messageFilter );
 
 		}
 	}

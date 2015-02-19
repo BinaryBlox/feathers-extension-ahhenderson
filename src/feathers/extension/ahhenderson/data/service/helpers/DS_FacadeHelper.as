@@ -14,7 +14,7 @@ package feathers.extension.ahhenderson.data.service.helpers {
 	 *
 	 * @author thenderson
 	 */
-	public class DataServiceFacadeHelper {
+	public class DS_FacadeHelper {
  
 		
 		private static var _facade:GlobalFacade;
@@ -67,7 +67,7 @@ package feathers.extension.ahhenderson.data.service.helpers {
 		
 		public static function addDefaultAPI_MessageGroupFilters(filter:FacadeMessageFilter):void{
 			
-			var defaultMessageGroupFilter:String = DataServiceHelper.getDefaultServiceConfigurationKey();
+			var defaultMessageGroupFilter:String = DS_Helper.getDefaultServiceConfigurationKey();
 			
 			// Add default API Groups
 			addMessageGroupFilter(defaultMessageGroupFilter, filter = (filter) ? filter : new FacadeMessageFilter());

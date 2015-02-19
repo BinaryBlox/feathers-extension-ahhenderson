@@ -3,9 +3,9 @@ package feathers.extension.ahhenderson.data.service.managers {
 	import flash.events.EventDispatcher;
 	
 	import feathers.extension.ahhenderson.data.service.constants.DataService_NotificationConstants;
-	import feathers.extension.ahhenderson.data.service.helpers.DataServiceFacadeHelper;
-	import feathers.extension.ahhenderson.data.service.mvc.controller.DataService_AmfServiceCommand;
-	import feathers.extension.ahhenderson.data.service.mvc.controller.DataService_GroupedAmfServiceCommand;
+	import feathers.extension.ahhenderson.data.service.helpers.DS_FacadeHelper;
+	import feathers.extension.ahhenderson.data.service.mvc.controller.DS_AmfServiceCommand;
+	import feathers.extension.ahhenderson.data.service.mvc.controller.DS_GroupedAmfServiceCommand;
 	
 	//import feathers.extension.feathers_extension_internal;
 	
@@ -64,8 +64,8 @@ package feathers.extension.ahhenderson.data.service.managers {
 		private function registerMVC_Actors():void{
 			
 			// Facade service manager
-			DataServiceFacadeHelper.registerCommand(new DataService_AmfServiceCommand(DataService_NotificationConstants.N_CMD_SERVICE_AMF_CALL));  
-			DataServiceFacadeHelper.registerCommand(new DataService_GroupedAmfServiceCommand(DataService_NotificationConstants.N_CMD_SERVICE_AMF_GROUPED_CALL));
+			DS_FacadeHelper.registerCommand(new DS_AmfServiceCommand(DataService_NotificationConstants.N_CMD_SERVICE_AMF_CALL));  
+			DS_FacadeHelper.registerCommand(new DS_GroupedAmfServiceCommand(DataService_NotificationConstants.N_CMD_SERVICE_AMF_GROUPED_CALL));
 		
 			// Data access
 			//API_FacadeHelper.registerCommand(new API_GetReferenceDataCommand(API_NotificationConstants.N_CMD_GET_REFERENCE_DATA)); 

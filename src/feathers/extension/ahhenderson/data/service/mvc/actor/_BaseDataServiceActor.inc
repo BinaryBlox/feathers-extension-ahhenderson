@@ -1,4 +1,4 @@
-import feathers.extension.ahhenderson.data.service.helpers.DataServiceFacadeHelper;
+import feathers.extension.ahhenderson.data.service.helpers.DS_FacadeHelper;
 import ahhenderson.core.mvc.patterns.facade.FacadeMessage;
 import ahhenderson.core.mvc.patterns.facade.FacadeMessageFilter;
 	
@@ -7,7 +7,7 @@ override protected function sendFacadeMessage(messageId:String, messageBody:Obje
 	if(!messageFilter)
 		messageFilter = this.messageFilter;
 	
-	DataServiceFacadeHelper.addDefaultAPI_MessageGroupFilters(messageFilter = (messageFilter) ? messageFilter : new FacadeMessageFilter());
+	DS_FacadeHelper.addDefaultAPI_MessageGroupFilters(messageFilter = (messageFilter) ? messageFilter : new FacadeMessageFilter());
 	
 	super.sendFacadeMessage.apply(null, [ messageId, messageBody, messageFilter ].concat( args ));
 	
@@ -21,7 +21,7 @@ override protected function sendDelayedFacadeMessage(delay:int, message:FacadeMe
 	if(!message.messageFilter)
 		message.messageFilter = this.messageFilter;
 	
-	DataServiceFacadeHelper.addDefaultAPI_MessageGroupFilters(message.messageFilter = (message.messageFilter) ? message.messageFilter : new FacadeMessageFilter());
+	DS_FacadeHelper.addDefaultAPI_MessageGroupFilters(message.messageFilter = (message.messageFilter) ? message.messageFilter : new FacadeMessageFilter());
 	
 	super.sendDelayedFacadeMessage(delay, message);
 }
@@ -31,7 +31,7 @@ override protected function sendFacadeMessageObject(message:FacadeMessage):void{
 	if(!message.messageFilter)
 		message.messageFilter = this.messageFilter;
 	
-	DataServiceFacadeHelper.addDefaultAPI_MessageGroupFilters(message.messageFilter = (message.messageFilter) ? message.messageFilter : new FacadeMessageFilter());
+	DS_FacadeHelper.addDefaultAPI_MessageGroupFilters(message.messageFilter = (message.messageFilter) ? message.messageFilter : new FacadeMessageFilter());
 	  
 	super.sendFacadeMessageObject(message);
 }

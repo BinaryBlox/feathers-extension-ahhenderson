@@ -9,13 +9,13 @@ package feathers.extension.ahhenderson.data.service.mvc.controller
 	import feathers.extension.ahhenderson.data.service.constants.DataService_SessionPropertyKeys;
 	import feathers.extension.ahhenderson.data.service.mvc.actor.DataServiceCommand;
 	
-	public class DataService_AmfServiceCommand extends DataServiceCommand
+	public class DS_AmfServiceCommand extends DataServiceCommand
 	{
 		
-		public static const NAME:String = getQualifiedClassName(DataService_AmfServiceCommand);
+		public static const NAME:String = getQualifiedClassName(DS_AmfServiceCommand);
 	 
 		
-		public function DataService_AmfServiceCommand(name:String=null)
+		public function DS_AmfServiceCommand(name:String=null)
 		{
 			if(!name)
 				name = NAME;
