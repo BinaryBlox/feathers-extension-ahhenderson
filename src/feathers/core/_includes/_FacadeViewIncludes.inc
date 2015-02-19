@@ -1,11 +1,11 @@
 import flash.display.BitmapData;
 
-import ahhenderson.core.ahhenderson_internal;
+import ahhenderson.core.ahhenderson_core_internal;
 import ahhenderson.core.mvc.interfaces.IMediatorActor;
 import ahhenderson.core.mvc.patterns.facade.FacadeMessageFilter;
 import ahhenderson.core.mvc.patterns.facade.GlobalFacade;
 
-use namespace ahhenderson_internal;
+use namespace ahhenderson_core_internal;
 
 private var _componentArgs:Array;
 
