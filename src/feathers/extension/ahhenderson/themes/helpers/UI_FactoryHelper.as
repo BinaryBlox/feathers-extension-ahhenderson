@@ -1,6 +1,6 @@
 //------------------------------------------------------------------------------
 //
-//   ViziFit, Inc. Copyright 2012 
+//   Anthony Henderson  Copyright 2012 
 //   All rights reserved. 
 //
 //------------------------------------------------------------------------------
@@ -133,32 +133,6 @@ package feathers.extension.ahhenderson.themes.helpers{
 			return button; 
 		}
 		
-		
 		 
-		/*
-		public static function defaultListLabelFactory( nameList:String = null, alpha:Number = 1 ):Label {
-			
-			const label:VzLabel = new VzLabel();
-			label.alpha = alpha;
-			
-			if ( !nameList )
-				nameList = VzLabel.FONT_DEFAULT_NORMAL;
-			
-			label.nameList.add( nameList );
-			
-			return label;
-			
-		}
-		
-		public static function drillDownItemRendererFactory():IListItemRenderer {
-			
-			var renderer:DefaultListItemRenderer = new DefaultListItemRenderer();
-			renderer.isQuickHitAreaEnabled = true; // Like mouseChildren = false
-			renderer.nameList.add( ViziFitThemeConstants.FORM_LABEL_LIST_DRILL_DOWN_ITEM_RENDERER );
-			
-			return renderer;
-		}
-		
-	*/
 	}
 }

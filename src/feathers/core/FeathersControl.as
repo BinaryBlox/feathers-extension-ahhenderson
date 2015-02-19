@@ -2152,7 +2152,7 @@ package feathers.core
 		}
 		
 		//////////////////////////////////////
-		// Included from Vizifit
+		// Included from ahhenderson
 		//////////////////////////////////////
 		
 		include "_includes/_FeathersControl.inc"

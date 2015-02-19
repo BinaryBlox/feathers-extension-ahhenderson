@@ -1367,12 +1367,11 @@ package feathers.extension.ahhenderson.themes {
 		}
 
 		/**
-		 * VIZIFIT: Set's object pools up
+		 * Ahhenderson: Set's object pools up
 		 */
 		protected function initializeObjectPools():void {
 
-			//var defaultButton:Button = new Button();
-			//defaultButton.resetObjectFunction = 
+		 
 			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.BUTTON, null, 10 ); 
 			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.TEXT_INPUT, null, 6 ); 
 			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.LABEL, null, 10 );
