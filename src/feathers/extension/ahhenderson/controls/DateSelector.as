@@ -7,8 +7,8 @@ package feathers.extension.ahhenderson.controls {
 
 	public class DateSelector extends LayoutGroup {
 
-		include "../includes/_FeathersAppManager.inc";
-		include "../includes/_DateSelector.inc";
+		include "../_includes/_FeathersAppManager.inc";
+		include "../_includes/_DateSelector.inc";
 
 		public function DateSelector() {
 

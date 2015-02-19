@@ -10,7 +10,7 @@ package feathers.extension.ahhenderson.controls.screens
 			super();
 		}
 		 
-		include "../../includes/_FeathersAppManager.inc";
-		include "../../includes/_Screen.inc";
+		include "../../_includes/_FeathersAppManager.inc";
+		include "../../_includes/_Screen.inc";
 	}
 }

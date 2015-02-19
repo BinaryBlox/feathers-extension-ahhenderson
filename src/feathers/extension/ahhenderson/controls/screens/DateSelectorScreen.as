@@ -6,8 +6,8 @@ package feathers.extension.ahhenderson.controls.screens {
  
 	public class DateSelectorScreen extends LayoutGroupScreen {
 
-		include "../../includes/_DateSelector.inc";
-		include "../../includes/_Header.inc";
+		include "../../_includes/_DateSelector.inc";
+		include "../../_includes/_Header.inc";
 		public function DateSelectorScreen() {
 
 			super();

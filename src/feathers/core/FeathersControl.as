@@ -2155,13 +2155,13 @@ package feathers.core
 		// Included from Vizifit
 		//////////////////////////////////////
 		
-		include "includes/_FeathersControl.inc"
+		include "_includes/_FeathersControl.inc"
 		
 		// Supporting global suspension
-		include "includes/_SuspendModeIncludes.inc"
+		include "_includes/_SuspendModeIncludes.inc"
 		
 		// Mediator properties
-		include "includes/_FacadeViewIncludes.inc"
+		include "_includes/_FacadeViewIncludes.inc"
 		 
 		
 	}

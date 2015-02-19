@@ -20,9 +20,9 @@ package feathers.extension.ahhenderson.controls {
 			super();
 		}
 
-		include "../includes/_FeathersAppManager.inc";
-		include "../includes/_Navigator.inc";
-		include "../includes/_Panel.inc";
+		include "../_includes/_FeathersAppManager.inc";
+		include "../_includes/_Navigator.inc";
+		include "../_includes/_Panel.inc";
 
 		/**
 		 * 
