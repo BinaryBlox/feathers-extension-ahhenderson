@@ -64,6 +64,17 @@
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util._deprecate.DateUtil"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.mvc.controller.DataService_AmfServiceCommand"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.mvc.actor.DataServiceCommand"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_SessionPropertyKeys"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_NotificationConstants"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.mvc.actor.DataServiceModel"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.managers.DataServiceManager"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_DefaultValues"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.mvc.actor.DataServiceMediator"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.helpers.DataServiceFacadeHelper"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.mvc.controller.DataService_GroupedAmfServiceCommand"/>
+    <classEntry path="feathers.extension.ahhenderson.data.service.helpers.DataServiceHelper"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

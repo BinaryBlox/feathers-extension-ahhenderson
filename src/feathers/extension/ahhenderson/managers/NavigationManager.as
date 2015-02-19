@@ -7,11 +7,12 @@ package feathers.extension.ahhenderson.managers
 	import ahhenderson.core.util.StringUtil;
 	
 	import feathers.controls.Drawers;
-	import feathers.extension.ahhenderson.controls.core.FeathersRootScreen;
 	import feathers.controls.ScreenNavigator;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
-	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
+	import feathers.extension.ahhenderson.controls.core.FeathersRootScreen;
+	import feathers.extension.ahhenderson.helpers.DialogHelper;
 	import feathers.extension.ahhenderson.util.ScreenUtil;
+	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 	
 	import starling.display.DisplayObject;
 
@@ -129,6 +130,10 @@ package feathers.extension.ahhenderson.managers
 		
 		public function showScreen(id:String, resetHeader:Boolean= true):void
 		{
+			if(!this._rootScreen.screenNavigator.getScreen(id)){
+				DialogHelper.showAlert("Screen not Available", "A screen has not been configured for " + id);
+				return;
+			}
 
 			validateManager();
 
