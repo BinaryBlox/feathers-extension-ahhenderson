@@ -9,10 +9,10 @@ package feathers.extension.ahhenderson.managers {
 	import ahhenderson.core.managers.dependency.facadeService.events.FacadeServiceManagerEvent;
 	import ahhenderson.core.mvc.patterns.facade.GlobalFacade;
 	
-	import feathers.extension.ahhenderson.feathers_extension_internal;
+	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.helpers.DialogHelper;
 
-	use namespace feathers_extension_internal;
+	use namespace ahhenderson_extension_internal;
 
 
 	/**

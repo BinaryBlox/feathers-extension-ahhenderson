@@ -3,7 +3,7 @@ package feathers.extension.ahhenderson.controls.core {
 	import flash.events.Event;
 	
 	import ahhenderson.core.ui.controls.SpriteMVC;
-	import feathers.extension.ahhenderson.feathers_extension_internal;
+	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.controls.screens.TitledNavigatorScreen;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.events.ThemeManagerEvent;
@@ -14,7 +14,7 @@ package feathers.extension.ahhenderson.controls.core {
 	
 	import starling.display.DisplayObject;
 
-	use namespace feathers_extension_internal
+	use namespace ahhenderson_extension_internal
 
 
 	public class FeathersRootScreen extends SpriteMVC {
@@ -32,9 +32,9 @@ package feathers.extension.ahhenderson.controls.core {
 
 		protected var _titledNavigatorScreen:TitledNavigatorScreen;
 
-		feathers_extension_internal var _drawers:Drawers;
+		ahhenderson_extension_internal var _drawers:Drawers;
 
-		feathers_extension_internal var _screenNavigator:ScreenNavigator;
+		ahhenderson_extension_internal var _screenNavigator:ScreenNavigator;
 
 		public function get fmgr():FeathersApplicationManager
 		{
@@ -165,12 +165,12 @@ package feathers.extension.ahhenderson.controls.core {
 			throw new Error( "BaseRootView - showDefaultScreen(): method must be overriden!" );
 		}
 
-		feathers_extension_internal function get drawers():Drawers {
+		ahhenderson_extension_internal function get drawers():Drawers {
 
 			return _drawers;
 		}
 
-		feathers_extension_internal function get screenNavigator():ScreenNavigator {
+		ahhenderson_extension_internal function get screenNavigator():ScreenNavigator {
 
 			return _titledNavigatorScreen.navigator;
 		}

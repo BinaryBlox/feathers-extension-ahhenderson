@@ -82,7 +82,7 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.display.Scale3Image;
 	import feathers.display.Scale9Image;
 	import feathers.display.TiledImage;
-	import feathers.extension.ahhenderson.feathers_extension_internal;
+	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
@@ -106,7 +106,7 @@ package feathers.extension.ahhenderson.themes {
 	import starling.textures.TextureAtlas;
 	import starling.textures.TextureSmoothing;
 
-	use namespace feathers_extension_internal;
+	use namespace ahhenderson_extension_internal;
 
 
 	/**

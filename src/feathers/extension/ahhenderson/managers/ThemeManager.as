@@ -14,7 +14,7 @@ package feathers.extension.ahhenderson.managers {
 	import mx.utils.StringUtil;
 	
 	import feathers.extension.ahhenderson.controls.core.FeathersRootScreen;
-	import feathers.extension.ahhenderson.feathers_extension_internal;
+	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.events.ThemeManagerEvent;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.interfaces.IManagedTheme;
 	
@@ -24,7 +24,7 @@ package feathers.extension.ahhenderson.managers {
 	import starling.events.ResizeEvent;
 	import starling.utils.AssetManager;
 	
-	use namespace feathers_extension_internal;
+	use namespace ahhenderson_extension_internal;
 	
 	/**
 	 *
@@ -255,7 +255,7 @@ package feathers.extension.ahhenderson.managers {
 		 
 		private var _currentBackground:Image;
 		
-		feathers_extension_internal function enqueueAssets( ):void {
+		ahhenderson_extension_internal function enqueueAssets( ):void {
 			
 			validateManager();
 			

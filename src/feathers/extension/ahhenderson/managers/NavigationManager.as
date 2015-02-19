@@ -9,13 +9,13 @@ package feathers.extension.ahhenderson.managers
 	import feathers.controls.Drawers;
 	import feathers.extension.ahhenderson.controls.core.FeathersRootScreen;
 	import feathers.controls.ScreenNavigator;
-	import feathers.extension.ahhenderson.feathers_extension_internal;
+	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 	import feathers.extension.ahhenderson.util.ScreenUtil;
 	
 	import starling.display.DisplayObject;
 
-	use namespace feathers_extension_internal;
+	use namespace ahhenderson_extension_internal;
 
 
 	internal class NavigationManager extends EventDispatcher
@@ -170,7 +170,7 @@ package feathers.extension.ahhenderson.managers
 
 		}
 
-		feathers_extension_internal function get drawers():Drawers
+		ahhenderson_extension_internal function get drawers():Drawers
 		{
 
 			validateManager();
@@ -178,7 +178,7 @@ package feathers.extension.ahhenderson.managers
 			return this._rootScreen.drawers;
 		}
 
-		feathers_extension_internal function get screenNavigator():ScreenNavigator
+		ahhenderson_extension_internal function get screenNavigator():ScreenNavigator
 		{
 
 			validateManager();
@@ -186,7 +186,7 @@ package feathers.extension.ahhenderson.managers
 			return this._rootScreen.screenNavigator;
 		}
 
-		feathers_extension_internal function validateManager():void
+		ahhenderson_extension_internal function validateManager():void
 		{
 
 			if (!_isInitialized)

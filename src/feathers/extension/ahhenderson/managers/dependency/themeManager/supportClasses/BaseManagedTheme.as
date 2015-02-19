@@ -2,13 +2,13 @@ package feathers.extension.ahhenderson.managers.dependency.themeManager.supportC
 
 	import flash.display.Bitmap;
 	
-	import feathers.extension.ahhenderson.feathers_extension_internal;
+	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.events.ThemeManagerEvent;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.interfaces.IManagedTheme;
 	import feathers.themes.StyleNameFunctionTheme;
 
-	use namespace feathers_extension_internal;
+	use namespace ahhenderson_extension_internal;
 
 
 	public class BaseManagedTheme extends StyleNameFunctionTheme implements IManagedTheme {
@@ -198,48 +198,48 @@ package feathers.extension.ahhenderson.managers.dependency.themeManager.supportC
 		}
 
 		// Internal namespace parameters
-		feathers_extension_internal function set setAudioAssetsFolder( value:String ):void {
+		ahhenderson_extension_internal function set setAudioAssetsFolder( value:String ):void {
 
 			_audioAssetsFolder = value;
 		}
 		 
 		
-		feathers_extension_internal function set setBackgroundImage( value:Bitmap ):void {
+		ahhenderson_extension_internal function set setBackgroundImage( value:Bitmap ):void {
 			
 			_backgroundImage = value;
 		}
 		
-		feathers_extension_internal function set setContentScaleFactor( value:uint ):void {
+		ahhenderson_extension_internal function set setContentScaleFactor( value:uint ):void {
 			
 			_contentScaleFactor = value;
 		}
 
-		feathers_extension_internal function set setBaseAssetsPath( value:String ):void {
+		ahhenderson_extension_internal function set setBaseAssetsPath( value:String ):void {
 
 			_baseAssetsPath = value;
 		}
 
-		feathers_extension_internal function set setDeviceOrientation( value:String ):void {
+		ahhenderson_extension_internal function set setDeviceOrientation( value:String ):void {
 
 			_deviceOrientation = value;
 		}
 
-		feathers_extension_internal function set setFontAssetsFolder( value:String ):void {
+		ahhenderson_extension_internal function set setFontAssetsFolder( value:String ):void {
 
 			_fontAssetsFolder = value;
 		}
 
-		feathers_extension_internal function set setImageAssetsFolder( value:String ):void {
+		ahhenderson_extension_internal function set setImageAssetsFolder( value:String ):void {
 
 			_imageAssetsFolder = value;
 		}
 
-		feathers_extension_internal function set setIsMultitouch( value:Boolean ):void {
+		ahhenderson_extension_internal function set setIsMultitouch( value:Boolean ):void {
 
 			_isMultitouch = value;
 		}
 
-		feathers_extension_internal function set setScaledAssetsFolderPrefix( value:String ):void {
+		ahhenderson_extension_internal function set setScaledAssetsFolderPrefix( value:String ):void {
 
 			_scaledAssetsFolderPrefix = value;
 		}
