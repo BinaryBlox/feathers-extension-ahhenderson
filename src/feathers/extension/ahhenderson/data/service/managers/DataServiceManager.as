@@ -66,9 +66,6 @@ package feathers.extension.ahhenderson.data.service.managers {
 			// Facade service manager
 			DS_FacadeHelper.registerCommand(new DS_AmfServiceCommand(DataService_NotificationConstants.N_CMD_SERVICE_AMF_CALL));  
 			DS_FacadeHelper.registerCommand(new DS_GroupedAmfServiceCommand(DataService_NotificationConstants.N_CMD_SERVICE_AMF_GROUPED_CALL));
-		
-			// Data access
-			//API_FacadeHelper.registerCommand(new API_GetReferenceDataCommand(API_NotificationConstants.N_CMD_GET_REFERENCE_DATA)); 
 		}
 		
 		public function initialize(isDebuggable:Boolean = false ):void {
@@ -76,29 +73,12 @@ package feathers.extension.ahhenderson.data.service.managers {
  			_isDebuggable = isDebuggable;
 			
 			registerMVC_Actors();
-			updateServiceDefinitionDefaults();
 			
 			// Initialization constraints have been met
 			_isInitialized = true; 
 			
 		}
-		
-		private function updateServiceDefinitionDefaults():void{
-			
-			// Update the default wait messages that are automatically generated.
-			//ActivityFacadeServiceDefinition.GET_ACTIVITY_CONFIGURATION_DATA.modalWaitMessage ="Loading configuration...";
-			/*ActivityFacadeServiceDefinition.GET_ALL_ACTIVITIES.modalWaitMessage ="Loading activities...";
-			ActivityFacadeServiceDefinition.GET_ALL_ACTIVITY_ITEMS.modalWaitMessage ="Loading...";
-			ActivityFacadeServiceDefinition.GET_ALL_ACTIVITY_SCHEDULES.modalWaitMessage ="Loading...";
-			ActivityFacadeServiceDefinition.GET_ALL_PROGRAM_ACTIVITIES.modalWaitMessage ="Loading...";
-			ActivityFacadeServiceDefinition.GET_ALL_PROGRAMS.modalWaitMessage ="Loading...";*/
-			/*UserFacadeServiceDefinition.GET_APP_CONFIGURATION_DATA.modalWaitMessage ="Loading configuration...";
-			UserFacadeServiceDefinition.CREATE_USER_BY_EMAIL.modalWaitMessage="Creating profile...";
-			UserFacadeServiceDefinition.GET_USER_BY_EMAIL.modalWaitMessage="Loading profile...";
-			UserFacadeServiceDefinition.LOGIN_BY_EMAIL.modalWaitMessage="Signing in...";
-			UserFacadeServiceDefinition.USER_EXISTS.modalWaitMessage ="Loading...";*/
-			
-		}
+	
 		
 		private function validateManager():void {
 			
