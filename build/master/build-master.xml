@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<project name="Master Deployment"  basedir=".">
+	
+	<!-- 
+	////////////////////////////////////////////////////////////
+	Global properties
+	////////////////////////////////////////////////////////////
+	--> 
+	
+	<!-- Configuration files: --> 
+	<property file="local.properties"/>
+	<property file="build.properties"/>
+	 
+	<!-- Root directories --> 
+ 
+	<!-- Build api temp workspace directory -->
+	<property name="temp.dir" location="${build.root}/temp"/> 
+	<property name="package.dir" location="${build.root}/package"/> 
+	
+	<property name="default.template.key" value="#TEMPLATE#"/> 
+	  
+	<!-- 
+	////////////////////////////////////////////////////////////
+	Script Dependencies
+	////////////////////////////////////////////////////////////
+	--> 
+	
+	<!-- create our ant classpath using the fileset task -->
+	<path id="class.path">
+	 
+	  <!-- include all jars in the lib directory and all sub-directories -->
+	  <fileset dir="libs">
+	    <include name="**/*.jar" />
+	  </fileset>
+	 
+	</path>
+	 
+	<!-- create our ant classpath for Javascript reference -->
+	<path id="script.classpath">
+	  <fileset dir="libs" includes="**/*.jar"/>
+	</path>
+	
+	<!-- create timestamp definition -->
+	<tstamp>
+	  <format property="TODAY"
+	          pattern="d-MMMM-yyyy HH:mm:ss"
+	          locale="en, US"/>
+	</tstamp>
+	 
+	<!-- 
+	////////////////////////////////////////////////////////////
+	Defined script tasks
+	////////////////////////////////////////////////////////////
+	-->
+	<taskdef resource="net/sf/antcontrib/antlib.xml">
+	  <classpath>
+	    <pathelement location="libs/antcontrib.jar"/>
+	  </classpath>
+	</taskdef>
+	 
+	
+	<!-- 
+	************************************************************
+	Utility Targets 
+	************************************************************ 
+	-->
+	<target name="target-util-build-swc"
+			description="Build an AIR library SWC file">
+		  
+		<fileset dir="${param.project.source}"
+				 casesensitive="yes"
+				 id="classfiles">
+			<include name="**/*.as"/>
+		</fileset>
+		
+		<pathconvert property="classlist"
+					 refid="classfiles"
+					 pathsep=" "
+					 dirsep=".">
+			<regexpmapper from=".*src.(.*)\.as"
+						  to="\1"/>
+		</pathconvert>
+		  
+		<exec executable="${param.project.compc}"
+			  failonerror="true">
+			<env key="AIR_SDK_HOME"
+				 value="${param.project.flex.home}"/>
+			<arg line='-source-path ${param.project.source}'/>
+			<arg line='-output ../bin/${param.project.name}-${param.project.version}.swc'/>
+			<arg line='-swf-version=${param.project.swf.version}'/>
+			<arg line='-external-library-path+="${param.project.flex.home}/frameworks/libs/air/airglobal.swc"'/>
+			
+			<!-- TO DO - copy swcs to location so this can be generic (one path) -->
+			<!-- <arg line='-external-library-path+="${param.project.external.libraries}"'/> -->
+			
+			<arg line='-external-library-path+="../libs"'/>  
+			<arg line='-external-library-path+="../../ahhenderson-core-framework/bin"'/> 
+			<arg line='-include-classes ${classlist}'/>
+		</exec>
+	</target>
+	 
+	 
+</project>

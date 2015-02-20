@@ -1,0 +1,91 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE xml>
+<project name="APIDeployment" 
+		 default="deploy" basedir=".">
+	
+	<!-- Configuration files: --> 
+	<property file="local.properties"/>
+	<property file="build.properties"/>
+	
+	<!-- Master build.xml (for reuse): --> 
+	<import file="${basedir}/master/build-master.xml"/>
+	
+ 
+	<!-- Global properties-->   
+ 
+	  
+	<!-- 
+	////////////////////////////////////////////////////////////
+	Script Definitions
+	////////////////////////////////////////////////////////////
+	-->
+	<!-- Utility function for creatign resister as3 class alias text -->
+	 
+	<!-- 
+	////////////////////////////////////////////////////////////
+	START build...
+	////////////////////////////////////////////////////////////
+	-->
+	 
+	<target name="deploy"
+				description="Starting deployment..."> 
+			 
+		<echo>DEPLOYMENT STARTED: ${TODAY}</echo> 
+		 
+	 	<antcall target="deploy-project"></antcall> 
+	</target>
+	
+	<!-- Start deployment tasks -->
+	<target name="deploy-project"  
+		 	description="Building application and documentation..."
+	 	    depends="build-swc,  clean-up">
+	 
+		<echo>DEPLOYMENT FINISHED: ${TODAY}</echo> 
+		 	 
+	</target> 
+	 
+	<!-- 
+	************************************************************
+	Generate ASDocs
+	************************************************************ 
+	--> 
+	<!-- NOT Working with ASC 2.0 --> 
+	 
+
+	    
+	<!-- 
+	************************************************************
+	Build AIR swc.
+	************************************************************ 
+	-->
+	<!-- Generic target: it builds the AIR library that {library.name} and {library.root}
+	point to. -->
+	<target name="build-swc"
+			description="Build an AIR library SWC file">
+		  
+		<antcall target="target-util-build-swc">  
+			<param name="param.project.version" value="${version.number}"/>
+			<param name="param.project.flex.home" value="${FLEX_HOME}"/>
+			<param name="param.project.compc" value="${COMPC}"/> 
+			<param name="param.project.source" value="${client.source}"/>
+			<param name="param.project.name" value="${client.name}"/>
+			<param name="param.project.swf.version" value="${air.swf.version}"/>
+		</antcall> 
+		 
+	</target>	
+	
+	<!-- 
+	************************************************************
+	Cleanup
+	************************************************************ 
+	 -->
+	
+	<target name="clean-up"
+					description="Cleanup...">
+		
+		<echo>Cleaning up ${temp.dir}...</echo> 
+		
+    	<delete dir="${temp.dir}"/>
+	</target>
+	 
+</project>
