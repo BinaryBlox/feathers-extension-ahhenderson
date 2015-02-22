@@ -80,7 +80,7 @@ package feathers.extension.ahhenderson.themes.helpers {
 			return renderer;
 		}
 
-		public static function controlGroupListFactory( visible:Boolean = true, selectable:Boolean = false, hasElasticEdges:Boolean = false,
+		public static function formControlListFactory( visible:Boolean = true, selectable:Boolean = false, hasElasticEdges:Boolean = false,
 														itemRenderFactory:Function = null ):List {
 
 			var list:List = new List();
@@ -158,7 +158,7 @@ package feathers.extension.ahhenderson.themes.helpers {
 				textInput.styleNameList.add( customStyleName );
 
 			return textInput;
-		}
+		} 
 
 	}
 }

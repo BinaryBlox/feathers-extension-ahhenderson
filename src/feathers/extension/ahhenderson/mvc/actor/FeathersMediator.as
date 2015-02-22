@@ -13,11 +13,8 @@ package feathers.extension.ahhenderson.mvc.actor {
 			super( name, component );
 		} 
 		 
-		protected function get fmgr():FeathersApplicationManager {
-  
-			return FeathersApplicationManager.instance;
-		}
-
+		include "../../_includes/_FeathersAppManager.inc";
+		 
 		override public function onRegister():void {
 
 			super.onRegister();

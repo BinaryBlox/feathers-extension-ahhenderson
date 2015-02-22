@@ -11,7 +11,7 @@ package feathers.extension.ahhenderson.mvc.actor {
 			super( name );
 		}
 
-		private var _fmgr:FeathersApplicationManager;
+		include "../../_includes/_FeathersAppManager.inc";
 
 		override public function beforeRemove():void {
 
@@ -28,13 +28,6 @@ package feathers.extension.ahhenderson.mvc.actor {
 			this.fmgr.logger.trace( this, "Command registered..." );
 
 		}
-
-		protected function get fmgr():FeathersApplicationManager {
-
-			if ( !_fmgr )
-				_fmgr = FeathersApplicationManager.instance;
-
-			return _fmgr;
-		}
+ 
 	}
 }

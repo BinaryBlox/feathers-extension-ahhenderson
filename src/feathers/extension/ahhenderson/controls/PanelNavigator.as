@@ -2,7 +2,9 @@ package feathers.extension.ahhenderson.controls {
 
 	import feathers.controls.IScreen;
 	import feathers.controls.Panel;
+	import feathers.controls.ScreenNavigator;
 	import feathers.extension.ahhenderson.themes.helpers.UI_FactoryHelper;
+	import feathers.extension.ahhenderson.util.ScreenUtil;
 	import feathers.layout.AnchorLayoutData;
 	import feathers.skins.IStyleProvider;
 
@@ -21,9 +23,63 @@ package feathers.extension.ahhenderson.controls {
 		}
 
 		include "../_includes/_FeathersAppManager.inc";
-		include "../_includes/_Navigator.inc";
+		//include "../_includes/_Navigator.inc";
 		include "../_includes/_Panel.inc";
 
+		protected var _navigator:ScreenNavigator;
+		
+		private var _lastScreenId:String;
+		
+		
+		public function get lastScreenId():String
+		{
+			return _lastScreenId;
+		}
+
+		public function get navigator():ScreenNavigator {
+			
+			return _navigator;
+		}
+		
+		public function addScreen(id:String, screen:Object, events:Object = null, initializer:Object =
+								  null):void{
+			 
+			if(!initializer) 
+				initializer = {};
+			
+			// add reference to PanelNavigator
+			updateInitializer(initializer);
+			
+			ScreenUtil.addScreen(this.navigator, id, screen, events, initializer);
+			
+		}
+		
+		protected function updateInitializer(initializer:Object):void{
+			
+			initializer["panelNavigator"] = this;
+			
+		}
+		
+		public function removeScreen(  id:String ):void {
+			
+			ScreenUtil.removeScreen(this.navigator, id);
+		}
+		
+		public function showLastScreen(delay:int=0):void{
+			
+			if(!this.lastScreenId)
+				return;
+			
+			ScreenUtil.showScreen(this.navigator, this.lastScreenId, delay);
+			
+		}
+		
+		public function showScreen(  id:String, delay:int = 0 ):void {
+			_lastScreenId = this.navigator.activeScreenID;
+			
+			ScreenUtil.showScreen(this.navigator, id, delay);
+		}
+		
 		/**
 		 * 
 		 * @default 
