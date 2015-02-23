@@ -8,7 +8,6 @@ package feathers.extension.ahhenderson.controls.core {
 	import feathers.controls.Header;
 	import feathers.controls.ScreenNavigator;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
-	import feathers.extension.ahhenderson.controls.interfaces.IFeathersRootScreen;
 	import feathers.extension.ahhenderson.controls.screens.TitledNavigatorScreen;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.events.ThemeManagerEvent;
@@ -16,40 +15,34 @@ package feathers.extension.ahhenderson.controls.core {
 	use namespace ahhenderson_extension_internal
 
 
-	public class FeathersRootScreen extends SpriteMVC implements IFeathersRootScreen {
-		public function FeathersRootScreen() {
+	public class FeathersRootContainer extends SpriteMVC  {
+		
+		include "../../_includes/_FeathersAppManager.inc";
+		
+		public function FeathersRootContainer() {
 
 			super();
 
 			registerClassAliases();
 
 		}
-
-		private var _fmgr:FeathersApplicationManager;
-
+ 
 		protected var _titledNavigatorScreen:TitledNavigatorScreen;
 
 		ahhenderson_extension_internal var _drawers:Drawers;
 
 		ahhenderson_extension_internal var _screenNavigator:ScreenNavigator;
-
-		public function get fmgr():FeathersApplicationManager {
-
-			if ( !_fmgr )
-				_fmgr = FeathersApplicationManager.instance;
-
-			return _fmgr;
-		}
+ 
 
 		public function loadTheme():void {
 
-			if ( !FeathersApplicationManager.instance.theme.isInitialized ) {
+			if ( !fmgr.theme.isInitialized ) {
 				throw new Error( "FeathersRootScreen - loadTheme(): ThemeManager must be initialized!" );
 			}
 
-			FeathersApplicationManager.instance.theme.addEventListener( ThemeManagerEvent.THEME_ASSET_LOADING_COMPLETE, onThemeLoaded );
+			fmgr.theme.addEventListener( ThemeManagerEvent.THEME_ASSET_LOADING_COMPLETE, onThemeLoaded );
 
-			FeathersApplicationManager.instance.theme.loadAssets();
+			fmgr.theme.loadAssets();
 
 		}
 
@@ -81,9 +74,7 @@ package feathers.extension.ahhenderson.controls.core {
 			this._drawers = new Drawers();
 
 			_titledNavigatorScreen = new TitledNavigatorScreen();
-
-			/*_titledNavigatorScreen.width = this.width;
-			_titledNavigatorScreen.height = this.height;*/
+ 
 
 			//a drawer may be opened by dragging from the edge of the content
 			//you can also set it to drag from anywhere inside the content
@@ -97,21 +88,19 @@ package feathers.extension.ahhenderson.controls.core {
 
 			this.addChild( this._drawers );
 
-			// Only to happen after adding 
+			// NOTE: Only to happen after adding (Drawers to display list)
 			initializeNavigationManager();
 
-			registerScreenViews();
-
+			// Init Drawers
 			initializeDrawers( this._drawers );
-
-			// MVC
-			registerStartupCommand();
-
+			
+			// All applicaiton views
+			registerScreenViews();
+ 
+			// Root MVC
+			registerRootCommand(); 
 			registerRootMediator();
-
-			// Defaults
-			showDefaultScreen();
-
+  
 		}
 
 		protected function registerClassAliases():void {
@@ -126,12 +115,12 @@ package feathers.extension.ahhenderson.controls.core {
 
 		protected function initializeNavigationManager():void {
 
-			FeathersApplicationManager.instance.navigation.initialize( this );
+			fmgr.navigation.initialize( this, this.defaultScreenId() );
 		}
 
 		protected function onThemeLoaded( e:flash.events.Event ):void {
 
-			FeathersApplicationManager.instance.theme.removeEventListener( ThemeManagerEvent.THEME_ASSET_LOADING_COMPLETE, onThemeLoaded );
+			fmgr.theme.removeEventListener( ThemeManagerEvent.THEME_ASSET_LOADING_COMPLETE, onThemeLoaded );
 
 			this.initialize();
 
@@ -142,7 +131,7 @@ package feathers.extension.ahhenderson.controls.core {
 			throw new Error( "FeathersRootScreen - registerRootMediator(): method must be overriden!" );
 		}
 
-		protected function registerStartupCommand():void {
+		protected function registerRootCommand():void {
 
 			throw new Error( "FeathersRootScreen - registerStartupCommand(): method must be overriden!" );
 		}
@@ -152,7 +141,7 @@ package feathers.extension.ahhenderson.controls.core {
 			throw new Error( "FeathersRootScreen - registerScreenViews(): method must be overriden!" );
 		}
 
-		public function showDefaultScreen():void {
+		protected function defaultScreenId():String {
 
 			throw new Error( "FeathersRootScreen - showDefaultScreen(): method must be overriden!" );
 		}

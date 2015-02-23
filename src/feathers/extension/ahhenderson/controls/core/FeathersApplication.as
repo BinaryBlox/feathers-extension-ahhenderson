@@ -12,6 +12,9 @@ package feathers.extension.ahhenderson.controls.core
 	/*[Event(name="feathersApplicationComplete", type="starling.events.Event")] */
 	public class FeathersApplication extends StarlingApplication
 	{
+		
+		include "../../_includes/_FeathersAppManager.inc";
+		
 		public function FeathersApplication(debug:Boolean=false)
 		{  
 			super(debug);
@@ -19,22 +22,17 @@ package feathers.extension.ahhenderson.controls.core
 			this.fmgr.initialize(debug);
 		}
 		
-		private var _fmgr:FeathersApplicationManager;
-		
+		 
 		public static const FEATHERS_APPLICATION_COMPLETE_EVENT:String ="feathersApplicationComplete";
 		
-		protected function get fmgr():FeathersApplicationManager
-		{  
-			return FeathersApplicationManager.instance;
-		}
-		
-		override protected function onRootCreated(event:Object, rootView:*):void{
+		  
+		override protected function onRootContainerCreated(event:Object, rootContainer:*):void{
 			
-			if(!(rootView as FeathersRootScreen)){
+			if(!(rootContainer as FeathersRootContainer)){
 				throw new Error( "FeathersApplication starling_rootCreatedHandler() method: rootView must be of BaseRootView type." );
 			}
 			
-			initializeTheme(rootView as FeathersRootScreen);
+			initializeTheme(rootContainer as FeathersRootContainer);
 			 
 		} 
 		override protected function onUncaughtError( e:UncaughtErrorEvent ):void {
@@ -55,7 +53,7 @@ package feathers.extension.ahhenderson.controls.core
 			
 		}
 		 
-		protected function initializeTheme(rootView:FeathersRootScreen):void{
+		protected function initializeTheme(rootView:FeathersRootContainer):void{
 			
 			this.fmgr.theme.initialize(rootView,  defaultTheme(), Starling.current.nativeStage, 1, true);
 			

@@ -13,7 +13,7 @@ package feathers.extension.ahhenderson.managers {
 	
 	import mx.utils.StringUtil;
 	
-	import feathers.extension.ahhenderson.controls.core.FeathersRootScreen;
+	import feathers.extension.ahhenderson.controls.core.FeathersRootContainer;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.events.ThemeManagerEvent;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.interfaces.IManagedTheme;
@@ -42,7 +42,7 @@ package feathers.extension.ahhenderson.managers {
 		
 		private  const ASSET_FOLDER_SCALE_3:String = "3";
 		
-		public function get root():FeathersRootScreen
+		public function get root():FeathersRootContainer
 		{
 			validateManager();
 			
@@ -138,9 +138,9 @@ package feathers.extension.ahhenderson.managers {
 		
 		private var _currentTheme:IManagedTheme;
 		
-		private var _root:FeathersRootScreen;
+		private var _root:FeathersRootContainer;
 		
-		public function initialize(parent:FeathersRootScreen, theme:IManagedTheme, nativeStage:Stage, scaleFactor:Number = 1, debugger:Boolean = false ):void {
+		public function initialize(parent:FeathersRootContainer, theme:IManagedTheme, nativeStage:Stage, scaleFactor:Number = 1, debugger:Boolean = false ):void {
 			
 			if ( !_assetManager )
 				_assetManager = new AssetManager( _scaleFactor );

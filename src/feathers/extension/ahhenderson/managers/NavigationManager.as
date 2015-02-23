@@ -9,7 +9,8 @@ package feathers.extension.ahhenderson.managers
 	import feathers.controls.Drawers;
 	import feathers.controls.ScreenNavigator;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
-	import feathers.extension.ahhenderson.controls.core.FeathersRootScreen;
+	import feathers.extension.ahhenderson.controls.PanelNavigator;
+	import feathers.extension.ahhenderson.controls.core.FeathersRootContainer;
 	import feathers.extension.ahhenderson.helpers.DialogHelper;
 	import feathers.extension.ahhenderson.util.ScreenUtil;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
@@ -23,6 +24,16 @@ package feathers.extension.ahhenderson.managers
 	{
 
 		private static const _instance:NavigationManager=new NavigationManager(SingletonLock);
+
+		public function get defaultScreen():String
+		{
+			return _defaultScreenId;
+		}
+
+		public function set defaultScreen(value:String):void
+		{
+			_defaultScreenId = value;
+		}
 
 		private function get fmgr():FeathersApplicationManager
 		{
@@ -58,10 +69,21 @@ package feathers.extension.ahhenderson.managers
 
 		private var _isInitialized:Boolean;
 
-		private var _rootScreen:FeathersRootScreen;
+		private var _rootScreen:FeathersRootContainer;
 
 		private var _transitionManager:ScreenSlidingStackTransitionManager;
 
+		private var _defaultScreenId:String;
+		
+		
+		public function showDefaultScreen(delay:int=0):void{
+			
+			if(!this.defaultScreen)
+				return;
+			
+			ScreenUtil.showScreen(this.screenNavigator, this.defaultScreen, delay);
+		}
+		
 		public function addScreen(id:String, screen:Object, events:Object=null, initializer:Object=null):void
 		{
 
@@ -85,9 +107,11 @@ package feathers.extension.ahhenderson.managers
 
 		}
 
-		public function initialize(rootScreen:FeathersRootScreen):void
+		public function initialize(rootScreen:FeathersRootContainer, defaultScreenId:String=null):void
 		{
 
+			this._defaultScreenId=defaultScreenId;
+			
 			this._rootScreen=rootScreen;
 
 			// Set transition animation
@@ -128,6 +152,7 @@ package feathers.extension.ahhenderson.managers
 		
 		private var _fmgr:FeathersApplicationManager;
 		
+		 
 		public function showScreen(id:String, resetHeader:Boolean= true):void
 		{
 			if(!this._rootScreen.screenNavigator.getScreen(id)){

@@ -13,7 +13,7 @@
     <classEntry path="feathers.extension.ahhenderson.controls.PanelNavigator"/>
     <classEntry path="feathers.extension.ahhenderson.controls.TitledTextBlock"/>
     <classEntry path="feathers.extension.ahhenderson.controls.core.FeathersApplication"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.core.FeathersRootScreen"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.core.FeathersRootContainer"/>
     <classEntry path="feathers.extension.ahhenderson.controls.dialogs.LoadingDialog"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.DateSelectorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.LayoutGroupScreen"/>
