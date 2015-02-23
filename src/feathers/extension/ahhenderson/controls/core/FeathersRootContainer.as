@@ -115,7 +115,7 @@ package feathers.extension.ahhenderson.controls.core {
 
 		protected function initializeNavigationManager():void {
 
-			fmgr.navigation.initialize( this, this.defaultScreenId() );
+			fmgr.navigation.initialize( this );
 		}
 
 		protected function onThemeLoaded( e:flash.events.Event ):void {
@@ -140,12 +140,7 @@ package feathers.extension.ahhenderson.controls.core {
 
 			throw new Error( "FeathersRootScreen - registerScreenViews(): method must be overriden!" );
 		}
-
-		protected function defaultScreenId():String {
-
-			throw new Error( "FeathersRootScreen - showDefaultScreen(): method must be overriden!" );
-		}
-
+ 
 		ahhenderson_extension_internal function get drawers():Drawers {
 
 			return _drawers;

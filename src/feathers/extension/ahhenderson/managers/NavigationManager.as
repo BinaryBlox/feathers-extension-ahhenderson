@@ -9,7 +9,6 @@ package feathers.extension.ahhenderson.managers
 	import feathers.controls.Drawers;
 	import feathers.controls.ScreenNavigator;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
-	import feathers.extension.ahhenderson.controls.PanelNavigator;
 	import feathers.extension.ahhenderson.controls.core.FeathersRootContainer;
 	import feathers.extension.ahhenderson.helpers.DialogHelper;
 	import feathers.extension.ahhenderson.util.ScreenUtil;
@@ -25,12 +24,12 @@ package feathers.extension.ahhenderson.managers
 
 		private static const _instance:NavigationManager=new NavigationManager(SingletonLock);
 
-		public function get defaultScreen():String
+		public function get defaultScreenId():String
 		{
 			return _defaultScreenId;
 		}
 
-		public function set defaultScreen(value:String):void
+		public function set defaultScreenId(value:String):void
 		{
 			_defaultScreenId = value;
 		}
@@ -69,7 +68,7 @@ package feathers.extension.ahhenderson.managers
 
 		private var _isInitialized:Boolean;
 
-		private var _rootScreen:FeathersRootContainer;
+		private var _rootContainer:FeathersRootContainer;
 
 		private var _transitionManager:ScreenSlidingStackTransitionManager;
 
@@ -78,10 +77,10 @@ package feathers.extension.ahhenderson.managers
 		
 		public function showDefaultScreen(delay:int=0):void{
 			
-			if(!this.defaultScreen)
+			if(!this.defaultScreenId)
 				return;
 			
-			ScreenUtil.showScreen(this.screenNavigator, this.defaultScreen, delay);
+			ScreenUtil.showScreen(this.screenNavigator, this.defaultScreenId, delay);
 		}
 		
 		public function addScreen(id:String, screen:Object, events:Object=null, initializer:Object=null):void
@@ -100,22 +99,23 @@ package feathers.extension.ahhenderson.managers
 			var drawerDockModeProperty:String=location.value.toLowerCase() + "DrawerDockMode";
 
 			// Ensure drawer exists
-			if (!this._rootScreen.drawers[drawerDisplayObjectProperty])
+			if (!this._rootContainer.drawers[drawerDisplayObjectProperty])
 				throw new Error("No " + location.value + " was created.");
 
-			this._rootScreen.drawers[drawerDockModeProperty]=dockMode;
+			this._rootContainer.drawers[drawerDockModeProperty]=dockMode;
 
 		}
 
 		public function initialize(rootScreen:FeathersRootContainer, defaultScreenId:String=null):void
 		{
 
-			this._defaultScreenId=defaultScreenId;
+			if(defaultScreenId) 
+				this._defaultScreenId=defaultScreenId;
 			
-			this._rootScreen=rootScreen;
+			this._rootContainer=rootScreen;
 
 			// Set transition animation
-			this._transitionManager=new ScreenSlidingStackTransitionManager(this._rootScreen.screenNavigator);
+			this._transitionManager=new ScreenSlidingStackTransitionManager(this._rootContainer.screenNavigator);
 			this._transitionManager.duration=0.4;
 
 			_isInitialized=true;
@@ -131,11 +131,11 @@ package feathers.extension.ahhenderson.managers
 			var drawerDockModeProperty:String=location.value.toLowerCase() + "DrawerDockMode";
 
 			// Ensure drawer exists
-			if (!overwrite && this._rootScreen.drawers[drawerDisplayObjectProperty])
+			if (!overwrite && this._rootContainer.drawers[drawerDisplayObjectProperty])
 				throw new Error("You must overwrite the drawer in the location " + location.value + ".");
 
-			this._rootScreen.drawers[drawerDisplayObjectProperty]=drawer;
-			this._rootScreen.drawers[drawerDockModeProperty]=dockMode;
+			this._rootContainer.drawers[drawerDisplayObjectProperty]=drawer;
+			this._rootContainer.drawers[drawerDockModeProperty]=dockMode;
 
 		}
 
@@ -147,7 +147,7 @@ package feathers.extension.ahhenderson.managers
 
 		public function toggleHeaderVisibility(isVisible:Boolean):void{
 			
-			this._rootScreen.toggleHeaderVisibility(isVisible);
+			this._rootContainer.toggleHeaderVisibility(isVisible);
 		}
 		
 		private var _fmgr:FeathersApplicationManager;
@@ -155,7 +155,7 @@ package feathers.extension.ahhenderson.managers
 		 
 		public function showScreen(id:String, resetHeader:Boolean= true):void
 		{
-			if(!this._rootScreen.screenNavigator.getScreen(id)){
+			if(!this._rootContainer.screenNavigator.getScreen(id)){
 				DialogHelper.showAlert("Screen not Available", "A screen has not been configured for " + id);
 				return;
 			}
@@ -167,17 +167,17 @@ package feathers.extension.ahhenderson.managers
 			
 			this.fmgr.logger.trace(this, "Showing screen with id: " + id);
 			
-			this._rootScreen.screenNavigator.showScreen(id);
+			this._rootContainer.screenNavigator.showScreen(id);
 		}
 
 		private function clearHeaderItems():void
 		{
 
-			if (this._rootScreen.header.rightItems)
-				this._rootScreen.header.rightItems=null;
+			if (this._rootContainer.header.rightItems)
+				this._rootContainer.header.rightItems=null;
 
-			if (this._rootScreen.header.leftItems)
-				this._rootScreen.header.leftItems=null;
+			if (this._rootContainer.header.leftItems)
+				this._rootContainer.header.leftItems=null;
 		}
 
 		public function toggleDrawer(location:LayoutDirectionType, duration:Number=NaN):void
@@ -192,11 +192,11 @@ package feathers.extension.ahhenderson.managers
 			toggleDrawerMethod+="Drawer";
 
 			// Ensure drawer exists
-			if (!this._rootScreen.drawers[drawerDisplayObjectProperty])
+			if (!this._rootContainer.drawers[drawerDisplayObjectProperty])
 				throw new Error("No " + location.value + " was created.");
 
 			// Show drawer
-			this._rootScreen.drawers[toggleDrawerMethod](duration);
+			this._rootContainer.drawers[toggleDrawerMethod](duration);
 
 		}
 
@@ -205,7 +205,7 @@ package feathers.extension.ahhenderson.managers
 
 			validateManager();
 
-			return this._rootScreen.drawers;
+			return this._rootContainer.drawers;
 		}
 
 		ahhenderson_extension_internal function get screenNavigator():ScreenNavigator
@@ -213,7 +213,7 @@ package feathers.extension.ahhenderson.managers
 
 			validateManager();
 
-			return this._rootScreen.screenNavigator;
+			return this._rootContainer.screenNavigator;
 		}
 
 		ahhenderson_extension_internal function validateManager():void
@@ -229,7 +229,7 @@ package feathers.extension.ahhenderson.managers
 			validateManager();
 
 			if (items)
-				this._rootScreen.header.leftItems=items;
+				this._rootContainer.header.leftItems=items;
 
 		}
 
@@ -239,7 +239,7 @@ package feathers.extension.ahhenderson.managers
 			validateManager();
 
 			if (items)
-				this._rootScreen.header.rightItems=items;
+				this._rootContainer.header.rightItems=items;
 
 		}
 
@@ -249,7 +249,7 @@ package feathers.extension.ahhenderson.managers
 			validateManager();
 
 			if (title)
-				this._rootScreen.updateTitle(title);
+				this._rootContainer.updateTitle(title);
 
 		}
 	}

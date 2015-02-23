@@ -2,11 +2,11 @@ package feathers.extension.ahhenderson.controls.core
 {
 	import flash.events.UncaughtErrorEvent;
 	
+	import ahhenderson.core.starling.controls.core.StarlingApplication;
+	
 	import feathers.extension.ahhenderson.helpers.DialogHelper;
-	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.interfaces.IManagedTheme;
 	
-	import ahhenderson.core.starling.controls.core.StarlingApplication;
 	import starling.core.Starling;
 	
 	/*[Event(name="feathersApplicationComplete", type="starling.events.Event")] */
@@ -33,8 +33,12 @@ package feathers.extension.ahhenderson.controls.core
 			}
 			
 			initializeTheme(rootContainer as FeathersRootContainer);
+			
+			// Store default screen (if it exists)
+			this.fmgr.navigation.defaultScreenId = this.defaultScreenId();
 			 
 		} 
+		
 		override protected function onUncaughtError( e:UncaughtErrorEvent ):void {
 			
 			if(!this.fmgr.theme.isLoaded)
@@ -47,17 +51,23 @@ package feathers.extension.ahhenderson.controls.core
 			
 		} 
 		
+		protected function defaultScreenId():String {
+			
+			throw new Error( "Override FeathersApplication defaultScreenId() method" );
+			
+		}
+		
 		protected function defaultTheme():IManagedTheme{
 			
 			throw new Error( "Override FeathersApplication defaultTheme() method" );
 			
 		}
 		 
-		protected function initializeTheme(rootView:FeathersRootContainer):void{
+		protected function initializeTheme(rootContainer:FeathersRootContainer):void{
 			
-			this.fmgr.theme.initialize(rootView,  defaultTheme(), Starling.current.nativeStage, 1, true);
+			this.fmgr.theme.initialize(rootContainer,  defaultTheme(), Starling.current.nativeStage, 1, true);
 			
-			rootView.loadTheme();
+			rootContainer.loadTheme();
 		} 
 		
 		override protected function scopeClassInstances():void{
