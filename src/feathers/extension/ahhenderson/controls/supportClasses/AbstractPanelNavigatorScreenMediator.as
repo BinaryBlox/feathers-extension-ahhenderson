@@ -5,9 +5,9 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 	import starling.events.Event;
 
 
-	public class PanelNavigatorScreenMediator extends DataServiceMediator implements IMediatorActor {
+	public class AbstractPanelNavigatorScreenMediator extends DataServiceMediator implements IMediatorActor {
 
-		public function PanelNavigatorScreenMediator( mediatorName:String, component:* = null ) {
+		public function AbstractPanelNavigatorScreenMediator( mediatorName:String, component:* = null ) {
 
 			super( mediatorName, component );
 		}
@@ -104,9 +104,9 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 			throw new Error( "Method validateForm must be overriden.." );
 		}
 
-		private function get view():PanelNavigatorScreen {
+		private function get view():AbstractPanelNavigatorScreen {
 
-			return component as PanelNavigatorScreen;
+			return component as AbstractPanelNavigatorScreen;
 		}
 	}
 }

@@ -7,9 +7,9 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 	import starling.core.Starling;
 
 
-	public class PanelNavigatorFormScreenMediator extends PanelNavigatorScreenMediator implements IMediatorActor {
+	public class AbstractPanelNavigatorFormScreenMediator extends AbstractPanelNavigatorScreenMediator implements IMediatorActor {
 
-		public function PanelNavigatorFormScreenMediator( mediatorName:String, component:* = null ) {
+		public function AbstractPanelNavigatorFormScreenMediator( mediatorName:String, component:* = null ) {
 
 			super( mediatorName, component );
 		}
@@ -48,9 +48,9 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 		}
  
 		
-		private function get view():PanelNavigatorFormScreen {
+		private function get view():AbstractPanelNavigatorFormScreen {
 			
-			return component as PanelNavigatorFormScreen;
+			return component as AbstractPanelNavigatorFormScreen;
 		} 
 		
 	}

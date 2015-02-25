@@ -15,9 +15,9 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 	import starling.display.DisplayObject;
 
 
-	public class PanelNavigatorScreen extends LayoutGroupScreen implements IPanelNavigatorScreen {
+	public class AbstractPanelNavigatorScreen extends LayoutGroupScreen implements IPanelNavigatorScreen {
 
-		public function PanelNavigatorScreen() {
+		public function AbstractPanelNavigatorScreen() {
 		}
 
 		public var btnBack:Button;
