@@ -74,8 +74,8 @@
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util._deprecate.DateUtil"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorFormScreen"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorFormScreenMediator"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.PanelNavigatorFormScreen"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.PanelNavigatorFormScreenMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
