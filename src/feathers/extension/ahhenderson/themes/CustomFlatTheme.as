@@ -1,12 +1,16 @@
 package feathers.extension.ahhenderson.themes
 {
+	import flash.geom.Rectangle;
+	
 	import ahhenderson.core.managers.ObjectPoolManager;
 	
 	import feathers.controls.Button;
 	import feathers.controls.Header;
 	import feathers.controls.Label;
+	import feathers.controls.SpinnerList;
 	import feathers.controls.renderers.BaseDefaultItemRenderer;
 	import feathers.controls.renderers.DefaultListItemRenderer;
+	import feathers.display.Scale9Image;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_ThemeConstants;
 	import feathers.extension.ahhenderson.controls.DateSelector;
@@ -16,11 +20,12 @@ package feathers.extension.ahhenderson.themes
 	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
 	import feathers.extension.ahhenderson.helpers.LayoutHelper;
-	import feathers.skins.SmartDisplayObjectStateValueSelector;
-	import feathers.textures.Scale9Textures;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeBaseTextures;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
+	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.extension.ahhenderson.themes.pool.CustomFlatThemePoolFunctions;
+	import feathers.skins.SmartDisplayObjectStateValueSelector;
+	import feathers.textures.Scale9Textures;
 	import feathers.utils.math.roundToNearest;
 	
 	import starling.display.Quad;
@@ -37,6 +42,11 @@ package feathers.extension.ahhenderson.themes
 		 * 
 		 * @default 
 		 */
+		
+		// NEW CODE
+		protected var spinnerListSelectionCustomOverlaySkinTextures:Scale9Textures;
+		protected static const SPINNER_LIST_SELECTION_CUSTOM_OVERLAY_SCALE9_GRID:Rectangle = new Rectangle(8, 8, 184, 84);//new Rectangle(11, 11, 2, 2);
+		
 		protected var buttonSocialFbUpSkinTextures:Scale9Textures;
 		
 		protected var buttonSocialFbDownSkinTextures:Scale9Textures;
@@ -69,6 +79,10 @@ package feathers.extension.ahhenderson.themes
 			
 			// PanelNavigator 
 			this.getStyleProviderForClass( PanelNavigator ).defaultStyleFunction = this.setPanelNavigatorStyles;
+			
+			// Custom spinner 
+			this.getStyleProviderForClass( SpinnerList ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.SPINNER_LIST__ALTERNATE_OVERLAY, 
+				setCustomSpinnerListStyles)
 			  
 			// Item Renderers
 			this.getStyleProviderForClass( DefaultListItemRenderer ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.FORM_LABEL_LIST_ITEM_RENDERER, 
@@ -102,6 +116,9 @@ package feathers.extension.ahhenderson.themes
 			 
 			this.buttonSocialGoogPlusUpSkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture(FlatThemeBaseTextures.BUTTON_SOCIAL_GPLUS_UP_SKIN), BUTTON_SCALE9_GRID);
 			this.buttonSocialGoogPlusDownSkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture(FlatThemeBaseTextures.BUTTON_SOCIAL_GPLUS_DOWN_SKIN), BUTTON_SCALE9_GRID);
+		
+			this.spinnerListSelectionCustomOverlaySkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture(FlatThemeBaseTextures.SPINNER_OVERLAY), SPINNER_LIST_SELECTION_CUSTOM_OVERLAY_SCALE9_GRID);
+			
 		}
 	
 		
@@ -150,6 +167,19 @@ package feathers.extension.ahhenderson.themes
 			this.setButtonStyles(button);  
 			
 			button.defaultIcon = AssetHelper.getImage(FlatThemeCustomTextures.ICONS_SOCIAL_TWITTER_BIRD);
+		}
+		
+		
+		//-------------------------
+		// SpinnerList
+		//-------------------------
+		
+		protected function setCustomSpinnerListStyles(list:SpinnerList):void
+		{
+			this.setSpinnerListStyles(list);
+			  
+			list.selectionOverlaySkin = new Scale9Image(this.spinnerListSelectionCustomOverlaySkinTextures, this.scale);
+			 
 		}
 		
 		//-------------------------

@@ -36,5 +36,7 @@ package feathers.extension.ahhenderson.constants
 		public static const TEXT_INPUT__ALTERNATE_NAME_SEARCH_TEXT_INPUT_SEMI:String = "text-input--alternate-name-search-text-input-semi";
 		
 		public static const TEXT_INPUT__ALTERNATE_NAME_TEXT_INPUT_SEMI:String = "text-input--alternate-name-text-input-semi";
+		
+		public static const SPINNER_LIST__ALTERNATE_OVERLAY:String = "spinner-list--alternate-overlay";
 	}
 }

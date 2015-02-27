@@ -1568,13 +1568,15 @@ package feathers.extension.ahhenderson.themes {
 			this.buttonCallToActionDownSkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture("button-call-to-action-down-skin"), BUTTON_SCALE9_GRID);
 			this.buttonDangerUpSkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture("button-danger-up-skin"), BUTTON_SCALE9_GRID);
 			this.buttonDangerDownSkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture("button-danger-down-skin"), BUTTON_SCALE9_GRID);
-			this.buttonBackUpSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("button-back-up-skin"), BACK_BUTTON_SCALE3_REGION1, BACK_BUTTON_SCALE3_REGION2);
+			
+			// Disabled for size contraints
+			/*this.buttonBackUpSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("button-back-up-skin"), BACK_BUTTON_SCALE3_REGION1, BACK_BUTTON_SCALE3_REGION2);
 			this.buttonBackDownSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("button-back-down-skin"), BACK_BUTTON_SCALE3_REGION1, BACK_BUTTON_SCALE3_REGION2);
 			this.buttonBackDisabledSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("button-back-disabled-skin"), BACK_BUTTON_SCALE3_REGION1, BACK_BUTTON_SCALE3_REGION2);
 			this.buttonForwardUpSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("button-forward-up-skin"), FORWARD_BUTTON_SCALE3_REGION1, FORWARD_BUTTON_SCALE3_REGION2);
 			this.buttonForwardDownSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("button-forward-down-skin"), FORWARD_BUTTON_SCALE3_REGION1, FORWARD_BUTTON_SCALE3_REGION2);
 			this.buttonForwardDisabledSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("button-forward-disabled-skin"), FORWARD_BUTTON_SCALE3_REGION1, FORWARD_BUTTON_SCALE3_REGION2);
-			
+			*/
 			this.tabDownSkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture("tab-down-skin"), TAB_SCALE9_GRID);
 			this.tabDownDisabledSkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture("tab-down-disabled"), TAB_SCALE9_GRID);
 			
@@ -1642,10 +1644,10 @@ package feathers.extension.ahhenderson.themes {
 			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_QUIET_BUTTON, this.setQuietButtonStyles );
 			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_DANGER_BUTTON,
 																			 this.setDangerButtonStyles );
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_BACK_BUTTON, this.setBackButtonStyles );
+		/*	this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_BACK_BUTTON, this.setBackButtonStyles );
 			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_FORWARD_BUTTON,
 																			 this.setForwardButtonStyles );
-
+*/
 			
 			//button group
 			this.getStyleProviderForClass( ButtonGroup ).defaultStyleFunction = this.setButtonGroupStyles;
