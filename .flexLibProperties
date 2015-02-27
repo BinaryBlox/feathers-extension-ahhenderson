@@ -39,7 +39,6 @@
     <classEntry path="feathers.extension.ahhenderson.helpers.ControlGroupHelper"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.DialogHelper"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.LayoutHelper"/>
-    <classEntry path="feathers.extension.ahhenderson.interfaces.IFormControlGroup"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces.IFormControlGroupMediator"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces.IFormControlGroupView"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces._deprecate.IComponentPopUpContent"/>

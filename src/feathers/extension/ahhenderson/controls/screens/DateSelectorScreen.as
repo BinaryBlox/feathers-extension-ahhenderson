@@ -2,12 +2,13 @@ package feathers.extension.ahhenderson.controls.screens {
 	
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_ThemeConstants;
 	import feathers.extension.ahhenderson.controls.screens.dateSelector.DateSelectorScreenConfig;
+	import feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorScreen;
 	import feathers.layout.AnchorLayoutData;
  
-	public class DateSelectorScreen extends LayoutGroupScreen {
+	public class DateSelectorScreen extends AbstractPanelNavigatorScreen {
 
 		include "../../_includes/_DateSelector.inc";
-		include "../../_includes/_Header.inc";
+		 
 		public function DateSelectorScreen() {
 
 			super();
@@ -45,15 +46,11 @@ package feathers.extension.ahhenderson.controls.screens {
 			layoutDateSelectorControls(); 
 			
 		}
- 
-		override protected function initialize():void {
+  
+	 
+		
+		override protected function initPanelControls():void {
 			
-			super.initialize();
- 
-			// From inc
-			this.initHeader();
-			 
-			// From inc
 			this.initDateSelector();
 			
 			// Custom layout for date selector components
@@ -63,12 +60,25 @@ package feathers.extension.ahhenderson.controls.screens {
 			
 			( this.spnDay.layoutData as AnchorLayoutData ).leftAnchorDisplayObject = spnMonth;
 			( this.spnYear.layoutData as AnchorLayoutData ).leftAnchorDisplayObject = spnDay;
-			 
+			
 			// Relate to header to position
-			( this.spnMonth.layoutData as AnchorLayoutData ).topAnchorDisplayObject = this.header;
+/*			( this.spnMonth.layoutData as AnchorLayoutData ).topAnchorDisplayObject = this.header;
 			( this.spnDay.layoutData as AnchorLayoutData ).topAnchorDisplayObject = this.header;
 			( this.spnYear.layoutData as AnchorLayoutData ).topAnchorDisplayObject = this.header;
-
+*/			
+			 
+		}
+		
+		
+		
+		
+		
+		override protected function onScreenTransitionComplete( event:Event ):void {
+			
+			super.onScreenTransitionComplete( event );
+			
+			//this.registerMediator( new RegisterWorkflowAccountScreenMediator(), null );
+			
 		}
 	}
 }

@@ -64,6 +64,16 @@ package feathers.extension.ahhenderson.controls.core {
 
 		}
 
+		public function get headerDockingMode( ):Boolean {
+			
+			return _titledNavigatorScreen.headerDockingMode;
+		}
+		
+		public function set headerDockingMode(value:Boolean ):void {
+			
+			  _titledNavigatorScreen.headerDockingMode = value;
+		}
+		
 		public function toggleHeaderVisibility( isVisible:Boolean ):void {
 
 			_titledNavigatorScreen.toggleHeaderVisiblity( isVisible );

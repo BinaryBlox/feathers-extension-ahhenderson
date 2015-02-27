@@ -67,12 +67,14 @@ package feathers.extension.ahhenderson.managers
 		}
 
 		private var _isInitialized:Boolean;
-
+		 
 		private var _rootContainer:FeathersRootContainer;
 
 		private var _transitionManager:ScreenSlidingStackTransitionManager;
 
 		private var _defaultScreenId:String;
+		
+		private var _isHeaderDocked:Boolean;
 		
 		
 		public function showDefaultScreen(delay:int=0):void{
@@ -145,16 +147,33 @@ package feathers.extension.ahhenderson.managers
 			return _isInitialized;
 		}
 
-		public function toggleHeaderVisibility(isVisible:Boolean):void{
+		public function toggleHeaderDockingMode(docked:Boolean=false):void{
+			 
+			_isHeaderDocked=docked;
 			
-			this._rootContainer.toggleHeaderVisibility(isVisible);
+			if(!this._rootContainer){
+				
+				//DialogHelper.showAlert("Method not available at this time", "toggleHeaderDockingMode");
+				return;
+			}
+			
+			if(this._rootContainer.headerDockingMode != docked) 
+				this._rootContainer.headerDockingMode = docked;
+		}
+		
+		public function toggleHeaderVisibility(visible:Boolean):void{
+			
+			this._rootContainer.toggleHeaderVisibility(visible);
 		}
 		
 		private var _fmgr:FeathersApplicationManager;
 		
-		 
+		
 		public function showScreen(id:String, resetHeader:Boolean= true):void
-		{
+		{ 
+			if(_isHeaderDocked != this._rootContainer.headerDockingMode)
+				this._rootContainer.headerDockingMode =_isHeaderDocked;
+			
 			if(!this._rootContainer.screenNavigator.getScreen(id)){
 				DialogHelper.showAlert("Screen not Available", "A screen has not been configured for " + id);
 				return;
