@@ -42,7 +42,7 @@ public function get resetObjectFunction():Function{
 	return _resetObjectFunction;
 }
 
-public function set resetObjectFunction(value:Function):void{
+public function set resetObjectFunction(value:Function):void{ 
 	_resetObjectFunction = value;
 }
 
@@ -65,7 +65,7 @@ public function initObject(objId:String):void
 
 public function resetObject():void
 {
-	// Important to reseth this
+	// Important to reset this
 	_autoReturnOnDispose= true;
 	
 	if(_resetObjectFunction)

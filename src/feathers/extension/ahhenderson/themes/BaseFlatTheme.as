@@ -87,6 +87,8 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.supportClasses.BaseManagedTheme;
+	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
+	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.VerticalLayout;
 	import feathers.skins.SmartDisplayObjectStateValueSelector;
@@ -94,8 +96,6 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.system.DeviceCapabilities;
 	import feathers.textures.Scale3Textures;
 	import feathers.textures.Scale9Textures;
-	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
-	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
@@ -254,7 +254,7 @@ package feathers.extension.ahhenderson.themes {
 		 * 
 		 * @default 
 		 */
-		protected static const BUTTON_SCALE9_GRID:Rectangle = new Rectangle( 8, 8, 184, 84 );
+		protected static const BUTTON_SCALE9_GRID:Rectangle = new Rectangle( 8, 8, 184, 84 ); //184, 84 );
 		  
 		/**
 		 * 
@@ -1371,13 +1371,14 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function initializeObjectPools():void {
 
-		 
-			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.BUTTON, null, 10 ); 
-			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.TEXT_INPUT, null, 6 ); 
-			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.LABEL, null, 10 );
-			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.IMAGE_LOADER, null, 10 ); 
-			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.PICKER_LIST, null, 5 );
-			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.SPINNER_LIST, null, 5 );
+			BaseFlatThemePoolFunctions.initializeDimensions(this.themeProperties, this.scale);
+			
+			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.BUTTON, BaseFlatThemePoolFunctions.resetButtonObject, 10 ); 
+			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.TEXT_INPUT, BaseFlatThemePoolFunctions.resetTextInputObject, 6 ); 
+			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.LABEL, BaseFlatThemePoolFunctions.resetLabelObject, 10 );
+			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.IMAGE_LOADER, BaseFlatThemePoolFunctions.resetImageLoaderObject, 10 ); 
+			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.PICKER_LIST, BaseFlatThemePoolFunctions.resetPickerListObject, 5 );
+			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.SPINNER_LIST, BaseFlatThemePoolFunctions.resetSpinnerListObject, 5 );
 			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.SCREEN_NAVIGATOR, null, 2);
 			ObjectPoolManager.instance.createPool( FeathersComponentPoolType.HEADER, null, 2);
 		}
@@ -2017,7 +2018,9 @@ package feathers.extension.ahhenderson.themes {
 			button.minTouchWidth =  Math.round(this.controlSize * this.controlTouchBoundaryScale);
 			button.minTouchHeight =  Math.round(this.controlSize * this.controlTouchBoundaryScale);
 			
+		 
 			// IMPORTANT: recommended for object pooling
+			trace("RESET FUNC: ", (button.label) ? button.label : "Icon only");
 			button.resetObjectFunction =  BaseFlatThemePoolFunctions.resetButtonObject;
 			 
 			button.iconOffsetY = -2 * fmgr.theme.scaledResolution;
@@ -2085,7 +2088,9 @@ package feathers.extension.ahhenderson.themes {
 			skinSelector.setValueForState( this.buttonDownSkinTextures, Button.STATE_DOWN, false );
 			skinSelector.displayObjectProperties = { width: this.controlSize, height: this.controlSize, textureScale: this.scale };
 			button.stateToSkinFunction = skinSelector.updateValue;
-
+ 
+			this.setBaseButtonStyles( button );
+			
 			button.defaultLabelProperties.elementFormat = this.lightUIElementFormat;
 			button.downLabelProperties.elementFormat = this.darkUIElementFormat;
 			button.disabledLabelProperties.elementFormat = this.darkUIDisabledElementFormat;
@@ -2102,6 +2107,8 @@ package feathers.extension.ahhenderson.themes {
 			button.minGap = this.smallGutterSize;
 			button.minWidth = button.minHeight = this.controlSize;
 			button.minTouchWidth = button.minTouchHeight = this.gridSize;
+			
+			
 		}
 
 		/**

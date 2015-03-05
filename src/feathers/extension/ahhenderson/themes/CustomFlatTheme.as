@@ -22,7 +22,6 @@ package feathers.extension.ahhenderson.themes
 	import feathers.extension.ahhenderson.helpers.LayoutHelper;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeBaseTextures;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
-	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.extension.ahhenderson.themes.pool.CustomFlatThemePoolFunctions;
 	import feathers.skins.SmartDisplayObjectStateValueSelector;
 	import feathers.textures.Scale9Textures;
@@ -125,6 +124,9 @@ package feathers.extension.ahhenderson.themes
 		override protected function initializeObjectPools():void{
 			
 			super.initializeObjectPools();
+			
+			// For Pooling dimensions
+			CustomFlatThemePoolFunctions.initializeDimensions(this.themeProperties, this.scale);
 			
 			ObjectPoolManager.instance.createPool( CustomComponentPoolType.TITLED_TEXT_BLOCK, null, 5 ); 
 			ObjectPoolManager.instance.createPool( CustomComponentPoolType.ICON_LABEL, null, 5 ); 

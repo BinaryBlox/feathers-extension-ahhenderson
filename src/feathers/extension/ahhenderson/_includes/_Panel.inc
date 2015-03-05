@@ -98,15 +98,15 @@ import starling.animation.Transitions;
 			switch ( location ) {
 
 				case HorizontalLocationType.CENTER:
-					headerOrFooter.centerItems = items;
+					(headerOrFooter as Header).centerItems = items;
 					break;
 
 				case HorizontalLocationType.LEFT:
-					headerOrFooter.leftItems = items;
+					(headerOrFooter as Header).leftItems = items;
 					break;
 
 				case HorizontalLocationType.RIGHT:
-					headerOrFooter.rightItems = items;
+					(headerOrFooter as Header).rightItems = items;
 					break;
 
 			}

@@ -13,12 +13,13 @@ package feathers.extension.ahhenderson.managers {
 	
 	import mx.utils.StringUtil;
 	
-	import feathers.extension.ahhenderson.controls.core.FeathersRootContainer;
+	import ahhenderson.core.starling.controls.ProgressBar;
+	
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
+	import feathers.extension.ahhenderson.controls.core.FeathersRootContainer;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.events.ThemeManagerEvent;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.interfaces.IManagedTheme;
 	
-	import ahhenderson.core.starling.controls.ProgressBar;
 	import starling.core.Starling;
 	import starling.display.Image;
 	import starling.events.ResizeEvent;
@@ -109,6 +110,10 @@ package feathers.extension.ahhenderson.managers {
 		
 		private var _scaledResolution:Number=1;
 		
+		private const DEVICE_SCALE_1:int=1;
+		private const DEVICE_SCALE_2:int=2;
+		private const DEVICE_SCALE_3:int=3;
+		
 		/**
 		 *
 		 * @param lock
@@ -179,16 +184,18 @@ package feathers.extension.ahhenderson.managers {
 			
 			// Init device cababilities
 			DeviceCapabilities.init( this.nativeStage, orientation );
+			var fmgr:FeathersApplicationManager = FeathersApplicationManager.instance;
+			
+			fmgr.logger.trace(this, 'DeviceCapabilities.dpi: ' + DeviceCapabilities.dpi );
+			fmgr.logger.trace(this, 'DeviceCapabilities.screenInchesY: ' + DeviceCapabilities.screenInchesY() );
+			fmgr.logger.trace(this, 'DeviceCapabilities.screenInchesX: ' + DeviceCapabilities.screenInchesX() );
+			fmgr.logger.trace(this, 'DeviceCapabilities.isPhone: ' + DeviceCapabilities.isPhone() );
+			fmgr.logger.trace(this, 'DeviceCapabilities.isDesktop: ' + DeviceCapabilities.isDesktop() );
+			fmgr.logger.trace(this, 'DeviceCapabilities.isTablet: ' + DeviceCapabilities.isTablet() );
+			fmgr.logger.trace(this, 'DeviceCapabilities.isLandscape: ' + DeviceCapabilities.isLandscape() );
+			fmgr.logger.trace(this, 'DeviceCapabilities.deviceInformation: ' + DeviceCapabilities.deviceInformation.toString() );
 			
 			if ( this._debugger ) {
-				trace( 'DeviceCapabilities.dpi: ' 				, DeviceCapabilities.dpi );			
-				trace( 'DeviceCapabilities.screenInchesY: ' 	, DeviceCapabilities.screenInchesY());
-				trace( 'DeviceCapabilities.screenInchesX: ' 	, DeviceCapabilities.screenInchesX());
-				trace( 'DeviceCapabilities.isPhone: ' 			, DeviceCapabilities.isPhone());
-				trace( 'DeviceCapabilities.isDesktop: ' 		, DeviceCapabilities.isDesktop());
-				trace( 'DeviceCapabilities.isTablet: ' 			, DeviceCapabilities.isTablet());
-				trace( 'DeviceCapabilities.isLandscape: ' 		, DeviceCapabilities.isLandscape());
-				trace( 'DeviceCapabilities.deviceInformation: ' , DeviceCapabilities.deviceInformation().toString() ); 
 				
 				/*trace( 'DeviceCapabilities.dpi: ', DeviceCapabilities.dpi );
 				trace( 'DeviceCapabilities.screenInchesY: ', DeviceCapabilities.screenInchesY());
@@ -214,11 +221,16 @@ package feathers.extension.ahhenderson.managers {
 			// Determine device capabilities
 			const deviceInfo:DeviceInfo = deviceInformation( multitouch, orientation );
 			
+			var fmgr:FeathersApplicationManager = FeathersApplicationManager.instance;
+			fmgr.logger.trace(this, 'Device Info: ' + deviceInfo.device );
+			
 			if ( !deviceInfo )  
 				throw new Error("ThemeManager: deduceScaledAssetsFolderPath() - No Device info");
 			
 			scaledAssetsFolderPrefix += "{0}"; // for substitution
 			var scaledAssetsFolder:String; // default folder for desktop
+			
+			trace("DEVICE: ", deviceInfo.device);
 			
 			if ( deviceInfo.device == DeviceList.DESKTOP ) {
 				_isDesktopDevice = true;
@@ -228,23 +240,29 @@ package feathers.extension.ahhenderson.managers {
 			} else {
 				
 				// Mobile devices
-				switch ( deviceInfo.device ) {
+				switch ( deviceInfo.scale ) {
 					
-					case DeviceList.IPAD_2:
+					case DEVICE_SCALE_1:
 						scaledAssetsFolder = StringUtil.substitute( scaledAssetsFolderPrefix, ASSET_FOLDER_SCALE_1 );
-						_scaledResolution = 1;
+						_scaledResolution = DEVICE_SCALE_1;
 						//SystemModel.appDpiScale = 1;
 						break;
 					
-					case DeviceList.IPAD_3:
-						_scaledResolution = 2;
+					case DEVICE_SCALE_2:
+						_scaledResolution = DEVICE_SCALE_2;
 						//SystemModel.appDpiScale = 2;
 						scaledAssetsFolder = StringUtil.substitute( scaledAssetsFolderPrefix, ASSET_FOLDER_SCALE_2 );
 						break;
 					
-					default:
+					case DEVICE_SCALE_3:
+						_scaledResolution = DEVICE_SCALE_3;
+						//SystemModel.appDpiScale = 2;
 						scaledAssetsFolder = StringUtil.substitute( scaledAssetsFolderPrefix, ASSET_FOLDER_SCALE_3 );
-						_scaledResolution = 1;
+						break;
+					
+					default:
+						scaledAssetsFolder = StringUtil.substitute( scaledAssetsFolderPrefix, ASSET_FOLDER_SCALE_2 );
+						_scaledResolution = DEVICE_SCALE_2;
 						//SystemModel.appDpiScale = 2;
 						break;
 				}

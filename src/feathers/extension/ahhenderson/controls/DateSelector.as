@@ -1,6 +1,10 @@
 
 package feathers.extension.ahhenderson.controls {
 
+	import flash.events.TimerEvent;
+	import flash.utils.getTimer;
+	
+	import ahhenderson.core.util.CustomTimer;
 	import ahhenderson.core.util.DateUtil;
 	
 	import feathers.controls.LayoutGroup;
@@ -12,7 +16,6 @@ package feathers.extension.ahhenderson.controls {
 	import feathers.layout.AnchorLayoutData;
 	import feathers.skins.IStyleProvider;
 	
-	import starling.display.Quad;
 	import starling.events.Event;
 
 
@@ -170,25 +173,97 @@ package feathers.extension.ahhenderson.controls {
 			this.spnYear.validate();
 		}
 
+	 
+		
+		private var _delayTimer:CustomTimer;
+
+		private function onTimerComplete(e:TimerEvent):void {
+			
+			var currentTick:int = getTimer(); 
+			var delta:int = currentTick-_lastRequestTicks;
+			
+			if(delta<400){
+				_delayTimer.start();
+				return;
+			}
+			
+			if (_delayTimer.TimerData ){ 
+				trace("Timer is complete... ");
+				 var daysInSelectedMonth:int = _delayTimer.TimerData.selectedMoDays;
+				 var daysInPreviousMonth:int = _delayTimer.TimerData.previousMoDays;
+				 var currentDate:int = selectedDate.date;
+				 //DialogHelper.showLoadingDialog("Spinner updating", "Spinnter updating", 1.5);
+				 
+				 this.fmgr.logger.trace(this, "Current Date: " + currentDate.toString() + " - Days in Sel. Month: " + daysInSelectedMonth.toString());
+				 
+				 // Validate to determine if change is needed
+				 if(daysInSelectedMonth != daysInPreviousMonth){
+					 this.spnDay.dataProvider =
+						 generateData( 1, daysInSelectedMonth + 1 );
+					 
+					 // Set to nearest available date. 
+					 this.spnDay.selectedIndex = (currentDate > this.spnDay.dataProvider.length) ? ( this.spnDay.dataProvider.length - 1 ) : (currentDate-1); 
+				 }
+				 else if(currentDate > daysInSelectedMonth){ 
+					 this.spnDay.selectedIndex =  daysInSelectedMonth - 1;
+				 }
+			}
+			
+			_delayTimer.removeEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete);
+			
+		}
+		
+		private var _lastRequestTicks:int;
+		
+		private var _timerDelay:int=500;
+		/**
+		 *
+		 * @param delay (in milliseconds)
+		 * @param message
+		 */
+		protected function delayDaySpinnerUpdate( properties:Object):void {
+			
+			if(!_delayTimer)
+				_delayTimer = new CustomTimer(_timerDelay, 1);
+			  
+			_delayTimer.TimerData = properties;
+			
+			if(_delayTimer.running){ 
+				_lastRequestTicks = getTimer();
+				 return;
+			}
+			
+			// Start a new timer
+			_delayTimer.addEventListener(TimerEvent.TIMER_COMPLETE, onTimerComplete, false, 0, true);
+			_delayTimer.start();
+			 
+		}
+		
 		protected function onListChange( e:Event ):void {
 
 			switch ( e.currentTarget ) {
 
 				case spnMonth:
-					this.spnDay.dataProvider =
-						generateData( 1, DateUtil.getDaysInMonth( spnMonth.selectedIndex, selectedDate.fullYear ) + 1 );
-
-					selectedDate.date = 1;
+					
+					trace("Timer is spinning... ");
+					var daysInSelectedMonth:int = DateUtil.getDaysInMonth(this.spnMonth.selectedIndex, selectedDate.fullYear);
+					var daysInPreviousMonth:int = DateUtil.getDaysInMonth(selectedDate.month, selectedDate.fullYear); 
+					 
+					delayDaySpinnerUpdate({selectedMoDays: daysInSelectedMonth, previousMoDays : daysInPreviousMonth});
+				 
+					// Set selected month
 					selectedDate.month = this.spnMonth.selectedIndex;
-					this.spnDay.selectedIndex = ( selectedDate.date - 1 );
+					  
 					break;
 
 				case spnDay:
 					selectedDate.date = this.spnDay.selectedIndex + 1;
+					
 					break;
 
 				case spnYear:
 					selectedDate.fullYear = this.spnYear.selectedIndex + BASE_YEAR;
+					
 					break;
 			}
 		}
@@ -205,6 +280,7 @@ package feathers.extension.ahhenderson.controls {
 			return selectedYear - BASE_YEAR
 		}
 
+		
 		/*private function defaultItemRendererFactory(labelField:String="labelField"):IListItemRenderer {
 		var renderer:DefaultListItemRenderer=new DefaultListItemRenderer();
 		//renderer.labelField=labelField;

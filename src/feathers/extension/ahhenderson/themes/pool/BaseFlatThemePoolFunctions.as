@@ -1,6 +1,8 @@
 package feathers.extension.ahhenderson.themes.pool
 {
 	 
+	
+	
 	import feathers.controls.Button;
 	import feathers.controls.Header;
 	import feathers.controls.ImageLoader;
@@ -20,10 +22,14 @@ package feathers.extension.ahhenderson.themes.pool
 		
 		include "_Pool.inc";
 		
+		 
+		 
+		
 		public static function resetTextInputObject(input:TextInput):void{
 			 
+			 
 			// Remove all listeners from control.
-			//input.removeEventListeners(Event.TRIGGERED);
+			input.removeEventListeners(Event.CHANGE);
 			
 			input.text = ""; 
 			input.displayAsPassword = false;
@@ -31,6 +37,9 @@ package feathers.extension.ahhenderson.themes.pool
 			input.prompt = null;
 			input.restrict = null;
 			input.alpha = 1;
+			
+			// reset to minwidth
+			input.width = input.height = NaN;
 			
 			removeStyles(input);
 			 
@@ -66,11 +75,15 @@ package feathers.extension.ahhenderson.themes.pool
 		public static function resetPickerListObject(input:PickerList):void{
 			
 			// Remove all listeners from control.
-			//input.removeEventListeners(Event.TRIGGERED);
+			input.removeEventListeners(Event.CHANGE);
+			input.removeEventListeners(Event.TRIGGERED);
 			
 			input.prompt = null;
 			input.dataProvider = null;
 			input.alpha = 1;
+			
+			// reset to minwidth
+			input.width = input.height = NaN;
 			
 			removeStyles(input);
 		}
@@ -78,23 +91,47 @@ package feathers.extension.ahhenderson.themes.pool
 		public static function resetSpinnerListObject(input:SpinnerList):void{
 			
 			// Remove all listeners from control.
-			//input.removeEventListeners(Event.TRIGGERED);
+			input.removeEventListeners(Event.CHANGE);
+			input.removeEventListeners(Event.TRIGGERED);
 			
 			//input.prompt = null;
 			input.dataProvider = null;
 			input.alpha = 1;
+			
+			// reset to minwidth
+			input.width = input.height = NaN;
 			
 			removeStyles(input);
 		}
 		
 		public static function resetButtonObject(input:Button):void{
 			
+			trace("Resetting button with label: ", (input.label) ? input.label : "No Label");
+			
 			// Remove all listeners from control.
 			input.removeEventListeners(Event.TRIGGERED);
 			
+			input.layoutData = null;
+			input.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER; 
 			input.label = ""; 
-			input.defaultIcon = null;
+			input.defaultIcon = input.upIcon = input.downIcon = input.hoverIcon = null;
 			input.alpha = 1;
+			 
+			input.paddingTop =  buttonPaddingTop;
+			input.paddingBottom =  buttonPaddingBottom; 
+			input.paddingLeft = buttonPaddingLeft;
+			input.paddingRight = buttonPaddingRight;
+			
+			input.gap = smallGutterSize;
+			input.minGap = smallGutterSize;
+			
+			// reset to minwidth
+			input.width = input.height = NaN;
+			
+			input.minWidth = input.minHeight = controlSize;
+			input.minTouchWidth =  Math.round(controlSize * controlTouchBoundaryScale);
+			input.minTouchHeight =  Math.round(controlSize * controlTouchBoundaryScale);
+			  
 			removeStyles(input);
 		}
 		
@@ -104,6 +141,9 @@ package feathers.extension.ahhenderson.themes.pool
 			input.removeEventListeners(Event.TRIGGERED);
 			input.alpha = 1;
 			input.text = ""; 
+			
+			// reset to minwidth
+			input.width = input.height = NaN;
 			
 			removeStyles(input);
 		}
@@ -115,6 +155,7 @@ package feathers.extension.ahhenderson.themes.pool
 			
 			//input.
 			input.alpha = 1;
+			
 			removeStyles(input);
 		}
 		

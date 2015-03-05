@@ -17,6 +17,8 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 			super.beforeRemove();
 
 			removeListeners();
+			
+			//view.btnNext.di
 		}
 
 		override public function onRegister():void {

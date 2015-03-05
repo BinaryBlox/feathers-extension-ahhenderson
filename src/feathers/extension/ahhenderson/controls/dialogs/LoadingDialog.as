@@ -188,7 +188,7 @@ package feathers.extension.ahhenderson.controls.dialogs
 		/** Rotates. */
 		public function advanceTime(elapsedTime:Number):void {
 			
-			trace("Advanced Time - Elapsed Time: ", elapsedTime.toString());
+			//trace("Advanced Time - Elapsed Time: ", elapsedTime.toString());
 			//_imgLoadingIcon.rotation = deg2rad(45);
 			
 			_imgLoadingIcon.rotation += elapsedTime * RAD_PER_SECOND;

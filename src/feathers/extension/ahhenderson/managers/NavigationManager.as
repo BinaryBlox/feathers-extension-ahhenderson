@@ -6,11 +6,16 @@ package feathers.extension.ahhenderson.managers
 	import ahhenderson.core.ui.enums.LayoutDirectionType;
 	import ahhenderson.core.util.StringUtil;
 	
+	import feathers.controls.Button;
 	import feathers.controls.Drawers;
+	import feathers.controls.Label;
 	import feathers.controls.ScreenNavigator;
+	import feathers.core.FeathersControl;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.controls.core.FeathersRootContainer;
 	import feathers.extension.ahhenderson.helpers.DialogHelper;
+	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
+	import feathers.extension.ahhenderson.util.FeathersPoolUtil;
 	import feathers.extension.ahhenderson.util.ScreenUtil;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 	
@@ -171,34 +176,32 @@ package feathers.extension.ahhenderson.managers
 		
 		public function showScreen(id:String, resetHeader:Boolean= true):void
 		{ 
+			 
 			if(_isHeaderDocked != this._rootContainer.headerDockingMode)
 				this._rootContainer.headerDockingMode =_isHeaderDocked;
-			
+			 
 			if(!this._rootContainer.screenNavigator.getScreen(id)){
 				DialogHelper.showAlert("Screen not Available", "A screen has not been configured for " + id);
 				return;
 			}
 
 			validateManager();
-
-			if(resetHeader)
-				clearHeaderItems();
+ 
+			
+			if(resetHeader){
+				
+				this.fmgr.logger.trace(this, "Resetting headers for screen id: " + id);
+				
+				// Clear header items
+				this._rootContainer.header.leftItems=null;
+				this._rootContainer.header.rightItems=null; 
+			}
 			
 			this.fmgr.logger.trace(this, "Showing screen with id: " + id);
 			
 			this._rootContainer.screenNavigator.showScreen(id);
 		}
-
-		private function clearHeaderItems():void
-		{
-
-			if (this._rootContainer.header.rightItems)
-				this._rootContainer.header.rightItems=null;
-
-			if (this._rootContainer.header.leftItems)
-				this._rootContainer.header.leftItems=null;
-		}
-
+  
 		public function toggleDrawer(location:LayoutDirectionType, duration:Number=NaN):void
 		{
 
@@ -218,7 +221,7 @@ package feathers.extension.ahhenderson.managers
 			this._rootContainer.drawers[toggleDrawerMethod](duration);
 
 		}
-
+		 
 		ahhenderson_extension_internal function get drawers():Drawers
 		{
 
@@ -241,10 +244,9 @@ package feathers.extension.ahhenderson.managers
 			if (!_isInitialized)
 				throw new Error("NavigationManager: You must initialize the manager first");
 		}
-
+ 
 		public function updateLeftHeaderItems(items:Vector.<DisplayObject>):void
-		{
-
+		{ 
 			validateManager();
 
 			if (items)
@@ -253,18 +255,16 @@ package feathers.extension.ahhenderson.managers
 		}
 
 		public function updateRightHeaderItems(items:Vector.<DisplayObject>):void
-		{
-
+		{ 
 			validateManager();
 
-			if (items)
+			if (items) 
 				this._rootContainer.header.rightItems=items;
-
+			 
 		}
 
 		public function updateHeaderTitle(title:String):void
 		{
-
 			validateManager();
 
 			if (title)
