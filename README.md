@@ -5,3 +5,6 @@ The FeathersControl is being “monkey-patched” to allow us to utilize the ahh
 
 2. feathers.controls
 The Header control is being “monkey-patched” to allow us to utilize the ahhenderson core framework. We are disposing disposing items in the header optionally
+
+
+

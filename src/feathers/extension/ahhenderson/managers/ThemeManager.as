@@ -232,6 +232,7 @@ package feathers.extension.ahhenderson.managers {
 			
 			trace("DEVICE: ", deviceInfo.device);
 			
+			
 			if ( deviceInfo.device == DeviceList.DESKTOP ) {
 				_isDesktopDevice = true;
 				scaledAssetsFolder = StringUtil.substitute( scaledAssetsFolderPrefix, ASSET_FOLDER_SCALE_1 );

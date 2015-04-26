@@ -161,7 +161,7 @@ package feathers.extension.ahhenderson.managers
 				//DialogHelper.showAlert("Method not available at this time", "toggleHeaderDockingMode");
 				return;
 			}
-			
+			trace("Docked..", docked);
 			if(this._rootContainer.headerDockingMode != docked) 
 				this._rootContainer.headerDockingMode = docked;
 		}

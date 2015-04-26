@@ -27,6 +27,7 @@ package feathers.extension.ahhenderson.themes {
 
 	 
 	
+	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.TextFormat;
 	import flash.text.engine.CFFHinting;
@@ -89,6 +90,7 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.supportClasses.BaseManagedTheme;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
 	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
+	import feathers.extension.ahhenderson.util.DrawingUtils;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.VerticalLayout;
 	import feathers.skins.SmartDisplayObjectStateValueSelector;
@@ -96,6 +98,7 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.system.DeviceCapabilities;
 	import feathers.textures.Scale3Textures;
 	import feathers.textures.Scale9Textures;
+	import feathers.utils.math.roundToNearest;
 	
 	import starling.core.Starling;
 	import starling.display.DisplayObject;
@@ -238,95 +241,98 @@ package feathers.extension.ahhenderson.themes {
 
 		//// SCALING GRIDS
 		//////////////////////
+		
+		protected static var SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID:Rectangle = new Rectangle(8, 8, 184, 84);//new Rectangle(11, 11, 2, 2);
+		
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const DEFAULT_SCALE9_GRID:Rectangle = new Rectangle( 5, 5, 22, 22 );
+		protected static var DEFAULT_SCALE9_GRID:Rectangle = new Rectangle( 5, 5, 22, 22 );
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const POPUP_SCALE9_GRID:Rectangle = new Rectangle( 24, 24, 150, 150 );
+		protected static var POPUP_SCALE9_GRID:Rectangle = new Rectangle( 24, 24, 150, 150 );
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const BUTTON_SCALE9_GRID:Rectangle = new Rectangle( 8, 8, 184, 84 ); //184, 84 );
+		protected static var BUTTON_SCALE9_GRID:Rectangle = new Rectangle( 8, 8, 184, 84 ); //184, 84 );
 		  
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const BUTTON_SELECTED_SCALE9_GRID:Rectangle = BUTTON_SCALE9_GRID;
+		protected static var BUTTON_SELECTED_SCALE9_GRID:Rectangle = BUTTON_SCALE9_GRID;
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const BACK_BUTTON_SCALE3_REGION1:Number = 64;
+		protected static var BACK_BUTTON_SCALE3_REGION1:Number = 64;
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const BACK_BUTTON_SCALE3_REGION2:Number = 94;
+		protected static var BACK_BUTTON_SCALE3_REGION2:Number = 94;
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const FORWARD_BUTTON_SCALE3_REGION1:Number = 8;
+		protected static var FORWARD_BUTTON_SCALE3_REGION1:Number = 8;
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const FORWARD_BUTTON_SCALE3_REGION2:Number = 102;
+		protected static var FORWARD_BUTTON_SCALE3_REGION2:Number = 102;
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const ITEM_RENDERER_SCALE9_GRID:Rectangle = new Rectangle( 24, 24, 546, 38 );
+		protected static var ITEM_RENDERER_SCALE9_GRID:Rectangle = new Rectangle( 24, 24, 546, 38 );
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const INSET_ITEM_RENDERER_FIRST_SCALE9_GRID:Rectangle = new Rectangle( 13, 13, 3, 70 );
+		protected static var INSET_ITEM_RENDERER_FIRST_SCALE9_GRID:Rectangle = new Rectangle( 13, 13, 3, 70 );
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const INSET_ITEM_RENDERER_LAST_SCALE9_GRID:Rectangle = new Rectangle( 13, 0, 3, 75 );
+		protected static var INSET_ITEM_RENDERER_LAST_SCALE9_GRID:Rectangle = new Rectangle( 13, 0, 3, 75 );
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID:Rectangle = new Rectangle( 13, 13, 3, 62 );
+		protected static var INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID:Rectangle = new Rectangle( 13, 13, 3, 62 );
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const TAB_SCALE9_GRID:Rectangle = new Rectangle( 16, 16, 56, 30 );
+		protected static var TAB_SCALE9_GRID:Rectangle = new Rectangle( 16, 16, 56, 30 );
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const SCROLL_BAR_THUMB_REGION1:int = 10;
+		protected static var SCROLL_BAR_THUMB_REGION1:int = 10;
 
 		/**
 		 * 
 		 * @default 
 		 */
-		protected static const SCROLL_BAR_THUMB_REGION2:int = 28;
+		protected static var SCROLL_BAR_THUMB_REGION2:int = 28;
 
 		//// FONTS
 		//////////////////////
@@ -422,7 +428,6 @@ package feathers.extension.ahhenderson.themes {
 
 		// NEW CODE
 		protected var spinnerListSelectionOverlaySkinTextures:Scale9Textures;
-		protected static const SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID:Rectangle = new Rectangle(8, 8, 184, 84);//new Rectangle(11, 11, 2, 2);
 		/**
 		 * @private
 		 * The theme's custom style name for item renderers in a SpinnerList.
@@ -1427,6 +1432,45 @@ package feathers.extension.ahhenderson.themes {
 		}
 
 		/**
+		 * Initializes scaling grids for appropriate resoluations
+		 */
+		protected function initializeScalingGrids():void{
+			 
+			
+			
+			SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 8, 8, 184, 84);
+			 
+			DEFAULT_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 5, 5, 22, 22 );
+			 
+			POPUP_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 24, 24, 150, 150 );
+			 
+			BUTTON_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 8, 8, 184, 84 ); //184, 84 );
+			 
+			BUTTON_SELECTED_SCALE9_GRID = BUTTON_SCALE9_GRID;
+			 
+			BACK_BUTTON_SCALE3_REGION1 = 64;
+			 
+			BACK_BUTTON_SCALE3_REGION2 = 94;
+			 
+			FORWARD_BUTTON_SCALE3_REGION1 = 8;
+			 
+			FORWARD_BUTTON_SCALE3_REGION2 = 102;
+			 
+			ITEM_RENDERER_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 24, 24, 546, 38 );
+			 
+			INSET_ITEM_RENDERER_FIRST_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 13, 13, 3, 70 );
+			 
+			INSET_ITEM_RENDERER_LAST_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 13, 0, 3, 75 );
+			 
+			INSET_ITEM_RENDERER_SINGLE_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 13, 13, 3, 62 );
+			 
+			TAB_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 16, 16, 56, 30 );
+			 
+			SCROLL_BAR_THUMB_REGION1 = 10;
+			 
+			SCROLL_BAR_THUMB_REGION2 = 28;
+		}
+		/**
 		 * Initializes common values used for setting the dimensions of components.
 		 */
 		protected function initializeDimensions():void {
@@ -1434,7 +1478,9 @@ package feathers.extension.ahhenderson.themes {
 			//***************************************
 			// Theme Dimensions
 			//***************************************
-			 
+			
+			// Initialize scaling grids for resolution scale first.
+			initializeScalingGrids();
 			
 			// THEME PADDINGS 
 			buttonPaddingTop = getThemePropertyValue(Math.round(this.themeProperties.BUTTON_PADDING_TOP * this.scale ), Math.round( 4 * this.scale ));
@@ -1550,7 +1596,7 @@ package feathers.extension.ahhenderson.themes {
 			this.skin_text_input_focus_semi = new Scale9Textures( fmgr.theme.assetManager.getTexture( "textinput-semi-trans-focus" ), BUTTON_SCALE9_GRID ); 
 			
 			// From theme
-			var rect_bg:Rectangle = new Rectangle(8, 8, 70, 10);
+			var rect_bg:Rectangle = DrawingUtils.getScaledRectangle(this.scale,8, 8, 70, 10);
 			bg_null = new Scale9Textures(fmgr.theme.assetManager.getTexture("null_bg"), new Rectangle(0,0,1,1)); 
 			bg_popup = new Scale9Textures(fmgr.theme.assetManager.getTexture("background-popup-skin"), POPUP_SCALE9_GRID); 
 			skin_text_input = new Scale9Textures(fmgr.theme.assetManager.getTexture("textinput-up"), BUTTON_SCALE9_GRID);
@@ -2020,7 +2066,7 @@ package feathers.extension.ahhenderson.themes {
 			
 		 
 			// IMPORTANT: recommended for object pooling
-			trace("RESET FUNC: ", (button.label) ? button.label : "Icon only");
+			//trace("RESET FUNC: ", (button.label) ? button.label : "Icon only");
 			button.resetObjectFunction =  BaseFlatThemePoolFunctions.resetButtonObject;
 			 
 			button.iconOffsetY = -2 * fmgr.theme.scaledResolution;
@@ -3317,7 +3363,7 @@ package feathers.extension.ahhenderson.themes {
 
 			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
 
-			var rect:Rectangle = new Rectangle( 18, 18, 142, 14 );
+			var rect:Rectangle = DrawingUtils.getScaledRectangle(this.scale, 18, 18, 142, 14 );
 
 			skinSelector.defaultValue = new Scale9Textures( fmgr.theme.assetManager.getTexture( "slider_left" ), rect );
 			skinSelector.setValueForState( new Scale9Textures( fmgr.theme.assetManager.getTexture( "slider_left" ), rect ), Button.STATE_DOWN, false );
@@ -3342,7 +3388,7 @@ package feathers.extension.ahhenderson.themes {
 			/*skinSelector.defaultValue = this.backgroundSkinTextures;
 			skinSelector.setValueForState(this.backgroundDisabledSkinTextures, Button.STATE_DISABLED, false);*/
 
-			var rect:Rectangle = new Rectangle( 18, 18, 142, 14 );
+			var rect:Rectangle = DrawingUtils.getScaledRectangle(this.scale, 18, 18, 142, 14 );
 
 			skinSelector.defaultValue = new Scale9Textures( fmgr.theme.assetManager.getTexture( "slider_right" ), rect );
 			skinSelector.setValueForState( new Scale9Textures( fmgr.theme.assetManager.getTexture( "slider_right" ), rect ), Button.STATE_DOWN, false );
@@ -3363,7 +3409,7 @@ package feathers.extension.ahhenderson.themes {
 		protected function setVerticalSliderMinimumTrackStyles( track:Button ):void {
 
 			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
-			var rect:Rectangle = new Rectangle( 18, 18, 14, 142 );
+			var rect:Rectangle = DrawingUtils.getScaledRectangle(this.scale, 18, 18, 14, 142 );
 
 			skinSelector.defaultValue = new Scale9Textures( fmgr.theme.assetManager.getTexture( "v_slider_left" ), rect );
 			skinSelector.setValueForState( new Scale9Textures( fmgr.theme.assetManager.getTexture( "v_slider_left" ), rect ), Button.STATE_DOWN, false );
@@ -3385,7 +3431,7 @@ package feathers.extension.ahhenderson.themes {
 		protected function setVerticalSliderMaximumTrackStyles( track:Button ):void {
 
 			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
-			var rect:Rectangle = new Rectangle( 18, 18, 14, 142 );
+			var rect:Rectangle = DrawingUtils.getScaledRectangle(this.scale, 18, 18, 14, 142 );
 
 			skinSelector.defaultValue = new Scale9Textures( fmgr.theme.assetManager.getTexture( "v_slider_right" ), rect );
 			skinSelector.setValueForState( new Scale9Textures( fmgr.theme.assetManager.getTexture( "v_slider_right" ), rect ), Button.STATE_DOWN, false );
@@ -3506,15 +3552,16 @@ package feathers.extension.ahhenderson.themes {
 			input.gap = this.smallGutterSize;
 			 
 			//input.padding = this.smallGutterSize;
-			input.paddingTop = this.xSmallGutterSize * this.scale;
-			input.paddingLeft = input.paddingRight = Math.ceil(this.gutterSize * this.scale);
+			input.paddingTop = this.xSmallGutterSize;
+			input.paddingLeft = roundToNearest(this.gutterSize);
+			input.paddingRight = roundToNearest(this.smallGutterSize);
 			input.textEditorProperties.fontFamily = "Helvetica";
 			input.textEditorProperties.fontSize = this.regularFontSize;
 			input.textEditorProperties.color = DARK_TEXT_COLOR;
 			input.textEditorProperties.disabledColor = DISABLED_TEXT_COLOR;
 
 			//input.promptProperties.elementFormat = this.largeDarkElementFormat;
-
+			
 			input.promptProperties.elementFormat = this.darkElementFormat; 
 			input.promptProperties.disabledElementFormat = this.disabledElementFormat;
 			input.promptProperties.alpha=.6;
@@ -3554,7 +3601,12 @@ package feathers.extension.ahhenderson.themes {
 			
 			input.stateToSkinFunction = skinSelector.updateValue;
 			
-			input.promptProperties.elementFormat = this.lightElementFormat;
+			input.textEditorProperties.color =LIGHT_TEXT_COLOR;
+			input.textEditorProperties.disabledColor = DISABLED_TEXT_COLOR;
+			 
+			
+			input.promptProperties.alpha=1;
+			input.promptProperties.elementFormat = this.lightUIElementFormat;
 			input.promptProperties.disabledElementFormat = this.disabledElementFormat;
 		}
 

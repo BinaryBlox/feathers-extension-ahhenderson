@@ -31,9 +31,9 @@ package feathers.extension.ahhenderson.themes.constants {
 
 		public static const ICONS_BUTTON_DOWNLOAD:String = 'icons-button-download';
 
-		public static const ICONS_BUTTON_FAVORITE:String = 'icons-button-favorite';
-
 		public static const ICONS_BUTTON_FAVORITE_2:String = 'icons-button-favorite-2';
+
+		public static const ICONS_BUTTON_FAVORITE:String = 'icons-button-favorite';
 
 		public static const ICONS_BUTTON_FILTER_1:String = 'icons-button-filter-1';
 
@@ -133,9 +133,9 @@ package feathers.extension.ahhenderson.themes.constants {
 
 		public static const ICONS_CIRCLEBUTTON_DOWNLOAD:String = 'icons-circlebutton-download';
 
-		public static const ICONS_CIRCLEBUTTON_FAVORITE:String = 'icons-circlebutton-favorite';
-
 		public static const ICONS_CIRCLEBUTTON_FAVORITE_2:String = 'icons-circlebutton-favorite-2';
+
+		public static const ICONS_CIRCLEBUTTON_FAVORITE:String = 'icons-circlebutton-favorite';
 
 		public static const ICONS_CIRCLEBUTTON_FILTER_1:String = 'icons-circlebutton-filter-1';
 
@@ -225,21 +225,21 @@ package feathers.extension.ahhenderson.themes.constants {
 
 		public static const ICONS_EQUIP_BALL:String = 'icons-equip-ball';
 
-		public static const ICONS_EQUIP_BAND:String = 'icons-equip-band';
-
 		public static const ICONS_EQUIP_BAND_2:String = 'icons-equip-band-2';
 
-		public static const ICONS_EQUIP_DUMBELL:String = 'icons-equip-dumbell';
+		public static const ICONS_EQUIP_BAND:String = 'icons-equip-band';
 
 		public static const ICONS_EQUIP_DUMBELL_2:String = 'icons-equip-dumbell-2';
 
-		public static const ICONS_EQUIP_HRM:String = 'icons-equip-hrm';
+		public static const ICONS_EQUIP_DUMBELL:String = 'icons-equip-dumbell';
 
 		public static const ICONS_EQUIP_HRM_2:String = 'icons-equip-hrm-2';
 
-		public static const ICONS_EQUIP_MATT:String = 'icons-equip-matt';
+		public static const ICONS_EQUIP_HRM:String = 'icons-equip-hrm';
 
 		public static const ICONS_EQUIP_MATT_2:String = 'icons-equip-matt-2';
+
+		public static const ICONS_EQUIP_MATT:String = 'icons-equip-matt';
 
 		public static const ICONS_EQUIP_SHOES:String = 'icons-equip-shoes';
 
@@ -315,13 +315,15 @@ package feathers.extension.ahhenderson.themes.constants {
 
 		public static const ICONS_NAV_DROPDOWN:String = 'icons-nav-dropdown';
 
-		public static const ICONS_SOCIAL_FACEBOOK:String = 'icons-social-facebook';
-
 		public static const ICONS_SOCIAL_FACEBOOK_LIKE:String = 'icons-social-facebook-like';
+
+		public static const ICONS_SOCIAL_FACEBOOK:String = 'icons-social-facebook';
 
 		public static const ICONS_SOCIAL_GOOGLE_PLUS:String = 'icons-social-google-plus';
 
 		public static const ICONS_SOCIAL_INSTAGRAM:String = 'icons-social-instagram';
+
+		public static const ICONS_SOCIAL_MAIL:String = 'icons-social-mail';
 
 		public static const ICONS_SOCIAL_TWITTER_BIRD:String = 'icons-social-twitter-bird';
 
@@ -422,11 +424,11 @@ package feathers.extension.ahhenderson.themes.constants {
 			  FlatThemeCustomTextures.ICONS_NAV_ARROW_RIGHT, FlatThemeCustomTextures.ICONS_NAV_ARROW_UP,
 			  FlatThemeCustomTextures.ICONS_NAV_DROPDOWN, FlatThemeCustomTextures.ICONS_SOCIAL_FACEBOOK_LIKE,
 			  FlatThemeCustomTextures.ICONS_SOCIAL_FACEBOOK, FlatThemeCustomTextures.ICONS_SOCIAL_GOOGLE_PLUS,
-			  FlatThemeCustomTextures.ICONS_SOCIAL_INSTAGRAM, FlatThemeCustomTextures.ICONS_SOCIAL_TWITTER_BIRD,
-			  FlatThemeCustomTextures.ICONS_TILE_CLASSES_1, FlatThemeCustomTextures.ICONS_TILE_PROGRAMS_1,
-			  FlatThemeCustomTextures.ICONS_TILE_PROGRAMS_2, FlatThemeCustomTextures.ICONS_TILE_SETTINGS_1,
-			  FlatThemeCustomTextures.ICONS_TILE_TRAINER_1, FlatThemeCustomTextures.ICONS_TILE_TRAINER_2,
-			  FlatThemeCustomTextures.ICONS_TILE_TRANSACTIONS_1, FlatThemeCustomTextures.ICONS_TILE_TRANSACTIONS_2,
-			  FlatThemeCustomTextures.ICONS_TILE_USERS_1 ];
+			  FlatThemeCustomTextures.ICONS_SOCIAL_INSTAGRAM, FlatThemeCustomTextures.ICONS_SOCIAL_MAIL,
+			  FlatThemeCustomTextures.ICONS_SOCIAL_TWITTER_BIRD, FlatThemeCustomTextures.ICONS_TILE_CLASSES_1,
+			  FlatThemeCustomTextures.ICONS_TILE_PROGRAMS_1, FlatThemeCustomTextures.ICONS_TILE_PROGRAMS_2,
+			  FlatThemeCustomTextures.ICONS_TILE_SETTINGS_1, FlatThemeCustomTextures.ICONS_TILE_TRAINER_1,
+			  FlatThemeCustomTextures.ICONS_TILE_TRAINER_2, FlatThemeCustomTextures.ICONS_TILE_TRANSACTIONS_1,
+			  FlatThemeCustomTextures.ICONS_TILE_TRANSACTIONS_2, FlatThemeCustomTextures.ICONS_TILE_USERS_1 ];
 	}
 }

@@ -142,9 +142,6 @@ package feathers.extension.ahhenderson.controls.screens {
 
 			if ( !showHeader && ( _navigator.layoutData as AnchorLayoutData ).topAnchorDisplayObject ) {
 
-				if ( !( _navigator.layoutData as AnchorLayoutData ).topAnchorDisplayObject )
-					return;
-
 				this.touchable = false;
 				Starling.juggler.tween( _header, .75, { transition: Transitions.EASE_IN_OUT, alpha: 0, onComplete: onFadeOutTweenComplete });
 
@@ -152,6 +149,7 @@ package feathers.extension.ahhenderson.controls.screens {
 
 				_header.visible = true;
 				this.touchable = false;
+				
 				( _navigator.layoutData as AnchorLayoutData ).topAnchorDisplayObject = _header;
 
 				_header.alpha = 0;
@@ -164,10 +162,11 @@ package feathers.extension.ahhenderson.controls.screens {
 		public function toggleHeaderVisiblity( showHeader:Boolean ):void {
 
 			// If header is overlayed, display 
-			if(_dockHeader){
+			// NOTE remove docking disabling for now
+			/*if(_dockHeader){
 				toggleDockedHeaderVisibility(showHeader);
 				return;
-			}
+			}*/
 			
 			// Show
 			if ( showHeader ) {
@@ -199,10 +198,12 @@ package feathers.extension.ahhenderson.controls.screens {
 			_header.visible = false;
 			
 			// Docked header
-			if(_dockHeader){
+			
+			// Do not remove for now
+			/*if(_dockHeader){
 				( _navigator.layoutData as AnchorLayoutData ).topAnchorDisplayObject = null;
 				draw();
-			} 
+			} */
 		}
 
 		private function onFadeInTweenComplete():void {
@@ -221,7 +222,7 @@ package feathers.extension.ahhenderson.controls.screens {
 
 			_header = new Header();
 			_header.visible = false;
-			_header.height = roundToNearest( 60 * this.scaledResolution );
+			//_header.height = roundToNearest( 60 * this.scaledResolution );
 
 			this.addChild( _header );
 

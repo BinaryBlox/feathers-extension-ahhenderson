@@ -17,7 +17,7 @@ package feathers.extension.ahhenderson.util {
 	import flash.display.BitmapData;
 	import flash.display.CapsStyle;
 	import flash.display.GradientType;
-	import flash.display.Graphics; 
+	import flash.display.Graphics;
 	import flash.display.InterpolationMethod;
 	import flash.display.SpreadMethod;
 	import flash.display.Sprite;
@@ -29,7 +29,7 @@ package feathers.extension.ahhenderson.util {
 	import feathers.utils.math.roundDownToNearest;
 	import feathers.utils.math.roundToNearest;
 	
-	import starling.display.Image; 
+	import starling.display.Image;
 	import starling.display.Shape;
 	import starling.textures.Texture;
 
@@ -611,6 +611,15 @@ package feathers.extension.ahhenderson.util {
 				ratios[i]=Math.floor(255 * (i / (count - 1)));
 
 			return ratios;
+		}
+		
+		
+		public static function getScaledRectangle(scale:Number =1, x:Number=0, y:Number=0, width:Number=0, height:Number=0):Rectangle{
+			
+			if(isNaN(scale) || scale <= 0)
+				return null;
+			
+			return new Rectangle(x*scale, y*scale, width*scale, height*scale);
 		}
 	}
 }

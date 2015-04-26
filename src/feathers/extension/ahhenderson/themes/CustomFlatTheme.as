@@ -246,18 +246,18 @@ package feathers.extension.ahhenderson.themes
 			
 			setHeaderStyles(header);
 			
-			header.minWidth = this.headerSize;
-			header.minHeight = this.headerSize;
+			header.minWidth =  this.headerSize;
+			header.minHeight =  this.headerSize;
 			
 			header.padding = 0;//this.smallGutterSize;
-			header.gap = this.smallGutterSize;
+			header.gap = 0;//this.smallGutterSize;
 			header.titleGap = this.smallGutterSize;
 			header.paddingLeft=2 * fmgr.theme.scaledResolution;
 			header.paddingRight=2 * fmgr.theme.scaledResolution;
 			header.paddingTop = 2 * fmgr.theme.scaledResolution;
 			header.paddingBottom = 2 * fmgr.theme.scaledResolution;
-			header.backgroundSkin = new Quad( 10, 10, 0xFFFFFF );
-			header.backgroundSkin.alpha=.4;
+			header.backgroundSkin = new Quad( 10, 10, 0x000000 );
+			header.backgroundSkin.alpha=.2;
 			
 			header.titleProperties.elementFormat = this.headerElementFormat;
 			 

@@ -15,6 +15,8 @@ package feathers.extension.ahhenderson.constants {
 		public static var ITEM_RENDERER_MIN_SIZE:Number = roundToNearest(30 * fmgr.theme.scaledResolution); 
 
 		public static var TOUCH_BOUNDARY_MULTIPLIER:Number = 1.15;
+		
+		public static var FORM_SECTION_SPACER:Number = roundToNearest(20*fmgr.theme.scaledResolution);
 
 		public static var PANEL_GUTTER:Number = roundToNearest(20 * fmgr.theme.scaledResolution);
 		

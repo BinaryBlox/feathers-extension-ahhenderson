@@ -41,6 +41,7 @@ package feathers.extension.ahhenderson.themes.pool
 			// reset to minwidth
 			input.width = input.height = NaN;
 			
+			
 			removeStyles(input);
 			 
 		}
