@@ -4,10 +4,9 @@ package feathers.extension.ahhenderson.controls.dialogs
 	import feathers.controls.LayoutGroup;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
-	import feathers.extension.ahhenderson.helpers.LayoutHelper;
+	import feathers.extension.ahhenderson.themes.helpers.UI_FactoryHelper;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
-	import feathers.extension.ahhenderson.themes.helpers.UI_FactoryHelper;
 	
 	import starling.animation.IAnimatable;
 	import starling.core.Starling;
@@ -91,6 +90,7 @@ package feathers.extension.ahhenderson.controls.dialogs
 				_ctrDialogText.content = this.content;  
 			
 			_imgLoadingIcon.validate();
+			 
 			
 			/*var pivotX:Number  =   _imgLoadingIcon.width  / 2.0;
 			var pivotY:Number  =   _imgLoadingIcon.height  / 2.0;
@@ -102,6 +102,9 @@ package feathers.extension.ahhenderson.controls.dialogs
 				_imgLoadingIcon.pivotY = pivotY;*/
 			
 			_imgLoadingIcon.alignPivot();
+			
+			if(!_imgLoadingIcon.visible)
+				_imgLoadingIcon.visible=true;
 			
 			//_imgLoadingIcon.pivotY = _imgLoadingIcon.height / 2.0;
 			//_imgLoadingIcon.alignPivot();
@@ -159,7 +162,10 @@ package feathers.extension.ahhenderson.controls.dialogs
 			addChild( _ctrDialogText );
 			  
 			// Loading icon
+			
 			_imgLoadingIcon = UI_FactoryHelper.imageLoaderFactory();
+			_imgLoadingIcon.visible=false;
+			
 			_imgLoadingIcon.layoutData = new AnchorLayoutData( NaN, NaN, 16*this.scaledResolution, NaN, 0, NaN );
 			 
 			(_imgLoadingIcon.layoutData as AnchorLayoutData).bottomAnchorDisplayObject = _ctrDialogText;

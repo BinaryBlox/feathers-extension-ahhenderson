@@ -112,6 +112,8 @@ package feathers.extension.ahhenderson.themes.pool
 			// Remove all listeners from control.
 			input.removeEventListeners(Event.TRIGGERED);
 			
+			
+			//input.defaultSkin=null;	
 			input.layoutData = null;
 			input.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER; 
 			input.label = ""; 

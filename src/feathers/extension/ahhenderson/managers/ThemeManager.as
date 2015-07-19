@@ -369,12 +369,12 @@ package feathers.extension.ahhenderson.managers {
 		 
 		protected function initializeProgressBar():void{
 			 
-			const progBarHeight:Number = 20 * this.scaledResolution;
-			const progBarWidth:Number = 175 * this.scaledResolution;
+			const progBarHeight:Number = 8 * this.scaledResolution;
+			const progBarWidth:Number = 160 * this.scaledResolution;
 			 
 			_assetProgressBar=new ProgressBar(progBarWidth, progBarHeight);
 			_assetProgressBar.x=(Starling.current.stage.stageWidth - _assetProgressBar.width) / 2;
-			_assetProgressBar.y=(Starling.current.stage.stageWidth - _assetProgressBar.height) / 2;
+			_assetProgressBar.y=(Starling.current.stage.stageHeight - _assetProgressBar.height) * .75;
 			//_assetProgressBar.y=_parent.stage.stageHeight * 0.85;
 			  
 			_root.addChild(_assetProgressBar);

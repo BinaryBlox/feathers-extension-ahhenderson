@@ -50,8 +50,9 @@ package feathers.extension.ahhenderson.helpers {
 			loadingIcon = (loadingIcon) ? loadingIcon : FlatThemeCustomTextures.ICONS_CIRCLEBUTTON_SYNC_1;
 			dialog.loadingIcon=loadingIcon;
 		 
-			 
+			
 			PopUpManager.addPopUp(dialog);
+			PopUpManager.centerPopUp(dialog);
 			
 			// If autoClose value set
 			if(!isNaN(autoClose) && autoClose>0){

@@ -2128,17 +2128,19 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function setQuietButtonStyles( button:Button ):void {
 
-			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
-			skinSelector.defaultValue = null;
-			skinSelector.defaultSelectedValue = this.buttonSelectedUpSkinTextures;
-			skinSelector.setValueForState( this.buttonDownSkinTextures, Button.STATE_DOWN, false );
-			skinSelector.displayObjectProperties = { width: this.controlSize, height: this.controlSize, textureScale: this.scale };
-			button.stateToSkinFunction = skinSelector.updateValue;
- 
+			 
+			button.stateToSkinFunction = null;
+			
+			var transQuad:Quad = new Quad(10,10, 0x000000);
+			transQuad.visible = false;
+			button.defaultSkin = transQuad;
+			
 			this.setBaseButtonStyles( button );
 			
 			button.defaultLabelProperties.elementFormat = this.lightUIElementFormat;
-			button.downLabelProperties.elementFormat = this.darkUIElementFormat;
+			button.downLabelProperties.elementFormat = this.lightUIElementFormat;
+			button.downLabelProperties.alpha =.6;
+			button.defaultLabelProperties.alpha =1;
 			button.disabledLabelProperties.elementFormat = this.darkUIDisabledElementFormat;
 
 			if ( button is ToggleButton ) {
@@ -2147,12 +2149,23 @@ package feathers.extension.ahhenderson.themes {
 				toggleButton.selectedDisabledLabelProperties.elementFormat = this.lightUIDisabledElementFormat;
 			}
 
-			button.paddingTop = button.paddingBottom = this.smallGutterSize;
+			button.paddingTop =  this.buttonPaddingTop;
+			button.paddingBottom =  this.buttonPaddingBottom; 
+			button.paddingLeft = this.buttonPaddingLeft;
+			button.paddingRight = this.buttonPaddingRight;
+			
+			button.gap = 0;//this.smallGutterSize;
+			button.minGap = 2;//this.smallGutterSize;
+			button.minWidth = 20;// button.minHeight = this.controlSize;
+			button.iconOffsetY = -1 * fmgr.theme.scaledResolution;
+			//button.paddingLeft = Math.ceil(this.gutterSize * 2);// + this.smallGutterSize;
+			
+			/*button.paddingTop = button.paddingBottom = this.smallGutterSize;
 			button.paddingLeft = button.paddingRight = this.gutterSize;
 			button.gap = this.smallGutterSize;
 			button.minGap = this.smallGutterSize;
 			button.minWidth = button.minHeight = this.controlSize;
-			button.minTouchWidth = button.minTouchHeight = this.gridSize;
+			button.minTouchWidth = button.minTouchHeight = this.gridSize;*/
 			
 			
 		}
