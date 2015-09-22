@@ -242,6 +242,9 @@ package feathers.extension.ahhenderson.themes {
 		//// SCALING GRIDS
 		//////////////////////
 		
+		
+	
+		
 		protected static var SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID:Rectangle = new Rectangle(8, 8, 184, 84);//new Rectangle(11, 11, 2, 2);
 		
 		/**
@@ -661,6 +664,7 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected var itemRendererMinSize:Number;
  
+		protected var scale9ButtonInset:Number
 		
 		/**
 		 * The FTE FontDescription used for text of a normal weight.
@@ -1436,15 +1440,16 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function initializeScalingGrids():void{
 			 
-			
-			
-			SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 8, 8, 184, 84);
+			var defBtnInset:Number = (this.scale9ButtonInset/this.scale);
+			var defCtrlSize:Number = (this.controlSize/this.scale);
+			var alteredScale:Number = 1
+			SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defCtrlSize);
 			 
 			DEFAULT_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 5, 5, 22, 22 );
 			 
 			POPUP_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 24, 24, 150, 150 );
 			 
-			BUTTON_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 8, 8, 184, 84 ); //184, 84 );
+			BUTTON_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defCtrlSize);
 			 
 			BUTTON_SELECTED_SCALE9_GRID = BUTTON_SCALE9_GRID;
 			 
@@ -1479,8 +1484,7 @@ package feathers.extension.ahhenderson.themes {
 			// Theme Dimensions
 			//***************************************
 			
-			// Initialize scaling grids for resolution scale first.
-			initializeScalingGrids();
+			
 			
 			// THEME PADDINGS 
 			buttonPaddingTop = getThemePropertyValue(Math.round(this.themeProperties.BUTTON_PADDING_TOP * this.scale ), Math.round( 4 * this.scale ));
@@ -1490,6 +1494,7 @@ package feathers.extension.ahhenderson.themes {
 			
 			itemPaddingTop = getThemePropertyValue(Math.round(this.themeProperties.ITEM_PADDING_TOP * this.scale ));
 			itemPaddingBottom = getThemePropertyValue(Math.round(this.themeProperties.ITEM_PADDING_BOTTOM * this.scale ));
+			
 			
 			// Gutters
 			this.xSmallGutterSize = getThemePropertyValue(Math.round(this.themeProperties.XSMALL_GUTTER_SIZE * this.scale ), Math.round( 8 * this.scale ));
@@ -1515,11 +1520,14 @@ package feathers.extension.ahhenderson.themes {
 			this.calloutBackgroundMinSize = getThemePropertyValue(Math.round(this.themeProperties.CALLOUT_BACKGROUND_MIN_SIZE * this.scale ), Math.round( 50 * this.scale ));
 			this.wideControlSize = getThemePropertyValue(Math.round(this.themeProperties.WIDE_CONTROL_SIZE * this.scale ), this.gridSize * 3 + this.gutterSize * 2);
 			this.itemRendererMinSize = getThemePropertyValue(Math.round(this.themeProperties.ITEM_RENDERER_SIZE * this.scale ), Math.round( 70 * this.scale ));
+			this.scale9ButtonInset = getThemePropertyValue(Math.round(this.themeProperties.SCALE_9_BUTTON_INSET * this.scale ));
 			
 			// Other
 			this.adHocScaleReduction = getThemePropertyValue(this.themeProperties.ADHOC_REDUCTION_SIZE, 0.7);  
 			this.controlTouchBoundaryScale = getThemePropertyValue(this.themeProperties.CONTROL_TOUCH_BOUNDRY_SCALE, 1.25);  
 			 
+			// Initialize scaling grids for resolution scale first.
+			initializeScalingGrids();
 		}
 
 		/**
@@ -1591,6 +1599,8 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function initializeTextures():void {
 
+			var text1:Texture = fmgr.theme.assetManager.getTexture( "textinput-semi-trans-up" )
+				
 			// Custom
 			this.skin_text_input_semi = new Scale9Textures( fmgr.theme.assetManager.getTexture( "textinput-semi-trans-up" ), BUTTON_SCALE9_GRID );
 			this.skin_text_input_focus_semi = new Scale9Textures( fmgr.theme.assetManager.getTexture( "textinput-semi-trans-focus" ), BUTTON_SCALE9_GRID ); 
@@ -1885,7 +1895,8 @@ package feathers.extension.ahhenderson.themes {
 
 			var symbol:ImageLoader = new ImageLoader();
 			symbol.source = this.pageIndicatorNormalSkinTexture;
-			symbol.textureScale = Math.ceil(this.scale*this.adHocScaleReduction);
+			symbol.textureScale =1;//.5; 
+			//symbol.textureScale = Math.ceil(this.scale*this.adHocScaleReduction);
 			return symbol;
 		}
 
@@ -1897,7 +1908,8 @@ package feathers.extension.ahhenderson.themes {
 
 			var symbol:ImageLoader = new ImageLoader();
 			symbol.source = this.pageIndicatorSelectedSkinTexture;
-			symbol.textureScale = Math.ceil(this.scale*this.adHocScaleReduction);
+			symbol.textureScale = 1;//.5; 
+			//symbol.textureScale = Math.ceil(this.scale*this.adHocScaleReduction);
 			return symbol;
 		}
 
@@ -2677,7 +2689,9 @@ package feathers.extension.ahhenderson.themes {
 			renderer.stateToSkinFunction = null;
 			//renderer.defaultSkin = _itemRendererBackground;
 			//renderer.defaultSkin.alpha=.5;
-			
+			renderer.accessoryPosition = DefaultListItemRenderer.ACCESSORY_POSITION_BOTTOM;
+			renderer.iconPosition = Button.ICON_POSITION_TOP;
+			renderer.horizontalAlign = Button.HORIZONTAL_ALIGN_CENTER;
 			renderer.defaultLabelProperties.elementFormat = this.largeLightElementFormat;
 			renderer.downLabelProperties.elementFormat = this.largeLightElementFormat;
 			renderer.defaultSelectedLabelProperties.elementFormat = this.largeLightElementFormat;

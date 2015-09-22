@@ -5,7 +5,7 @@
 //
 //------------------------------------------------------------------------------
 
-package feathers.extension.ahhenderson.themes.helpers {
+package feathers.extension.ahhenderson.helpers {
 
 	import feathers.controls.Button;
 	import feathers.controls.Header;
@@ -18,16 +18,20 @@ package feathers.extension.ahhenderson.themes.helpers {
 	import feathers.controls.renderers.DefaultListItemRenderer;
 	import feathers.controls.renderers.IListItemRenderer;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
+	import feathers.extension.ahhenderson.controls.TitledTextBlock;
+	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
+	import feathers.layout.AnchorLayoutData;
+	import feathers.layout.ILayoutData;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
-
+	
 	import starling.textures.TextureSmoothing;
 
 
-	public class UI_FactoryHelper {
+	public class UiFactoryHelper {
 
-		include "includes/_Helpers.inc";
+		include "_Helpers.inc";
 
 		public static function imageLoaderFactory( noSmoothing:Boolean = false ):ImageLoader {
 
@@ -87,7 +91,7 @@ package feathers.extension.ahhenderson.themes.helpers {
 			list.visible = visible;
 			list.isSelectable = selectable;
 			list.hasElasticEdges = hasElasticEdges
-			list.itemRendererFactory = ( itemRenderFactory ) ? itemRenderFactory : UI_FactoryHelper.formLabelItemRendererFactory;
+			list.itemRendererFactory = ( itemRenderFactory ) ? itemRenderFactory : UiFactoryHelper.formLabelItemRendererFactory;
 
 			return list;
 		}
@@ -97,7 +101,7 @@ package feathers.extension.ahhenderson.themes.helpers {
 			var renderer:DefaultListItemRenderer = new DefaultListItemRenderer();
 			renderer.labelField = labelField;
 			renderer.isQuickHitAreaEnabled = false;
-			renderer.nameList.add( FeathersExtLib_StyleNameConstants.FORM_LABEL_LIST_ITEM_RENDERER );
+			renderer.styleNameList.add( FeathersExtLib_StyleNameConstants.FORM_LABEL_LIST_ITEM_RENDERER ); 
 			return renderer;
 		}
 
@@ -109,6 +113,25 @@ package feathers.extension.ahhenderson.themes.helpers {
 			container.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
 			return container;
 
+		}
+		
+		public static function titledTextBlockFactory(title:String, content:String, layoutData:AnchorLayoutData=null, autoSizeMode:String="stage"):TitledTextBlock{
+			
+			// Add Text block  
+			var control:TitledTextBlock = new TitledTextBlock();//fmgr.pool.borrowObj( CustomComponentPoolType.TITLED_TEXT_BLOCK );
+			
+			// Either 'stage', 'content'
+			control.autoSizeMode = autoSizeMode;
+			
+			if(!layoutData){
+				control.layoutData =new AnchorLayoutData( NaN, NaN, NaN, NaN, 0, 0 );
+			}
+			 
+			control.title = title;
+			control.content = content;
+			
+			return control;
+			
 		}
 
 		public static function defaultFooterFactor( title:String = null ):Header {

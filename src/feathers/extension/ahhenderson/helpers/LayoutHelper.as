@@ -210,7 +210,7 @@ package feathers.extension.ahhenderson.helpers {
 			layout.paddingLeft=pLeft;
 			layout.horizontalAlign=hAlign;
 			layout.verticalAlign=vAlign;
-			layout.manageVisibility=true;
+			//layout.manageVisibility=true;
 
 			return layout;
 		}
@@ -251,7 +251,7 @@ package feathers.extension.ahhenderson.helpers {
 			listLayout.useSquareTiles=useSquareTiles;
 			listLayout.tileHorizontalAlign=tileHAlign;
 			listLayout.horizontalAlign=layoutHAlign;
-			listLayout.manageVisibility=manageVisibility;
+			//listLayout.manageVisibility=manageVisibility;
 
 			return listLayout;
 
@@ -325,7 +325,7 @@ package feathers.extension.ahhenderson.helpers {
 			layout.paddingLeft=pLeft;
 			layout.horizontalAlign=hAlign;
 			layout.verticalAlign=vAlign;
-			layout.manageVisibility=true;
+			//layout.manageVisibility=true;
 
 			return layout;
 		}

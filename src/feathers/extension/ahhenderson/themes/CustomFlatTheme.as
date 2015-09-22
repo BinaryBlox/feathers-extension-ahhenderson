@@ -1,5 +1,7 @@
 package feathers.extension.ahhenderson.themes
 {
+	import com.vizifit.common.ui.components.TitledTextBlock;
+	
 	import flash.geom.Rectangle;
 	
 	import ahhenderson.core.managers.ObjectPoolManager;
@@ -7,6 +9,7 @@ package feathers.extension.ahhenderson.themes
 	import feathers.controls.Button;
 	import feathers.controls.Header;
 	import feathers.controls.Label;
+	import feathers.controls.PageIndicator;
 	import feathers.controls.SpinnerList;
 	import feathers.controls.renderers.BaseDefaultItemRenderer;
 	import feathers.controls.renderers.DefaultListItemRenderer;
@@ -90,6 +93,9 @@ package feathers.extension.ahhenderson.themes
 				setItemRendererFormLabelDrillDownStyles)
 			this.getStyleProviderForClass( DefaultListItemRenderer ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.ARROW_LABEL_LIST_ITEM_RENDERER, 
 				setItemRendererArrowLabelStyles)
+				
+			this.getStyleProviderForClass( TitledTextBlock ).setFunctionForStyleName( TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER,
+				this.setTitledTextBlockItemRendererStyles );
 				 
 			// Header
 			this.getStyleProviderForClass(Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.HEADER_TITLED_NAVIGATOR_SCREEN, setTitledNavigationHeaderStyles);
@@ -193,6 +199,14 @@ package feathers.extension.ahhenderson.themes
 			control.textRendererProperties.elementFormat = this.lightElementFormat;
 			
 			control.resetObjectFunction = CustomFlatThemePoolFunctions.resetIconLabel;
+		}
+		
+		protected function setTitledTextBlockItemRendererStyles( titledTextBlock:TitledTextBlock ):void {
+			
+			setTitledTextBlockStyles( titledTextBlock );
+			
+			/*titledTextBlock.titleFormat = this.fontLightItemRenderer;
+			titledTextBlock.contentFormat = this.fontLightSmallDetail;*/
 		}
 		
 		protected function setTitledTextBlockStyles( styledControl:TitledTextBlock ):void {
@@ -336,7 +350,8 @@ package feathers.extension.ahhenderson.themes
 			renderer.iconSourceField = "drillDownIcon"; 
 		}
 	 
-		
+	 
+
 		//-------------------------
 		// Label
 		//-------------------------
@@ -363,5 +378,23 @@ package feathers.extension.ahhenderson.themes
 			label.textRendererProperties.elementFormat = this.smallDarkElementFormat;
 			label.textRendererProperties.disabledElementFormat = this.smallDisabledElementFormat;
 		}
+		
+		//-------------------------
+		// PageIndicator
+		//-------------------------
+		
+		/**
+		 * 
+		 * @param pageIndicator
+		 */
+		/*protected function setPageIndicatorStyles( pageIndicator:PageIndicator ):void {
+			
+			pageIndicator.normalSymbolFactory = this.pageIndicatorNormalSymbolFactory;
+			pageIndicator.selectedSymbolFactory = this.pageIndicatorSelectedSymbolFactory;
+			pageIndicator.gap = this.smallGutterSize;
+			pageIndicator.padding = this.smallGutterSize / 2;
+			pageIndicator.minTouchWidth = this.smallControlSize * 2
+			pageIndicator.minTouchHeight = this.smallControlSize * 2;
+		}*/
 	}
 }

@@ -157,8 +157,9 @@ package feathers.extension.ahhenderson.controls {
 			if ( _contentFormat  && _lblContent.textRendererProperties.elementFormat != _contentFormat)
 				_lblContent.textRendererProperties.elementFormat = _contentFormat;
 
-			_lblContent.text = this.content;
+			
 			_lblContent.maxWidth = this.actualWidth;
+			_lblContent.text = this.content;
 			_lblContent.validate();
 
 		}

@@ -342,6 +342,8 @@ package feathers.extension.ahhenderson.managers {
 					appDir.resolvePath(texturesAssetsPath) );
 				
 				if(this.currentTheme.backgroundImage){
+					var tempW:Number = Starling.current.nativeStage.width;
+					var tempH:Number = Starling.current.nativeStage.height;
 					
 					// Add default background
 					_currentBackground=Image.fromBitmap(this.currentTheme.backgroundImage);
@@ -429,7 +431,7 @@ package feathers.extension.ahhenderson.managers {
 			
 			}, 
 			.25);
-			
+			 
 			
 			/*_currentTheme.initialize()
 			this.dispatchEvent(new ThemeManagerEvent(ThemeManagerEvent.THEME_ASSET_LOADING_COMPLETE));*/

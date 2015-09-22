@@ -1,7 +1,10 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
   <includeClasses>
+    <classEntry path="feathers.controls.Header"/>
+    <classEntry path="feathers.controls.renderers.BaseDefaultItemRenderer"/>
     <classEntry path="feathers.core.FeathersControl"/>
+    <classEntry path="feathers.core.IFeathersControl"/>
     <classEntry path="feathers.extension.ahhenderson.ahhenderson_extension_internal"/>
     <classEntry path="feathers.extension.ahhenderson.constants.FeathersExtLib_SessionPropertyKeys"/>
     <classEntry path="feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants"/>
@@ -15,11 +18,20 @@
     <classEntry path="feathers.extension.ahhenderson.controls.core.FeathersApplication"/>
     <classEntry path="feathers.extension.ahhenderson.controls.core.FeathersRootContainer"/>
     <classEntry path="feathers.extension.ahhenderson.controls.dialogs.LoadingDialog"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.interfaces.IPanelNavigatorScreen"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.renderers.DefaultCardItemRenderer"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.renderers.IntroCardItemRenderer"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.renderers.TitledTextBlockItemRenderer"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.renderers.defaultCard.CardItem"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.DateSelectorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.LayoutGroupScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.ScrollContainerScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.TitledNavigatorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.dateSelector.DateSelectorScreenConfig"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorFormScreen"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorFormScreenMediator"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorScreen"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorScreenMediator"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.GroupedListDataViewPort"/>
     <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_NotificationConstants"/>
     <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_SessionPropertyKeys"/>
@@ -39,8 +51,8 @@
     <classEntry path="feathers.extension.ahhenderson.helpers.ControlGroupHelper"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.DialogHelper"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.LayoutHelper"/>
-    <classEntry path="feathers.extension.ahhenderson.interfaces.IFormControlGroupMediator"/>
-    <classEntry path="feathers.extension.ahhenderson.interfaces.IFormControlGroupView"/>
+    <classEntry path="feathers.extension.ahhenderson.helpers.ListHelper"/>
+    <classEntry path="feathers.extension.ahhenderson.helpers.UiFactoryHelper"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces._deprecate.IComponentPopUpContent"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces._deprecate.IDialogContent"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces._deprecate.IImageDisplayItem"/>
@@ -63,17 +75,15 @@
     <classEntry path="feathers.extension.ahhenderson.themes.CustomFlatTheme"/>
     <classEntry path="feathers.extension.ahhenderson.themes.constants.FlatThemeBaseTextures"/>
     <classEntry path="feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures"/>
-    <classEntry path="feathers.extension.ahhenderson.themes.helpers.UI_FactoryHelper"/>
     <classEntry path="feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions"/>
     <classEntry path="feathers.extension.ahhenderson.themes.pool.CustomFlatThemePoolFunctions"/>
     <classEntry path="feathers.extension.ahhenderson.ui.menu.MenuItem"/>
     <classEntry path="feathers.extension.ahhenderson.ui.menu.MenuItemGroup"/>
     <classEntry path="feathers.extension.ahhenderson.util.CollectionUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.DrawingUtils"/>
+    <classEntry path="feathers.extension.ahhenderson.util.FeathersPoolUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorFormScreen"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorFormScreenMediator"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

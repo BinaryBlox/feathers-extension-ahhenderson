@@ -5,7 +5,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 	import feathers.data.ListCollection;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_ThemeConstants;
 	import feathers.extension.ahhenderson.controls.interfaces.IPanelNavigatorScreen;
-	import feathers.extension.ahhenderson.themes.helpers.UI_FactoryHelper;
+	import feathers.extension.ahhenderson.helpers.UiFactoryHelper;
 	import feathers.layout.AnchorLayoutData;
 	import feathers.utils.math.roundToNearest;
 	
@@ -54,7 +54,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 
 		override protected function footerButtonFactory(label:String=null, customStyleName:String=null):Button{
 			
-			var footerButton:Button = UI_FactoryHelper.buttonFactory(label, customStyleName);
+			var footerButton:Button = UiFactoryHelper.buttonFactory(label, customStyleName);
 			
 			// Postion button from top
 			footerButton.layoutData = new AnchorLayoutData(roundToNearest(FeathersExtLib_ThemeConstants.PANEL_GUTTER), 
@@ -72,7 +72,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 		override protected function initPanelContent():void{
 			 
 			// Controls list.
-			this.formControlList = UI_FactoryHelper.formControlListFactory();
+			this.formControlList = UiFactoryHelper.formControlListFactory();
 			this.formControlList.layoutData = new AnchorLayoutData( 0, 0, NaN, 0 );
 			
 			// Add form controls to list

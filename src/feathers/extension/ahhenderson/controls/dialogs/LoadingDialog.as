@@ -4,7 +4,7 @@ package feathers.extension.ahhenderson.controls.dialogs
 	import feathers.controls.LayoutGroup;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
-	import feathers.extension.ahhenderson.themes.helpers.UI_FactoryHelper;
+	import feathers.extension.ahhenderson.helpers.UiFactoryHelper;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	
@@ -163,7 +163,7 @@ package feathers.extension.ahhenderson.controls.dialogs
 			  
 			// Loading icon
 			
-			_imgLoadingIcon = UI_FactoryHelper.imageLoaderFactory();
+			_imgLoadingIcon = UiFactoryHelper.imageLoaderFactory();
 			_imgLoadingIcon.visible=false;
 			
 			_imgLoadingIcon.layoutData = new AnchorLayoutData( NaN, NaN, 16*this.scaledResolution, NaN, 0, NaN );

@@ -3,7 +3,7 @@ package feathers.extension.ahhenderson.controls {
 	import feathers.controls.IScreen;
 	import feathers.controls.Panel;
 	import feathers.controls.ScreenNavigator;
-	import feathers.extension.ahhenderson.themes.helpers.UI_FactoryHelper;
+	import feathers.extension.ahhenderson.helpers.UiFactoryHelper;
 	import feathers.extension.ahhenderson.util.ScreenUtil;
 	import feathers.layout.AnchorLayoutData;
 	import feathers.skins.IStyleProvider;
@@ -96,7 +96,7 @@ package feathers.extension.ahhenderson.controls {
 			super.initialize();
 
 			// Get navigator from pool
-			_navigator = UI_FactoryHelper.screenNavigatorFactory();
+			_navigator = UiFactoryHelper.screenNavigatorFactory();
 			_navigator.layoutData = new AnchorLayoutData( 0, 0, 0, 0 );
 			 
 			this.addChild( _navigator );

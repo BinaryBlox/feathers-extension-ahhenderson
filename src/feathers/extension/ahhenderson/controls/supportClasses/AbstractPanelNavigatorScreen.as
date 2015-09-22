@@ -8,7 +8,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
-	import feathers.extension.ahhenderson.themes.helpers.UI_FactoryHelper;
+	import feathers.extension.ahhenderson.helpers.UiFactoryHelper;
 	import feathers.layout.AnchorLayout;
 	import feathers.layout.AnchorLayoutData;
 	import feathers.utils.math.roundToNearest;
@@ -49,7 +49,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 
 		protected function footerButtonFactory( label:String = null, customStyleName:String = null ):Button {
 
-			var footerButton:Button = UI_FactoryHelper.buttonFactory( label, customStyleName );
+			var footerButton:Button = UiFactoryHelper.buttonFactory( label, customStyleName );
 
 			// Postion button from top
 			footerButton.layoutData =
