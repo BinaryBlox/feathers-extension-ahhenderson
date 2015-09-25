@@ -1,7 +1,5 @@
 package feathers.extension.ahhenderson.themes
 {
-	import com.vizifit.common.ui.components.TitledTextBlock;
-	
 	import flash.geom.Rectangle;
 	
 	import ahhenderson.core.managers.ObjectPoolManager;
@@ -9,7 +7,6 @@ package feathers.extension.ahhenderson.themes
 	import feathers.controls.Button;
 	import feathers.controls.Header;
 	import feathers.controls.Label;
-	import feathers.controls.PageIndicator;
 	import feathers.controls.SpinnerList;
 	import feathers.controls.renderers.BaseDefaultItemRenderer;
 	import feathers.controls.renderers.DefaultListItemRenderer;

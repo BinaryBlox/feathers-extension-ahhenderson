@@ -1,15 +1,21 @@
-package feathers.extension.ahhenderson.controls.renderers  {
+package feathers.extension.ahhenderson.controls.renderers.base {
 
 	import flash.events.Event;
 	import flash.geom.Point;
+	
+	import ahhenderson.core.ui.layout.HorizontalAlign;
 	
 	import feathers.controls.renderers.LayoutGroupListItemRenderer;
 	import feathers.core.FeathersControl;
 	import feathers.core.IFeathersControl;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
+	import feathers.extension.ahhenderson.helpers.LayoutHelper;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.HorizontalLayoutData;
+	import feathers.layout.ILayout;
+	import feathers.layout.ILayoutData;
+	import feathers.layout.VerticalLayout;
 	import feathers.utils.math.roundToNearest;
 	
 	import starling.display.Image;
@@ -20,11 +26,11 @@ package feathers.extension.ahhenderson.controls.renderers  {
 	import starling.textures.TextureSmoothing;
 
 
-	public class TitledTextBlockItemRenderer extends LayoutGroupListItemRenderer {
+	public class BaseTitledTextBlockItemRenderer extends LayoutGroupListItemRenderer {
 
 		private static const HELPER_POINT:Point = new Point();
 
-		public function TitledTextBlockItemRenderer() {
+		public function BaseTitledTextBlockItemRenderer() {
 		}
 
 		protected var _accessory:IFeathersControl;
@@ -43,6 +49,16 @@ package feathers.extension.ahhenderson.controls.renderers  {
 
 		private var _accessoryPercentWidth:Number = NaN;
 
+		private var _fmgr:FeathersApplicationManager;
+
+		private var _titledTextBlockLayoutData:ILayoutData;
+
+		override public function dispose():void {
+
+			super.dispose();
+
+		}
+
 		public function get padding():Number {
 
 			return this._padding;
@@ -57,32 +73,58 @@ package feathers.extension.ahhenderson.controls.renderers  {
 			this.invalidate( INVALIDATION_FLAG_LAYOUT );
 		}
 
+		public function setTitledTextBlockLayout():VerticalLayout {
+
+			var verticalLayout:VerticalLayout = new VerticalLayout();
+			verticalLayout.firstGap = 10 * this.scaledResolution;
+			verticalLayout.lastGap = 10 * this.scaledResolution;
+			verticalLayout.gap = 10 * this.scaledResolution;
+			verticalLayout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_MIDDLE;
+			verticalLayout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_CENTER;
+
+			// Set Textblock layout type
+			this.controlLayoutData = new HorizontalLayoutData( 100, 100 );
+
+			return verticalLayout;
+		}
+
+		protected function addIconToDisplayList( icon:Image ):void {
+
+			if ( !icon ) {
+				return;
+			}
+
+			icon.smoothing = TextureSmoothing.NONE;
+			icon.width = roundToNearest( icon.width );
+			icon.height = roundToNearest( icon.height );
+
+			this.addChildAt( icon, 0 );
+		}
+
 		override protected function commitData():void {
 
 			if ( this._data && this._owner ) {
 				//this._label.text = this._data.title;
-				
-				
-				
+
 				this._titledTextBlock.title = this.data.title;
 				this._titledTextBlock.content = this.data.content;
 				this._accessoryPercentWidth = this.data.accessoryPercentWidth;
 
 				// Add icon
 				if ( this.data.icon && this.data.icon as Texture ) {
+ 
+					if ( this._icon && this.contains( this._icon )) {
 
-					this._icon = new Image(this.data.icon as Texture);
-				 
-					// If icon exists, add at beggining of renderer.
-					if ( !this.contains( this._icon )){
-						
-						Image(this._icon).smoothing = TextureSmoothing.NONE;
-						this._icon.width = roundToNearest(this._icon.width);
-						this._icon.height = roundToNearest(this._icon.height);
-						this.addChildAt( this._icon, 0 );
-						
+						if ( this._icon.texture !== ( this.data.icon as Texture )) {
+
+							this.removeChild( this._icon, true );
+							this._icon = new Image( this.data.icon as Texture );
+							addIconToDisplayList( this._icon );
+						}
+					} else {
+						this._icon = new Image( this.data.icon as Texture );
+						addIconToDisplayList( this._icon );
 					}
-
 				}
 
 				// Add accessory if it exists
@@ -96,63 +138,90 @@ package feathers.extension.ahhenderson.controls.renderers  {
 					const contentWidth:Number = this.CONTENT_PERCENT_WIDTH - accessoryWidth;
 
 					// Update layout based on accessory
-					this._titledTextBlock.layoutData = new HorizontalLayoutData( contentWidth, 100 ); 
+					this._titledTextBlock.layoutData = new HorizontalLayoutData( contentWidth, 100 );
 					FeathersControl( this.data.accessory ).layoutData = new HorizontalLayoutData( accessoryWidth, 100 );
-					 
+
 				}
 			} else {
 				//this._label.text = null;
-				this._titledTextBlock = null;
+				this._titledTextBlock.title = null;
+				this._titledTextBlock.content = null;
+
+				if ( this._icon && this.contains( this._icon )) {
+					this.removeChild( this._icon, true );
+				}
+
+					//this._titledTextBlock = null;
 			}
+		}
+
+		protected function defaultLayout():ILayout {
+
+			const horizontalLayout:HorizontalLayout = new HorizontalLayout();
+
+			horizontalLayout.firstGap = 10 * this.fmgr.theme.scaledResolution;
+			horizontalLayout.lastGap = 10 * this.fmgr.theme.scaledResolution;
+			horizontalLayout.gap = 15 * this.fmgr.theme.scaledResolution;
+			horizontalLayout.verticalAlign = HorizontalLayout.VERTICAL_ALIGN_MIDDLE;
+			horizontalLayout.horizontalAlign = HorizontalLayout.HORIZONTAL_ALIGN_LEFT;
+
+			horizontalLayout.padding = 10 * this.fmgr.theme.scaledResolution;
+
+			return horizontalLayout;
+		}
+
+		protected function get fmgr():FeathersApplicationManager {
+
+			if ( !_fmgr ) {
+				_fmgr = FeathersApplicationManager.instance;
+			}
+
+			return _fmgr;
 		}
 
 		override protected function initialize():void {
 
-		/*	this.addEventListener( TouchEvent.TOUCH, touchHandler );
-			this.addEventListener( Event.REMOVED_FROM_STAGE, removedFromStageHandler );*/
- 
+			/*	this.addEventListener( TouchEvent.TOUCH, touchHandler );
+				this.addEventListener( Event.REMOVED_FROM_STAGE, removedFromStageHandler );*/
+			super.initialize();
+
 			this._titledTextBlock = new TitledTextBlock();
-			this._titledTextBlock.layoutData = new HorizontalLayoutData( 100, 100 );
-			this._titledTextBlock.styleNameList.add(TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER);
-			
+			this._titledTextBlock.verticalLayout = setTitledTextBlockLayout();
+
+			this._titledTextBlock.layoutData = this.controlLayoutData;
+			this._titledTextBlock.styleNameList.add( TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER );
+
 			this.addChild( this._titledTextBlock );
 
 		}
-		
-		private var _fmgr:FeathersApplicationManager;
-		
-		protected function get fmgr():FeathersApplicationManager {
-			
-			if ( !_fmgr ) {
-				_fmgr = FeathersApplicationManager.instance;
-			}
-			
-			return _fmgr;
-		}
-
 
 		override protected function preLayout():void {
 
-			const horizontalLayout:HorizontalLayout = new HorizontalLayout();
-			
-			
-			horizontalLayout.firstGap = 10 * this.fmgr.theme.scaledResolution;
-			horizontalLayout.lastGap = 10 * this.fmgr.theme.scaledResolution; 
-			horizontalLayout.gap = 15 * this.fmgr.theme.scaledResolution; 
-			horizontalLayout.verticalAlign = HorizontalLayout.VERTICAL_ALIGN_MIDDLE;
-			horizontalLayout.horizontalAlign = HorizontalLayout.HORIZONTAL_ALIGN_LEFT;
-			
-			horizontalLayout.padding = 10 * this.fmgr.theme.scaledResolution;
-			
-			this.layout = horizontalLayout;
+			this.layout = defaultLayout();
 
-		
+		}
+
+		protected function get titledTextBlock():TitledTextBlock {
+
+			return _titledTextBlock;
+		}
+
+		protected function get controlLayoutData():ILayoutData {
+
+			return _titledTextBlockLayoutData;
+		}
+
+		protected function set controlLayoutData( value:ILayoutData ):void {
+
+			_titledTextBlockLayoutData = value;
 		}
 
 		private function removedFromStageHandler( event:Event ):void {
 
 			this.touchID = -1;
 		}
+		
+		
 
 		private function touchHandler( event:TouchEvent ):void {
 

@@ -20,8 +20,10 @@
     <classEntry path="feathers.extension.ahhenderson.controls.dialogs.LoadingDialog"/>
     <classEntry path="feathers.extension.ahhenderson.controls.interfaces.IPanelNavigatorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.renderers.DefaultCardItemRenderer"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.renderers.HorizontalTitledTextBlockItemRenderer"/>
     <classEntry path="feathers.extension.ahhenderson.controls.renderers.IntroCardItemRenderer"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.renderers.TitledTextBlockItemRenderer"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.renderers.VerticalTitledTextBlockItemRenderer"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.renderers.base.BaseTitledTextBlockItemRenderer"/>
     <classEntry path="feathers.extension.ahhenderson.controls.renderers.defaultCard.CardItem"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.DateSelectorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.LayoutGroupScreen"/>

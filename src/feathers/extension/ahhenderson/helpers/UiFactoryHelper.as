@@ -37,7 +37,7 @@ package feathers.extension.ahhenderson.helpers {
 
 			var image:ImageLoader = new ImageLoader(); //fmgr.pool.borrowObj(FeathersComponentPoolType.IMAGE_LOADER);
 
-			image.textureScale = fmgr.theme.scaledResolution;
+			image.textureScale = 1;//fmgr.theme.scaledResolution;
 
 			if ( noSmoothing )
 				image.smoothing = TextureSmoothing.NONE;

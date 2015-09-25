@@ -1447,7 +1447,7 @@ package feathers.extension.ahhenderson.themes {
 			 
 			DEFAULT_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 5, 5, 22, 22 );
 			 
-			POPUP_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 24, 24, 150, 150 );
+			POPUP_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, 24, 24, 150, 150 );
 			 
 			BUTTON_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defCtrlSize);
 			 
@@ -1993,7 +1993,7 @@ package feathers.extension.ahhenderson.themes {
 
 			this.setScrollerStyles( alert );
 
-			const backgroundSkin:Scale9Image = new Scale9Image( bg_popup, this.scale );
+			const backgroundSkin:Scale9Image = new Scale9Image( bg_popup, 1 );
 			alert.backgroundSkin = backgroundSkin;
 
 			alert.paddingTop = 0;
@@ -2002,7 +2002,7 @@ package feathers.extension.ahhenderson.themes {
 			alert.paddingLeft = this.gutterSize;
 			alert.gap = this.smallGutterSize;
 			alert.maxWidth = this.popUpFillSize;
-			alert.maxHeight = this.popUpFillSize;
+			//alert.maxHeight = this.popUpFillSize;
 
 			// Added
 			alert.paddingTop = 0;
@@ -2673,7 +2673,7 @@ package feathers.extension.ahhenderson.themes {
 			this.setListStyles( list );
 			var backgroundSkin:Quad = new Quad( this.gridSize, this.gridSize, 0x000000 );
 			list.backgroundSkin = backgroundSkin;
-			list.backgroundSkin.alpha = .6;
+			list.backgroundSkin.alpha = 0;
 		}
 
 		private var _itemRendererBackground:Quad;
