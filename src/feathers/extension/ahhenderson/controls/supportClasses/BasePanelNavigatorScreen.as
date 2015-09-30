@@ -15,9 +15,9 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 	import starling.display.DisplayObject;
 
 
-	public class AbstractPanelNavigatorScreen extends LayoutGroupScreen implements IPanelNavigatorScreen {
+	public class BasePanelNavigatorScreen extends LayoutGroupScreen implements IPanelNavigatorScreen {
 
-		public function AbstractPanelNavigatorScreen() {
+		public function BasePanelNavigatorScreen() {
 		}
 
 		public var btnBack:Button;
@@ -82,6 +82,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 			this.btnBack.label = "Back";
 			this.btnBack.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;
 
+			
 			this.fmgr.navigation.updateLeftHeaderItems( new <DisplayObject>[ this.btnBack ]);
 
 			//-----------------
@@ -93,6 +94,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 			//-----------------
 			// Panel  
 			//-----------------
+			this.panelNavigator.title = panelTitle;
 			initPanelContent();
 
 			///-----------------

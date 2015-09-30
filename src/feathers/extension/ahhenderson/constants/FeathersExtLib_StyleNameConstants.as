@@ -16,6 +16,8 @@ package feathers.extension.ahhenderson.constants
 		public static const FORM_LABEL_LIST_ITEM_RENDERER:String="form-label-list-item-renderer";
 		
 		public static const HEADER_PANEL__DARK_TITLE:String = "PANEL-HEADER--DARK_TITLE";
+		
+		public static const HEADER_TRANSPARENT:String = "HEADER_TRANSPARENT";
 		 
 		public static const HEADER_TITLED_NAVIGATOR_SCREEN:String = "header-titled-navigator-screen";
 		
@@ -36,6 +38,8 @@ package feathers.extension.ahhenderson.constants
 		public static const TEXT_INPUT__ALTERNATE_NAME_SEARCH_TEXT_INPUT_SEMI:String = "text-input--alternate-name-search-text-input-semi";
 		
 		public static const TEXT_INPUT__ALTERNATE_NAME_TEXT_INPUT_SEMI:String = "text-input--alternate-name-text-input-semi";
+		
+		public static const TEXT_INPUT__ALTERNATE_NAME_TEXT_INPUT_TRANSPARENT:String = "text-input--alternate-name-text-input-transparent";
 		
 		public static const SPINNER_LIST__ALTERNATE_OVERLAY:String = "spinner-list--alternate-overlay";
 	}

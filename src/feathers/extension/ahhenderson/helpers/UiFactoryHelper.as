@@ -134,13 +134,17 @@ package feathers.extension.ahhenderson.helpers {
 			
 		}
 
-		public static function defaultFooterFactor( title:String = null ):Header {
+		public static function defaultFooterFactory( title:String = null , customStyleName:String=null):Header {
 
-			var footer:Header = new Header();
-
-			if ( title )
+			var footer:Header = fmgr.pool.borrowObj( FeathersComponentPoolType.HEADER ) as Header;
+			
+			if ( customStyleName ){
+				footer.styleNameList.add( customStyleName );
+			}
+			 
+			if ( title ){
 				footer.title = title;
-
+			}
 			return footer;
 		}
 

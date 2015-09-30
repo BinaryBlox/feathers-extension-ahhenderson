@@ -74,7 +74,7 @@ package feathers.extension.ahhenderson.controls {
 			
 		}
 		
-		public function showScreen(  id:String, delay:int = 0 ):void {
+		public function showScreen(  id:String, delay:int = 0, transition:Function=null ):void {
 			_lastScreenId = this.navigator.activeScreenID;
 			
 			ScreenUtil.showScreen(this.navigator, id, delay);
@@ -95,6 +95,8 @@ package feathers.extension.ahhenderson.controls {
 
 			super.initialize();
 
+			//var bottomPadding:Number = 20 * this.scaledResolution;
+			
 			// Get navigator from pool
 			_navigator = UiFactoryHelper.screenNavigatorFactory();
 			_navigator.layoutData = new AnchorLayoutData( 0, 0, 0, 0 );

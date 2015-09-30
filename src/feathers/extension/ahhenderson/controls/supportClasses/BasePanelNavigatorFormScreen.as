@@ -12,9 +12,9 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 	import starling.display.DisplayObject;
 
 
-	public class AbstractPanelNavigatorFormScreen extends AbstractPanelNavigatorScreen implements IPanelNavigatorScreen {
+	public class BasePanelNavigatorFormScreen extends BasePanelNavigatorScreen implements IPanelNavigatorScreen {
 
-		public function AbstractPanelNavigatorFormScreen() {
+		public function BasePanelNavigatorFormScreen() {
 		}
 		 
  

@@ -2,10 +2,10 @@ package feathers.extension.ahhenderson.controls.screens {
 	
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_ThemeConstants;
 	import feathers.extension.ahhenderson.controls.screens.dateSelector.DateSelectorScreenConfig;
-	import feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorScreen;
+	import feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorScreen;
 	import feathers.layout.AnchorLayoutData;
  
-	public class DateSelectorScreen extends AbstractPanelNavigatorScreen {
+	public class DateSelectorScreen extends BasePanelNavigatorScreen {
 
 		include "../../_includes/_DateSelector.inc";
 		 

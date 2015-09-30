@@ -6,16 +6,11 @@ package feathers.extension.ahhenderson.managers
 	import ahhenderson.core.ui.enums.LayoutDirectionType;
 	import ahhenderson.core.util.StringUtil;
 	
-	import feathers.controls.Button;
 	import feathers.controls.Drawers;
-	import feathers.controls.Label;
 	import feathers.controls.ScreenNavigator;
-	import feathers.core.FeathersControl;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.controls.core.FeathersRootContainer;
 	import feathers.extension.ahhenderson.helpers.DialogHelper;
-	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
-	import feathers.extension.ahhenderson.util.FeathersPoolUtil;
 	import feathers.extension.ahhenderson.util.ScreenUtil;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 	
@@ -174,7 +169,7 @@ package feathers.extension.ahhenderson.managers
 		private var _fmgr:FeathersApplicationManager;
 		
 		
-		public function showScreen(id:String, resetHeader:Boolean= true):void
+		public function showScreen(id:String, resetHeader:Boolean= true, transition:Function=null):void
 		{ 
 			 
 			if(_isHeaderDocked != this._rootContainer.headerDockingMode)
@@ -198,8 +193,8 @@ package feathers.extension.ahhenderson.managers
 			}
 			
 			this.fmgr.logger.trace(this, "Showing screen with id: " + id);
-			
-			this._rootContainer.screenNavigator.showScreen(id);
+			 
+			this._rootContainer.screenNavigator.showScreen(id, transition);
 		}
   
 		public function toggleDrawer(location:LayoutDirectionType, duration:Number=NaN):void
@@ -270,6 +265,15 @@ package feathers.extension.ahhenderson.managers
 			if (title)
 				this._rootContainer.updateTitle(title);
 
+		}
+		
+		public function getHeaderHeight():Number{
+			
+			if(this._rootContainer.header){
+				return this._rootContainer.header.height;
+			}
+			
+			return NaN;
 		}
 	}
 }

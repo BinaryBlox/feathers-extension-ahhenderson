@@ -12,6 +12,7 @@ package feathers.extension.ahhenderson.themes.pool
 	import feathers.controls.SpinnerList;
 	import feathers.controls.TextInput;
 	
+	import starling.display.Quad;
 	import starling.events.Event;
 
 	public class BaseFlatThemePoolFunctions
@@ -48,6 +49,7 @@ package feathers.extension.ahhenderson.themes.pool
 		
 		public static function resetHeaderObject(input:Header):void{
 			 
+			input.backgroundSkin = null;
 			input.leftItems = input.rightItems = input.centerItems=null;
 			input.title = null;
 			input.titleAlign = Header.TITLE_ALIGN_CENTER;

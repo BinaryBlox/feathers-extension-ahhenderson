@@ -26,7 +26,8 @@ package feathers.extension.ahhenderson.util {
 
 			var displayTimer:CustomTimer = e.currentTarget as CustomTimer;
 
-			( displayTimer.TimerData.navigator as ScreenNavigator ).showScreen( displayTimer.TimerData.id );
+			( displayTimer.TimerData.navigator as ScreenNavigator ).showScreen( displayTimer.TimerData.id,
+				displayTimer.TimerData.transition);
 
 			displayTimer.removeEventListener( TimerEvent.TIMER_COMPLETE, onTimerComplete );
 			displayTimer = null;
@@ -37,7 +38,7 @@ package feathers.extension.ahhenderson.util {
 			navigator.removeScreen( id );
 		}
 
-		public static function showScreen( navigator:ScreenNavigator, id:String, delay:int = 0 ):void {
+		public static function showScreen( navigator:ScreenNavigator, id:String, delay:int = 0, transition:Function=null):void {
 
 			if ( delay > 0 ) {
 
@@ -46,13 +47,13 @@ package feathers.extension.ahhenderson.util {
 				displayTimer.TimerData = new Object();
 				displayTimer.TimerData.id = id;
 				displayTimer.TimerData.navigator = id;
-
+				displayTimer.TimerData.transition = transition;
 				displayTimer.start();
 
 				return;
 			}
 
-			navigator.showScreen( id );
+			navigator.showScreen( id, transition);;
 		}
 	/*private static function injectDPIProperty( obj:Object ):Object {
 		if ( obj && !obj.hasOwnProperty( "originalDPI" ))

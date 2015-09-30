@@ -7,6 +7,7 @@ package feathers.extension.ahhenderson.themes
 	import feathers.controls.Button;
 	import feathers.controls.Header;
 	import feathers.controls.Label;
+	import feathers.controls.Panel;
 	import feathers.controls.SpinnerList;
 	import feathers.controls.renderers.BaseDefaultItemRenderer;
 	import feathers.controls.renderers.DefaultListItemRenderer;
@@ -239,7 +240,7 @@ package feathers.extension.ahhenderson.themes
 		
 		protected function setPanelNavigatorStyles( styledControl:PanelNavigator ):void {
 			 
-			this.setPanelStyles(styledControl);
+			this.setCustomPanelStyles(styledControl);
 			
 		}
 		
@@ -293,12 +294,27 @@ package feathers.extension.ahhenderson.themes
 		
 		protected function setItemRendererFormLabelStyles(renderer:BaseDefaultItemRenderer):void{
 			
+			// Skin
+			var alteredScale:Number =1;
+			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			skinSelector.defaultValue = this.itemRendererUpSkinTextures;
+			skinSelector.defaultSelectedValue = this.itemRendererSelectedSkinTextures;
+			skinSelector.setValueForState( this.itemRendererSelectedSkinTextures, Button.STATE_DOWN, false );
+			skinSelector.displayObjectProperties =
+				{ width: this.itemRendererMinSize, height: this.itemRendererMinSize, textureScale: alteredScale };
+			
+			renderer.stateToSkinFunction = skinSelector.updateValue;
+			/*renderer.stateToSkinFunction = null;
+			renderer.defaultSkin = new Quad(10, 10, 0xFFFFFF);//this.itemRendererBackground; 
+			renderer.defaultSkin.alpha=1;*/ 
+			
 			// Text
-			renderer.defaultLabelProperties.elementFormat = this.largeDarkElementFormat;
-			renderer.downLabelProperties.elementFormat = this.largeDarkElementFormat; 
-			renderer.defaultSelectedLabelProperties.elementFormat = this.largeDarkElementFormat;
-			renderer.disabledLabelProperties.elementFormat = this.largeDisabledElementFormat;
-			 
+			renderer.defaultLabelProperties.elementFormat = this.itemRendererLabelFormatDark;
+			renderer.downLabelProperties.elementFormat = this.itemRendererLabelFormatDark; 
+			renderer.defaultSelectedLabelProperties.elementFormat = this.itemRendererLabelFormatDark;
+			renderer.disabledLabelProperties.elementFormat = this.itemRendererLabelFormatDark;
+			  
+			
 			// Dimensions
 			renderer.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;
 			renderer.paddingTop = renderer.paddingBottom = FeathersExtLib_ThemeConstants.CONTROL_GUTTER/2; 
@@ -374,6 +390,28 @@ package feathers.extension.ahhenderson.themes
 			
 			label.textRendererProperties.elementFormat = this.smallDarkElementFormat;
 			label.textRendererProperties.disabledElementFormat = this.smallDisabledElementFormat;
+		}
+		
+		//-------------------------
+		// Label
+		//-------------------------
+		/**
+		 * 
+		 * @param panel
+		 */
+		protected function setCustomPanelStyles( panel:Panel ):void {
+			
+			this.setScrollerStyles( panel );
+			
+			//panel.backgroundSkin = new Scale9Image( this.bg_popup, this.scale );
+			panel.backgroundSkin = new Quad(10,10, 0x000000);
+			panel.backgroundSkin.alpha =0;
+			
+			panel.paddingTop = 0;
+			panel.paddingRight = this.smallGutterSize;
+			panel.paddingBottom = this.smallGutterSize;
+			panel.paddingLeft = this.smallGutterSize;
+			
 		}
 		
 		//-------------------------

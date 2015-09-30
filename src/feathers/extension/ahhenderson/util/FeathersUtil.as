@@ -37,6 +37,7 @@ package feathers.extension.ahhenderson.util {
 		private static function constrainedCalloutFactory():Callout {
 
 			var callout:Callout = new Callout();
+			callout.topArrowGap=callout.bottomArrowGap=callout.rightArrowGap=callout.leftArrowGap=-2;
 			callout.closeOnTouchBeganOutside = true;
 			callout.closeOnTouchEndedOutside = true;
 			callout.closeOnKeys = new <uint>[ Keyboard.BACK, Keyboard.ESCAPE ];

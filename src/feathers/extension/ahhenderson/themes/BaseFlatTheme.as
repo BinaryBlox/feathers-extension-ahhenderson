@@ -27,7 +27,6 @@ package feathers.extension.ahhenderson.themes {
 
 	 
 	
-	import flash.geom.Point;
 	import flash.geom.Rectangle;
 	import flash.text.TextFormat;
 	import flash.text.engine.CFFHinting;
@@ -125,6 +124,8 @@ package feathers.extension.ahhenderson.themes {
 	 */
 	public class BaseFlatTheme extends BaseManagedTheme  {
 		 
+		protected static var ITEM_RENDERER_BACKGROUND_COLOR:uint = 0xFFFFFF;
+		
 		/**
 		 * 
 		 * @default 
@@ -136,6 +137,18 @@ package feathers.extension.ahhenderson.themes {
 		 * @default 
 		 */
 		protected static var LIGHT_TEXT_COLOR:uint = 0xe5e5e5;
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected static var ITEM_RENDERER_LABEL_COLOR_DARK:uint = 0x404040;
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected static var ITEM_RENDERER_LABEL_COLOR_LIGHT:uint = 0xFFFFFF;
 
 		/**
 		 * 
@@ -439,6 +452,21 @@ package feathers.extension.ahhenderson.themes {
 		
 		
 		
+		protected function get itemRendererBackground():Quad
+		{
+			
+			if(!_itemRendererBackground){
+				_itemRendererBackground =new Quad(this.itemRendererMinSize, this.itemRendererMinSize, ITEM_RENDERER_BACKGROUND_COLOR);
+			}
+			
+			return _itemRendererBackground;
+		}
+
+		protected function set itemRendererBackground(value:Quad):void
+		{
+			_itemRendererBackground = value;
+		}
+
 		override public function validateThemeConfiguration():String {
 
 			return super.validateThemeConfiguration();
@@ -692,6 +720,21 @@ package feathers.extension.ahhenderson.themes {
 		 * An ElementFormat used for Header components.
 		 */
 		protected var headerElementFormat:ElementFormat;
+		
+		/**
+		 * An ElementFormat used for Header components.
+		 */
+		protected var headerElementFormatBold:ElementFormat;
+		
+		/**
+		 * An ElementFormat used for Header components.
+		 */
+		protected var itemRendererLabelFormatDark:ElementFormat;
+		
+		/**
+		 * An ElementFormat used for Header components.
+		 */
+		protected var itemRendererLabelFormatLight:ElementFormat;
 
 		/**
 		 * 
@@ -1347,11 +1390,14 @@ package feathers.extension.ahhenderson.themes {
  
 
 			// THEME COLORS
+			ITEM_RENDERER_BACKGROUND_COLOR= getThemePropertyValue(this.themeProperties.ITEM_RENDERER_BACKGROUND_COLOR);
+			ITEM_RENDERER_LABEL_COLOR_DARK = getThemePropertyValue(this.themeProperties.ITEM_RENDERER_LABEL_COLOR_DARK);
+			ITEM_RENDERER_LABEL_COLOR_LIGHT = getThemePropertyValue(this.themeProperties.ITEM_RENDERER_LABEL_COLOR_LIGHT);
 			PRIMARY_BACKGROUND_COLOR = getThemePropertyValue(this.themeProperties.PRIMARY_BACKGROUND_COLOR);
-			LIGHT_TEXT_COLOR = getThemePropertyValue(this.themeProperties.LIGHT_TEXT_COLOR);
-			DARK_TEXT_COLOR = getThemePropertyValue(this.themeProperties.DARK_TEXT_COLOR);
+			LIGHT_TEXT_COLOR = getThemePropertyValue(this.themeProperties.LIGHT_TEXT_COLOR); 
 			SELECTED_TEXT_COLOR = getThemePropertyValue(this.themeProperties.SELECTED_TEXT_COLOR);
 			DISABLED_TEXT_COLOR = getThemePropertyValue(this.themeProperties.DISABLED_TEXT_COLOR);
+			DARK_TEXT_COLOR = getThemePropertyValue(this.themeProperties.DARK_TEXT_COLOR);
 			DARK_DISABLED_TEXT_COLOR = getThemePropertyValue(this.themeProperties.DARK_DISABLED_TEXT_COLOR);
 			LIST_BACKGROUND_COLOR = getThemePropertyValue(this.themeProperties.LIST_BACKGROUND_COLOR);
 			TAB_DISABLED_BACKGROUND_COLOR = getThemePropertyValue(this.themeProperties.TAB_DISABLED_BACKGROUND_COLOR);
@@ -1461,7 +1507,7 @@ package feathers.extension.ahhenderson.themes {
 			 
 			FORWARD_BUTTON_SCALE3_REGION2 = 102;
 			 
-			ITEM_RENDERER_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 24, 24, 546, 38 );
+			ITEM_RENDERER_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, 546, this.controlSize );
 			 
 			INSET_ITEM_RENDERER_FIRST_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 13, 13, 3, 70 );
 			 
@@ -1560,25 +1606,27 @@ package feathers.extension.ahhenderson.themes {
 									 RenderingMode.CFF,
 									 CFFHinting.NONE );
  
-			
-			this.headerElementFormat = new ElementFormat( this.boldFontDescription, this.extraLargeFontSize, LIGHT_TEXT_COLOR );
-			this.headerElementFormatDark = new ElementFormat( this.boldFontDescription, this.extraLargeFontSize, DARK_TEXT_COLOR );
+			this.itemRendererLabelFormatDark = new ElementFormat( this.regularFontDescription, this.mediumFontSize, ITEM_RENDERER_LABEL_COLOR_DARK );
+			this.itemRendererLabelFormatLight = new ElementFormat( this.regularFontDescription, this.mediumFontSize, ITEM_RENDERER_LABEL_COLOR_LIGHT );
+			this.headerElementFormatBold = new ElementFormat( this.boldFontDescription, this.extraLargeFontSize, LIGHT_TEXT_COLOR );
+			this.headerElementFormat = new ElementFormat( this.regularFontDescription, this.extraLargeFontSize, LIGHT_TEXT_COLOR );
+			this.headerElementFormatDark = new ElementFormat( this.regularFontDescription, this.extraLargeFontSize, DARK_TEXT_COLOR );
 
-			this.darkUIElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, DARK_TEXT_COLOR );
-			this.lightUIElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, LIGHT_TEXT_COLOR );
-			this.selectedUIElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, SELECTED_TEXT_COLOR );
-			this.lightUIDisabledElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, DISABLED_TEXT_COLOR );
-			this.darkUIDisabledElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, DARK_DISABLED_TEXT_COLOR );
+			this.darkUIElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, DARK_TEXT_COLOR );
+			this.lightUIElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, LIGHT_TEXT_COLOR );
+			this.selectedUIElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, SELECTED_TEXT_COLOR );
+			this.lightUIDisabledElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, DISABLED_TEXT_COLOR );
+			this.darkUIDisabledElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, DARK_DISABLED_TEXT_COLOR );
 
 			this.actionElementFormat = new ElementFormat( this.regularFontDescription, smallFontSize, ACTION_COLOR );
-			this.actionUIElementFormat = new ElementFormat( this.boldFontDescription, smallFontSize, ACTION_COLOR );
+			this.actionUIElementFormat = new ElementFormat( this.regularFontDescription, smallFontSize, ACTION_COLOR );
 
-			this.largeUIDarkElementFormat = new ElementFormat( this.boldFontDescription, this.mediumFontSize, DARK_TEXT_COLOR );
-			this.largeUILightElementFormat = new ElementFormat( this.boldFontDescription, this.mediumFontSize, LIGHT_TEXT_COLOR );
-			this.largeUISelectedElementFormat = new ElementFormat( this.boldFontDescription, this.mediumFontSize, SELECTED_TEXT_COLOR );
+			this.largeUIDarkElementFormat = new ElementFormat( this.regularFontDescription, this.mediumFontSize, DARK_TEXT_COLOR );
+			this.largeUILightElementFormat = new ElementFormat( this.regularFontDescription, this.mediumFontSize, LIGHT_TEXT_COLOR );
+			this.largeUISelectedElementFormat = new ElementFormat( this.regularFontDescription, this.mediumFontSize, SELECTED_TEXT_COLOR );
 			this.largeUIDarkDisabledElementFormat =
 				new ElementFormat( this.boldFontDescription, this.largeFontSize, DARK_DISABLED_TEXT_COLOR );
-			this.largeUILightDisabledElementFormat = new ElementFormat( this.boldFontDescription, this.largeFontSize, DISABLED_TEXT_COLOR );
+			this.largeUILightDisabledElementFormat = new ElementFormat( this.regularFontDescription, this.largeFontSize, DISABLED_TEXT_COLOR );
 
 			this.darkElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, DARK_TEXT_COLOR );
 			this.lightElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, LIGHT_TEXT_COLOR );
@@ -1731,7 +1779,8 @@ package feathers.extension.ahhenderson.themes {
 			
 			//header
 			this.getStyleProviderForClass( Header ).defaultStyleFunction = this.setHeaderStyles;
-
+			this.getStyleProviderForClass(Header).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.HEADER_TRANSPARENT,
+				this.setHeaderWithoutBackgroundStyles);
 			
 			//header and footer renderers for grouped list
 			this.getStyleProviderForClass( DefaultGroupedListHeaderOrFooterRenderer ).defaultStyleFunction =
@@ -1799,7 +1848,7 @@ package feathers.extension.ahhenderson.themes {
 			//panel
 			this.getStyleProviderForClass( Panel ).defaultStyleFunction = this.setPanelStyles;
 			this.getStyleProviderForClass( Header ).setFunctionForStyleName( Panel.DEFAULT_CHILD_NAME_HEADER,
-																			 this.setAlertHeaderWithoutBackgroundStyles );
+																			 this.setHeaderBoldFontStyles );
 
 			 
 			//panel screen
@@ -1865,14 +1914,16 @@ package feathers.extension.ahhenderson.themes {
 			this.getStyleProviderForClass( TextInput ).defaultStyleFunction = this.setTextInputStyles;
 			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName( TextInput.ALTERNATE_NAME_SEARCH_TEXT_INPUT,
 																				this.setSearchTextInputStyles );
-			 
+			  
+			
 			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName(  FeathersExtLib_StyleNameConstants.TEXT_INPUT__ALTERNATE_NAME_TEXT_INPUT_SEMI,
 				this.setTextInputSemiTransparentStyles);
 			
 			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName(  FeathersExtLib_StyleNameConstants.TEXT_INPUT__ALTERNATE_NAME_SEARCH_TEXT_INPUT_SEMI,
 				this.setSearchTextInputSemiStyles );
  
-			
+			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName(  FeathersExtLib_StyleNameConstants.TEXT_INPUT__ALTERNATE_NAME_TEXT_INPUT_TRANSPARENT,
+				this.setTextInputTransparentStyles);
 			
 			//text area
 			this.getStyleProviderForClass( TextArea ).defaultStyleFunction = this.setTextAreaStyles;
@@ -2288,25 +2339,26 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function setCalloutStyles( callout:Callout ):void {
 
-			var backgroundSkin:Scale9Image = new Scale9Image( this.bg_popup, this.scale );
+			var alternateScale:Number = 1;
+			var backgroundSkin:Scale9Image = new Scale9Image( this.bg_popup, alternateScale );
 			backgroundSkin.width = this.calloutBackgroundMinSize;
 			backgroundSkin.height = this.calloutBackgroundMinSize;
 			callout.backgroundSkin = backgroundSkin;
 
 			var topArrowSkin:Image = new Image( this.calloutTopArrowSkinTexture );
-			topArrowSkin.scaleX = topArrowSkin.scaleY = this.scale;
+			topArrowSkin.scaleX = topArrowSkin.scaleY = alternateScale;
 			callout.topArrowSkin = topArrowSkin;
 
 			var rightArrowSkin:Image = new Image( this.calloutRightArrowSkinTexture );
-			rightArrowSkin.scaleX = rightArrowSkin.scaleY = this.scale;
+			rightArrowSkin.scaleX = rightArrowSkin.scaleY = alternateScale;
 			callout.rightArrowSkin = rightArrowSkin;
 
 			var bottomArrowSkin:Image = new Image( this.calloutBottomArrowSkinTexture );
-			bottomArrowSkin.scaleX = bottomArrowSkin.scaleY = this.scale;
+			bottomArrowSkin.scaleX = bottomArrowSkin.scaleY = alternateScale;
 			callout.bottomArrowSkin = bottomArrowSkin;
 
 			var leftArrowSkin:Image = new Image( this.calloutLeftArrowSkinTexture );
-			leftArrowSkin.scaleX = leftArrowSkin.scaleY = this.scale;
+			leftArrowSkin.scaleX = leftArrowSkin.scaleY = alternateScale;
 			callout.leftArrowSkin = leftArrowSkin;
 
 			callout.padding = this.gutterSize;
@@ -2683,11 +2735,9 @@ package feathers.extension.ahhenderson.themes {
 			setItemRendererStyles(renderer);
 			
 		 
-			if(!_itemRendererBackground)
-				_itemRendererBackground =new Quad(this.itemRendererMinSize, this.itemRendererMinSize, 0x000000);
 			
 			renderer.stateToSkinFunction = null;
-			//renderer.defaultSkin = _itemRendererBackground;
+			renderer.defaultSkin = this.itemRendererBackground;
 			//renderer.defaultSkin.alpha=.5;
 			renderer.accessoryPosition = DefaultListItemRenderer.ACCESSORY_POSITION_BOTTOM;
 			renderer.iconPosition = Button.ICON_POSITION_TOP;
@@ -2705,12 +2755,13 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function setItemRendererStyles( renderer:BaseDefaultItemRenderer ):void {
 
+			var alteredScale:Number =1;
 			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
 			skinSelector.defaultValue = this.itemRendererUpSkinTextures;
 			skinSelector.defaultSelectedValue = this.itemRendererSelectedSkinTextures;
 			skinSelector.setValueForState( this.itemRendererSelectedSkinTextures, Button.STATE_DOWN, false );
 			skinSelector.displayObjectProperties =
-				{ width: this.itemRendererMinSize, height: this.itemRendererMinSize, textureScale: this.scale };
+				{ width: this.itemRendererMinSize, height: this.itemRendererMinSize, textureScale: alteredScale };
 			/*skinSelector.displayObjectProperties =
 				{
 					width: this.gridSize,
@@ -2949,6 +3000,8 @@ package feathers.extension.ahhenderson.themes {
 			header.gap = this.smallGutterSize;
 			header.titleGap = this.smallGutterSize;
 			
+			header.backgroundSkin = new Quad( 10, 10, 0x000000 );
+			header.backgroundSkin.alpha = 0;
 			//header.titleProperties.elementFormat = this.headerElementFormat;
 			
 			header.titleProperties.elementFormat = this.headerElementFormatDark;
@@ -2979,6 +3032,27 @@ package feathers.extension.ahhenderson.themes {
 			header.useExtraPaddingForOSStatusBar = true;
 		}
 
+		protected function setHeaderBoldFontStyles( header:Header ):void {
+			setHeaderStyles(header);
+			
+			header.minWidth =  this.headerSize;
+			header.minHeight =  this.headerSize;
+			
+			header.padding = 0;//this.smallGutterSize;
+			header.gap = 0;//this.smallGutterSize;
+			header.titleGap = this.smallGutterSize;
+			header.paddingLeft=2 * fmgr.theme.scaledResolution;
+			header.paddingRight=2 * fmgr.theme.scaledResolution;
+			header.paddingTop = 2 * fmgr.theme.scaledResolution;
+			header.paddingBottom = 2 * fmgr.theme.scaledResolution;
+			header.backgroundSkin = new Quad( 10, 10, 0x000000 );
+			header.backgroundSkin.alpha=.2;
+			
+			header.titleProperties.elementFormat = this.headerElementFormatBold;
+		}
+		
+		
+		
 		//-------------------------
 		// PickerList
 		//-------------------------
@@ -2996,7 +3070,10 @@ package feathers.extension.ahhenderson.themes {
 				centerStage.marginTop = centerStage.marginRight = centerStage.marginBottom = centerStage.marginLeft = this.gutterSize;
 				list.popUpContentManager = centerStage;
 			}
+			
+			var alteredScale:Number = 1;
 
+			
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.verticalAlign = VerticalLayout.VERTICAL_ALIGN_BOTTOM;
 			layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;
@@ -3007,10 +3084,10 @@ package feathers.extension.ahhenderson.themes {
 			list.listProperties.verticalScrollPolicy = List.SCROLL_POLICY_ON;
 
 			if ( DeviceCapabilities.isTablet( Starling.current.nativeStage )) {
-				list.listProperties.minWidth = 150 * this.scale; //this.popUpFillSize;
+				list.listProperties.minWidth = 150 * this.contentScaleFactor; //this.popUpFillSize;
 				list.listProperties.maxHeight = this.popUpFillSize;
 			} else {
-				var backgroundSkin:Scale9Image = new Scale9Image( this.bg_null, this.scale );
+				var backgroundSkin:Scale9Image = new Scale9Image( this.bg_null, this.contentScaleFactor );
 				backgroundSkin.width = this.gutterSize;
 				backgroundSkin.height = this.gutterSize;
 				list.listProperties.backgroundSkin = backgroundSkin;
@@ -3056,7 +3133,7 @@ package feathers.extension.ahhenderson.themes {
 			skinSelector.defaultValue = this.itemRendererUpSkinTextures;
 			skinSelector.setValueForState( this.itemRendererSelectedSkinTextures, Button.STATE_DOWN, false );
 			skinSelector.displayObjectProperties =
-				{ width: this.itemRendererMinSize, height: this.itemRendererMinSize, textureScale: this.scale };
+				{ width: this.itemRendererMinSize, height: this.itemRendererMinSize, textureScale: this.contentScaleFactor };
 			/*skinSelector.displayObjectProperties =
 				{
 					width: this.gridSize,
@@ -3066,7 +3143,7 @@ package feathers.extension.ahhenderson.themes {
 			renderer.stateToSkinFunction = skinSelector.updateValue;
 
 			var defaultSelectedIcon:Image = new Image( this.pickerListItemSelectedIconTexture );
-			defaultSelectedIcon.scaleX = defaultSelectedIcon.scaleY = this.scale * this.adHocScaleReduction;
+			defaultSelectedIcon.scaleX = defaultSelectedIcon.scaleY = this.contentScaleFactor;
 			renderer.defaultSelectedIcon = defaultSelectedIcon;
 
 			var defaultIcon:Quad = new Quad( defaultSelectedIcon.width, defaultSelectedIcon.height, 0xff00ff );
@@ -3328,7 +3405,7 @@ package feathers.extension.ahhenderson.themes {
 		protected function setHorizontalSimpleScrollBarThumbStyles( thumb:Button ):void {
 
 			var defaultSkin:Scale3Image =
-				new Scale3Image( this.horizontalScrollBarThumbSkinTextures, this.scale * this.adHocScaleReduction );
+				new Scale3Image( this.horizontalScrollBarThumbSkinTextures, this.contentScaleFactor );
 			defaultSkin.width = this.largeGutterSize;
 			thumb.defaultSkin = defaultSkin;
 			thumb.hasLabelTextRenderer = false;
@@ -3340,7 +3417,7 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function setVerticalSimpleScrollBarThumbStyles( thumb:Button ):void {
 
-			var defaultSkin:Scale3Image = new Scale3Image( this.verticalScrollBarThumbSkinTextures, this.scale * this.adHocScaleReduction );
+			var defaultSkin:Scale3Image = new Scale3Image( this.verticalScrollBarThumbSkinTextures, this.contentScaleFactor );
 			defaultSkin.height = this.largeGutterSize;
 			thumb.defaultSkin = defaultSkin;
 			thumb.hasLabelTextRenderer = false;
@@ -3557,6 +3634,7 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function setBaseTextInputStyles( input:TextInput ):void {
  
+			var alteredScale:Number =1
 			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
 			/*skinSelector.defaultValue = this.backgroundInsetSkinTextures;
 			skinSelector.setValueForState(this.backgroundDisabledSkinTextures, TextInput.STATE_DISABLED);
@@ -3568,7 +3646,7 @@ package feathers.extension.ahhenderson.themes {
 
 			skinSelector.displayObjectProperties = { width: this.wideControlSize, 
 				height: this.controlSize, 
-				textureScale: this.scale * this.adHocScaleReduction};
+				textureScale: alteredScale};
 			
 			input.stateToSkinFunction = skinSelector.updateValue;
 
@@ -3605,6 +3683,25 @@ package feathers.extension.ahhenderson.themes {
 
 			this.setBaseTextInputStyles( input );
 			
+			
+		}
+		
+		/**
+		 * 
+		 * @param input
+		 */
+		protected function setTextInputTransparentStyles( input:TextInput ):void {
+			
+			this.setBaseTextInputStyles( input );
+			
+			input.stateToSkinFunction = null;
+			
+			input.textEditorProperties.color =DARK_TEXT_COLOR;
+			input.textEditorProperties.disabledColor = DARK_DISABLED_TEXT_COLOR;
+			 
+			input.promptProperties.alpha=.8;
+			input.promptProperties.elementFormat = this.darkUIElementFormat;
+			input.promptProperties.disabledElementFormat = this.darkUIDisabledElementFormat;
 			
 		}
 		

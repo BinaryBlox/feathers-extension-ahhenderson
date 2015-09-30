@@ -30,10 +30,10 @@
     <classEntry path="feathers.extension.ahhenderson.controls.screens.ScrollContainerScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.TitledNavigatorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.dateSelector.DateSelectorScreenConfig"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorFormScreen"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorFormScreenMediator"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorScreen"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.AbstractPanelNavigatorScreenMediator"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorFormScreen"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorFormScreenMediator"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorScreen"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorScreenMediator"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.GroupedListDataViewPort"/>
     <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_NotificationConstants"/>
     <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_SessionPropertyKeys"/>
@@ -86,6 +86,7 @@
     <classEntry path="feathers.extension.ahhenderson.util.FeathersPoolUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.popup.base.PopUpManagerBase"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>
