@@ -77,7 +77,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 			this.layout = new AnchorLayout();
 
 			this.btnBack = this.fmgr.pool.borrowObj( FeathersComponentPoolType.BUTTON );
-			this.btnBack.styleNameList.add( Button.ALTERNATE_NAME_QUIET_BUTTON );
+			this.btnBack.styleNameList.add( Button.ALTERNATE_STYLE_NAME_QUIET_BUTTON );
 			this.btnBack.defaultIcon = AssetHelper.getImage( FlatThemeCustomTextures.ICONS_CONTROL_BUTTON_BACK );
 			this.btnBack.label = "Back";
 			this.btnBack.horizontalAlign = Button.HORIZONTAL_ALIGN_LEFT;

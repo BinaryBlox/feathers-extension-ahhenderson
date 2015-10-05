@@ -1,5 +1,3 @@
-
-
 /*
 Feathers
 Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
@@ -22,6 +20,7 @@ package feathers.core
 	import feathers.events.FeathersEventType;
 	import feathers.layout.ILayoutData;
 	import feathers.layout.ILayoutDisplayObject;
+	import feathers.motion.Fade;
 	import feathers.skins.IStyleProvider;
 	import feathers.utils.display.getDisplayObjectDepthFromStage;
 	
@@ -385,6 +384,7 @@ package feathers.core
 		 */
 		protected function get defaultStyleProvider():IStyleProvider
 		{
+			
 			return null;
 		}
 		
@@ -2140,7 +2140,6 @@ package feathers.core
 			this._styleProvider.applyStyles(this);
 		}
 		
-		
 		//////////////////////////////////////
 		// Included from ahhenderson
 		//////////////////////////////////////
@@ -2154,3 +2153,5 @@ package feathers.core
 		include "_includes/_FacadeViewIncludes.inc"
 	}
 }
+
+

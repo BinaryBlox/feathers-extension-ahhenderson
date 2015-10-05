@@ -19,11 +19,9 @@ package feathers.extension.ahhenderson.helpers {
 	import feathers.controls.renderers.IListItemRenderer;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
-	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.layout.AnchorLayoutData;
-	import feathers.layout.ILayoutData;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 	
 	import starling.textures.TextureSmoothing;
@@ -108,7 +106,7 @@ package feathers.extension.ahhenderson.helpers {
 		public static function scrollingFooterFactor():ScrollContainer {
 
 			var container:ScrollContainer = new ScrollContainer();
-			container.styleNameList.add( ScrollContainer.ALTERNATE_NAME_TOOLBAR );
+			container.styleNameList.add( ScrollContainer.ALTERNATE_STYLE_NAME_TOOLBAR );
 			container.horizontalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
 			container.verticalScrollPolicy = ScrollContainer.SCROLL_POLICY_OFF;
 			return container;

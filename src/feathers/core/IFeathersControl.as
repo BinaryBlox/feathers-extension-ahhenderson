@@ -1,6 +1,6 @@
 /*
 Feathers
-Copyright 2012-2015 Joshua Tynjala. All Rights Reserved.
+Copyright 2012-2015 Bowler Hat LLC. All Rights Reserved.
 
 This program is free software. You can redistribute and/or modify it in
 accordance with the terms of the accompanying license agreement.
@@ -8,9 +8,9 @@ accordance with the terms of the accompanying license agreement.
 package feathers.core
 {
 	import feathers.skins.IStyleProvider;
-
+	
 	import flash.geom.Rectangle;
-
+	
 	/**
 	 * Dispatched after the control has been initialized, but before it has
 	 * drawn for the first time. Typically, the component's children will have
@@ -34,7 +34,7 @@ package feathers.core
 	 * @eventType feathers.events.FeathersEventType.INITIALIZE
 	 */
 	[Event(name="initialize",type="starling.events.Event")]
-
+	
 	/**
 	 * Dispatched after the component has validated for the first time. Both
 	 * <code>initialize()</code> and <code>draw()</code> will have been called,
@@ -58,7 +58,7 @@ package feathers.core
 	 * @eventType feathers.events.FeathersEventType.CREATION_COMPLETE
 	 */
 	[Event(name="creationComplete",type="starling.events.Event")]
-
+	
 	/**
 	 * Dispatched when the width or height of the control changes.
 	 *
@@ -80,7 +80,7 @@ package feathers.core
 	 * @eventType feathers.events.FeathersEventType.RESIZE
 	 */
 	[Event(name="resize",type="starling.events.Event")]
-
+	
 	/**
 	 * Basic interface for Feathers UI controls. A Feathers control must also
 	 * be a Starling display object.

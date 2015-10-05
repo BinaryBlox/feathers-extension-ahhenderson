@@ -10,7 +10,6 @@ package feathers.extension.ahhenderson.managers.popup.base {
 	import flash.geom.Point;
 	
 	import ahhenderson.core.mvc.patterns.facade.FacadeMessage;
-	import ahhenderson.core.mvc.patterns.facade.FacadeMessageFilter;
 	import ahhenderson.core.mvc.patterns.facade.GlobalFacade;
 	import ahhenderson.core.ui.constants.MenuConstants;
 	
@@ -19,11 +18,12 @@ package feathers.extension.ahhenderson.managers.popup.base {
 	import feathers.core.IValidating;
 	import feathers.extension.ahhenderson.helpers.DialogHelper;
 	import feathers.extension.ahhenderson.interfaces._deprecate.IMenu;
+	import feathers.extension.ahhenderson.interfaces.IPopUpExtendedContent;
 	import feathers.extension.ahhenderson.managers.enums.MenuPosition;
 	import feathers.extension.ahhenderson.managers.events.MenuEvent;
+	import feathers.extension.ahhenderson.managers.events.PopUpContentEvent;
 	
 	import starling.display.DisplayObject;
-	import starling.display.Quad;
 	import starling.events.Event;
 	import starling.events.ResizeEvent;
 	import starling.events.TouchEvent;
@@ -31,32 +31,23 @@ package feathers.extension.ahhenderson.managers.popup.base {
 
 	public class MenuPopUpManagerBase extends PopUpManagerBase implements IPopUpContentManager {
 
-		/**
-		 * @private
-		 */
-		private static const HELPER_POINT:Point = new Point();
- 
+		 
 
 		public function MenuPopUpManagerBase() {
 
 			super();
 		}
-
-		 
-
-		
  
-		protected var _isMenuVisible:Boolean;
   
-		protected var _position:MenuPosition;
+  
+		
 
 		override public function close():void {
 
-			_isMenuVisible = false;
-			this.isAnimating = false;
+			this.isContentVisible = false; 
 
-			if ( this.content && ( this.content is IMenu )) {
-				IMenu( this.content ).removeEventListener( MenuEvent.MENU_ITEM_TRIGGERED, onMenuItemTriggered );
+			if ( this.content && ( this.content is IPopUpExtendedContent )) {
+				IMenu( this.content ).removeEventListener( PopUpContentEvent.CONTENT_ITEM_TRIGGERED, onContentItemTriggered );
 			}
 
 			super.close();
@@ -65,10 +56,10 @@ package feathers.extension.ahhenderson.managers.popup.base {
 		 
 		 
 
-		override public function open( content:DisplayObject, source:DisplayObject ):void {
+		/*override public function open( content:DisplayObject, source:DisplayObject ):void {
  
-			if ( !_position ) {
-				_position = MenuPosition.BOTTOM_MENU;
+			if ( !this.contentPosition ) {
+				this.contentPosition = MenuPosition.BOTTOM_MENU;
 			}
  
 			super.open( content, source );
@@ -76,31 +67,27 @@ package feathers.extension.ahhenderson.managers.popup.base {
 			// Initialize menu funcs (if any)
 			IMenu( content ).initializeMenu();
 			
-			IMenu( content ).addEventListener( MenuEvent.MENU_ITEM_TRIGGERED, onMenuItemTriggered );
+			IMenu( content ).addEventListener( MenuEvent.MENU_ITEM_TRIGGERED, onContentItemTriggered );
 
-		}
+		}*/
 
-		public function openMenu( position:MenuPosition, content:DisplayObject, source:DisplayObject, duration:Number = .15 ):void {
+		/*public function openMenu( position:MenuPosition, content:DisplayObject, source:DisplayObject, duration:Number = .15 ):void {
 
 			if ( !( content is IMenu ))
 				return;
 
 			// Set menu position
 			this.duration = duration;
-			_position = position;
+			this.contentPosition = position;
 
 			// Open
 			open( content, source );
 
-		}
+		}*/
 
-		protected function hideContent( type:MenuPosition, message:FacadeMessage = null ):void {
+		 
 
-			DialogHelper.showAlert( "Most Override...", "BaseMenuPopUpMgr.hideContent" );
-
-		}
-
-		override protected function layout():void {
+		/*override protected function layout():void {
 
 			if ( !( this.content is IFeathersControl )) {
 				throw new TypeError("The menu content is not valid");
@@ -109,22 +96,15 @@ package feathers.extension.ahhenderson.managers.popup.base {
 			this.content.y = 1;
 			
 			//------ Prep screen for layout  
-			layoutContentInternal( _position );
+			layoutContentInternal( this.contentPosition );
 
 			//------ Prep screen for display  
-			showContentInternal( _position );
-		}
+			showContentInternal( this.contentPosition );
+		}*/
 
-		protected function layoutContent( type:MenuPosition ):void {
-
-			DialogHelper.showAlert( "Most Override...", "BaseMenuPopUpMgr.layoutContent" );
-
-		}
+		 
 	 
-		override protected function onCloseTouchOutOfBounds():void {
-
-			this.hideContentLocal( _position );
-		}
+	 
  
 		override protected function content_resizeHandler(event:Event):void 
 		{
@@ -152,7 +132,7 @@ package feathers.extension.ahhenderson.managers.popup.base {
 			}
 
 			// Reset 
-			_isMenuVisible = false;
+			this.isContentVisible = false;
 			this.isAnimating = false;
 			this.popUpCloseMessage  = null;
  
@@ -160,16 +140,16 @@ package feathers.extension.ahhenderson.managers.popup.base {
 			this.close();
 		}
 
-		protected function onMenuItemTriggered( e:Event ):void {
+		/*protected function onContentItemTriggered( e:Event ):void {
 
 			if ( e.data is FacadeMessage ) {
-				hideContentLocal( _position, e.data as FacadeMessage );
+				hideContentLocal( this.contentPosition, e.data as FacadeMessage );
 
 				return;
 			}
 
-			hideContentLocal( _position, null );
-		}
+			hideContentLocal( this.contentPosition, null );
+		}*/
 
 		protected function onMenuOpenComplete():void {
 
@@ -190,7 +170,7 @@ package feathers.extension.ahhenderson.managers.popup.base {
 			//IMenu(this.content).defaultContent.visible = true; 
 
 			// Set visible state.
-			_isMenuVisible = true;
+			this.isContentVisible = true;
 			this.isAnimating = false;
 		}
 
@@ -198,46 +178,18 @@ package feathers.extension.ahhenderson.managers.popup.base {
 			this.close();
 		}
 		 
-		override protected function stage_touchHandler(event:TouchEvent):void{
-			
-			if ( event.interactsWith( this.content ) || this.isAnimating ) {
-				return;
-			}
-			
-			super.onStageTouchHandler( event );
-		}
+		
 	 
 
 		protected function resetContent():void {
 
 		}
 
-		protected function showContent( type:MenuPosition ):void {
+	 
 
-			DialogHelper.showAlert( "Most Override...", "BaseMenuPopUpMgr.showContent" );
+		/*private function hideContentLocal( type:MenuPosition, message:FacadeMessage = null ):void {
 
-		}
-
-		protected function updateContentProperties():void {
-
-			DialogHelper.showAlert( "Most Override...", "BaseMenuPopUpMgr.updateContentProperties" );
-		}
-
-		protected function updateContentTransparency( alpha:Number = 0 ):void {
-
-			DialogHelper.showAlert( "Most Override...", "BaseMenuPopUpMgr.updateContentTransparency" );
-
-		}
-
-		protected function updateContentVisibility( visible:Boolean ):void {
-
-			DialogHelper.showAlert( "Most Override...", "BaseMenuPopUpMgr.updateContentVisibility" );
-
-		}
-
-		private function hideContentLocal( type:MenuPosition, message:FacadeMessage = null ):void {
-
-			if ( !_isMenuVisible )
+			if ( !this.isContentVisible )
 				return;
 
 			// Remove touch during transition.  
@@ -257,9 +209,9 @@ package feathers.extension.ahhenderson.managers.popup.base {
 			}
 			
 			hideContent( type, message );
-		}
+		}*/
 
-		private function layoutContentInternal( type:MenuPosition ):void {
+		/*private function layoutContentInternal( type:MenuPosition ):void {
 
 			//------ Prep screen for layout 
 			if ( this.content is IValidating )
@@ -270,12 +222,12 @@ package feathers.extension.ahhenderson.managers.popup.base {
 
 		private function showContentInternal( type:MenuPosition ):void {
 
-			if ( _isMenuVisible )
+			if ( this.isContentVisible )
 				return;
 
 			showContent( type );
 
-		}
+		}*/
 
 		
 	}

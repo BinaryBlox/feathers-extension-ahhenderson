@@ -611,5 +611,18 @@ package feathers.extension.ahhenderson.controls.renderers {
 			}
 			HELPER_TOUCHES_VECTOR.length = 0;
 		}
+		
+		public function get factoryID():String
+		{
+			// TODO Auto Generated method stub
+			return null;
+		}
+		
+		public function set factoryID(value:String):void
+		{
+			// TODO Auto Generated method stub
+			
+		}
+		
 	}
 }

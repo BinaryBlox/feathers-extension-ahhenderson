@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
+<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="feathers.controls.Header"/>
+    <classEntry path="feathers.controls.popups.VerticalCenteredPopUpContentManager"/>
     <classEntry path="feathers.controls.renderers.BaseDefaultItemRenderer"/>
     <classEntry path="feathers.core.FeathersControl"/>
     <classEntry path="feathers.core.IFeathersControl"/>
@@ -55,6 +56,8 @@
     <classEntry path="feathers.extension.ahhenderson.helpers.LayoutHelper"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.ListHelper"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.UiFactoryHelper"/>
+    <classEntry path="feathers.extension.ahhenderson.interfaces.IPopUpExtendedContent"/>
+    <classEntry path="feathers.extension.ahhenderson.interfaces.IPopUpExtendedContentManager"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces._deprecate.IComponentPopUpContent"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces._deprecate.IDialogContent"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces._deprecate.IImageDisplayItem"/>
@@ -66,9 +69,17 @@
     <classEntry path="feathers.extension.ahhenderson.managers.FeathersApplicationManager"/>
     <classEntry path="feathers.extension.ahhenderson.managers.NavigationManager"/>
     <classEntry path="feathers.extension.ahhenderson.managers.ThemeManager"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.constants.ManagerNotificationConstants"/>
     <classEntry path="feathers.extension.ahhenderson.managers.dependency.themeManager.events.ThemeManagerEvent"/>
     <classEntry path="feathers.extension.ahhenderson.managers.dependency.themeManager.interfaces.IManagedTheme"/>
     <classEntry path="feathers.extension.ahhenderson.managers.dependency.themeManager.supportClasses.BaseManagedTheme"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.enums.ContentDirectionType"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.enums.ContentPositionType"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.enums.MenuDirection"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.enums.MenuPosition"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.events.MenuEvent"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.events.PopUpContentEvent"/>
+    <classEntry path="feathers.extension.ahhenderson.managers.popup.base.PopUpManagerBase"/>
     <classEntry path="feathers.extension.ahhenderson.mvc.actor.FeathersCommand"/>
     <classEntry path="feathers.extension.ahhenderson.mvc.actor.FeathersMediator"/>
     <classEntry path="feathers.extension.ahhenderson.mvc.actor.FeathersModel"/>
@@ -86,7 +97,6 @@
     <classEntry path="feathers.extension.ahhenderson.util.FeathersPoolUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
-    <classEntry path="feathers.extension.ahhenderson.managers.popup.base.PopUpManagerBase"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

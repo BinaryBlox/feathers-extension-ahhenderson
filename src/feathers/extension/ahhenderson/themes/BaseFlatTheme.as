@@ -68,6 +68,7 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.controls.TextInput;
 	import feathers.controls.ToggleButton;
 	import feathers.controls.ToggleSwitch;
+	import feathers.controls.popups.BottomDrawerPopUpContentManager;
 	import feathers.controls.popups.CalloutPopUpContentManager;
 	import feathers.controls.popups.VerticalCenteredPopUpContentManager;
 	import feathers.controls.renderers.BaseDefaultItemRenderer;
@@ -124,6 +125,20 @@ package feathers.extension.ahhenderson.themes {
 	 */
 	public class BaseFlatTheme extends BaseManagedTheme  {
 		 
+		/**
+		 * @private
+		 * The theme's custom style name for the thumb of a horizontal SimpleScrollBar.
+		 */
+		protected static const THEME_STYLE_NAME_HORIZONTAL_SIMPLE_SCROLL_BAR_THUMB:String = "metal-works-mobile-horizontal-simple-scroll-bar-thumb";
+		
+		/**
+		 * @private
+		 * The theme's custom style name for the thumb of a vertical SimpleScrollBar.
+		 */
+		protected static const THEME_STYLE_NAME_VERTICAL_SIMPLE_SCROLL_BAR_THUMB:String = "metal-works-mobile-vertical-simple-scroll-bar-thumb";
+		
+	 
+		
 		protected static var ITEM_RENDERER_BACKGROUND_COLOR:uint = 0xFFFFFF;
 		
 		/**
@@ -237,6 +252,29 @@ package feathers.extension.ahhenderson.themes {
 		
 		
 		
+		/**
+		 * @private
+		 * The theme's custom style name for the minimum track of a horizontal slider.
+		 */
+		protected static const THEME_STYLE_NAME_HORIZONTAL_SLIDER_MINIMUM_TRACK:String = "metal-works-mobile-horizontal-slider-minimum-track";
+		
+		/**
+		 * @private
+		 * The theme's custom style name for the maximum track of a horizontal slider.
+		 */
+		protected static const THEME_STYLE_NAME_HORIZONTAL_SLIDER_MAXIMUM_TRACK:String = "metal-works-mobile-horizontal-slider-maximum-track";
+		
+		/**
+		 * @private
+		 * The theme's custom style name for the minimum track of a vertical slider.
+		 */
+		protected static const THEME_STYLE_NAME_VERTICAL_SLIDER_MINIMUM_TRACK:String = "metal-works-mobile-vertical-slider-minimum-track";
+		
+		/**
+		 * @private
+		 * The theme's custom style name for the maximum track of a vertical slider.
+		 */
+		protected static const THEME_STYLE_NAME_VERTICAL_SLIDER_MAXIMUM_TRACK:String = "metal-works-mobile-vertical-slider-maximum-track";
 		
 		/**
 		 * The screen density of an iPhone with Retina display. The textures
@@ -503,6 +541,14 @@ package feathers.extension.ahhenderson.themes {
 			//suitable for mobile use if the TextInput needs to be editable
 			//because it can't use the soft keyboard or other mobile-friendly UI
 			return new TextBlockTextEditor();
+		}
+		
+		/**
+		 * The pop-up factory for a PickerList creates a SpinnerList.
+		 */
+		protected static function pickerListSpinnerListFactory():SpinnerList
+		{
+			return new SpinnerList();
 		}
 
 		/**
@@ -1732,22 +1778,22 @@ package feathers.extension.ahhenderson.themes {
 			
 			//alert
 			this.getStyleProviderForClass( Alert ).defaultStyleFunction = this.setAlertStyles;
-			this.getStyleProviderForClass( ButtonGroup ).setFunctionForStyleName( Alert.DEFAULT_CHILD_NAME_BUTTON_GROUP,
+			this.getStyleProviderForClass( ButtonGroup ).setFunctionForStyleName( Alert.DEFAULT_CHILD_STYLE_NAME_BUTTON_GROUP,
 																				  this.setAlertButtonGroupStyles );
 			this.getStyleProviderForClass( Button ).setFunctionForStyleName( THEME_NAME_ALERT_BUTTON_GROUP_BUTTON,
 																			 this.setAlertButtonGroupButtonStyles );
-			this.getStyleProviderForClass( Header ).setFunctionForStyleName( Alert.DEFAULT_CHILD_NAME_HEADER,
+			this.getStyleProviderForClass( Header ).setFunctionForStyleName( Alert.DEFAULT_CHILD_STYLE_NAME_HEADER,
 																			 this.setAlertHeaderWithoutBackgroundStyles );
-			this.getStyleProviderForClass( TextBlockTextRenderer ).setFunctionForStyleName( Alert.DEFAULT_CHILD_NAME_MESSAGE,
+			this.getStyleProviderForClass( TextBlockTextRenderer ).setFunctionForStyleName( Alert.DEFAULT_CHILD_STYLE_NAME_MESSAGE,
 																							this.setAlertMessageTextRendererStyles );
 
 			
 			//button
 			this.getStyleProviderForClass( Button ).defaultStyleFunction = this.setButtonStyles;
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_CALL_TO_ACTION_BUTTON,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_STYLE_NAME_CALL_TO_ACTION_BUTTON,
 																			 this.setCallToActionButtonStyles );
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_QUIET_BUTTON, this.setQuietButtonStyles );
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_DANGER_BUTTON,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_STYLE_NAME_QUIET_BUTTON, this.setQuietButtonStyles );
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_STYLE_NAME_DANGER_BUTTON,
 																			 this.setDangerButtonStyles );
 		/*	this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_BACK_BUTTON, this.setBackButtonStyles );
 			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Button.ALTERNATE_NAME_FORWARD_BUTTON,
@@ -1756,7 +1802,7 @@ package feathers.extension.ahhenderson.themes {
 			
 			//button group
 			this.getStyleProviderForClass( ButtonGroup ).defaultStyleFunction = this.setButtonGroupStyles;
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( ButtonGroup.DEFAULT_CHILD_NAME_BUTTON,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( ButtonGroup.DEFAULT_CHILD_STYLE_NAME_BUTTON,
 																			 this.setButtonGroupButtonStyles );
 
 			
@@ -1773,7 +1819,7 @@ package feathers.extension.ahhenderson.themes {
 			
 			//grouped list (see also: item renderers)
 			this.getStyleProviderForClass( GroupedList ).defaultStyleFunction = this.setGroupedListStyles;
-			this.getStyleProviderForClass( GroupedList ).setFunctionForStyleName( GroupedList.ALTERNATE_NAME_INSET_GROUPED_LIST,
+			this.getStyleProviderForClass( GroupedList ).setFunctionForStyleName( GroupedList.ALTERNATE_STYLE_NAME_INSET_GROUPED_LIST,
 																				  this.setInsetGroupedListStyles );
 
 			
@@ -1785,11 +1831,11 @@ package feathers.extension.ahhenderson.themes {
 			//header and footer renderers for grouped list
 			this.getStyleProviderForClass( DefaultGroupedListHeaderOrFooterRenderer ).defaultStyleFunction =
 				this.setGroupedListHeaderRendererStyles;
-			this.getStyleProviderForClass( DefaultGroupedListHeaderOrFooterRenderer ).setFunctionForStyleName( GroupedList.DEFAULT_CHILD_NAME_FOOTER_RENDERER,
+			this.getStyleProviderForClass( DefaultGroupedListHeaderOrFooterRenderer ).setFunctionForStyleName( GroupedList.DEFAULT_CHILD_STYLE_NAME_FOOTER_RENDERER,
 																											   this.setGroupedListFooterRendererStyles );
-			this.getStyleProviderForClass( DefaultGroupedListHeaderOrFooterRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_NAME_INSET_HEADER_RENDERER,
+			this.getStyleProviderForClass( DefaultGroupedListHeaderOrFooterRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_HEADER_RENDERER,
 																											   this.setInsetGroupedListHeaderRendererStyles );
-			this.getStyleProviderForClass( DefaultGroupedListHeaderOrFooterRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_NAME_INSET_FOOTER_RENDERER,
+			this.getStyleProviderForClass( DefaultGroupedListHeaderOrFooterRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_FOOTER_RENDERER,
 																											   this.setInsetGroupedListFooterRendererStyles );
 
 			
@@ -1802,18 +1848,18 @@ package feathers.extension.ahhenderson.themes {
 			//the picker list has a custom item renderer name defined by the theme
 			this.getStyleProviderForClass( DefaultListItemRenderer ).setFunctionForStyleName( THEME_NAME_PICKER_LIST_ITEM_RENDERER,
 																							  this.setPickerListItemRendererStyles );
-			this.getStyleProviderForClass( TextBlockTextRenderer ).setFunctionForStyleName( BaseDefaultItemRenderer.DEFAULT_CHILD_NAME_ACCESSORY_LABEL,
+			this.getStyleProviderForClass( TextBlockTextRenderer ).setFunctionForStyleName( BaseDefaultItemRenderer.DEFAULT_CHILD_STYLE_NAME_ACCESSORY_LABEL,
 																							this.setItemRendererAccessoryLabelRendererStyles );
-			this.getStyleProviderForClass( TextBlockTextRenderer ).setFunctionForStyleName( BaseDefaultItemRenderer.DEFAULT_CHILD_NAME_ICON_LABEL,
+			this.getStyleProviderForClass( TextBlockTextRenderer ).setFunctionForStyleName( BaseDefaultItemRenderer.DEFAULT_CHILD_STYLE_NAME_ICON_LABEL,
 																							this.setItemRendererIconLabelStyles );
 
-			this.getStyleProviderForClass( DefaultGroupedListItemRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_NAME_INSET_ITEM_RENDERER,
+			this.getStyleProviderForClass( DefaultGroupedListItemRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_ITEM_RENDERER,
 																									 this.setInsetGroupedListMiddleItemRendererStyles );
-			this.getStyleProviderForClass( DefaultGroupedListItemRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_NAME_INSET_FIRST_ITEM_RENDERER,
+			this.getStyleProviderForClass( DefaultGroupedListItemRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_FIRST_ITEM_RENDERER,
 																									 this.setInsetGroupedListFirstItemRendererStyles );
-			this.getStyleProviderForClass( DefaultGroupedListItemRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_NAME_INSET_LAST_ITEM_RENDERER,
+			this.getStyleProviderForClass( DefaultGroupedListItemRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_LAST_ITEM_RENDERER,
 																									 this.setInsetGroupedListLastItemRendererStyles );
-			this.getStyleProviderForClass( DefaultGroupedListItemRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_NAME_INSET_SINGLE_ITEM_RENDERER,
+			this.getStyleProviderForClass( DefaultGroupedListItemRenderer ).setFunctionForStyleName( GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_SINGLE_ITEM_RENDERER,
 																									 this.setInsetGroupedListSingleItemRendererStyles );
 
 			//the spinner list has a custom item renderer name defined by the theme
@@ -1821,8 +1867,8 @@ package feathers.extension.ahhenderson.themes {
 			
 			//labels
 			this.getStyleProviderForClass( Label ).defaultStyleFunction = this.setLabelStyles;
-			this.getStyleProviderForClass( Label ).setFunctionForStyleName( Label.ALTERNATE_NAME_HEADING, this.setHeadingLabelStyles );
-			this.getStyleProviderForClass( Label ).setFunctionForStyleName( Label.ALTERNATE_NAME_DETAIL, this.setDetailLabelStyles );
+			this.getStyleProviderForClass( Label ).setFunctionForStyleName( Label.ALTERNATE_STYLE_NAME_HEADING, this.setHeadingLabelStyles );
+			this.getStyleProviderForClass( Label ).setFunctionForStyleName( Label.ALTERNATE_STYLE_NAME_DETAIL, this.setDetailLabelStyles );
 
 			//list (see also: item renderers)
 			this.getStyleProviderForClass( List ).defaultStyleFunction = this.setListStyles;
@@ -1831,13 +1877,13 @@ package feathers.extension.ahhenderson.themes {
 			//numeric stepper
 			this.getStyleProviderForClass( NumericStepper ).defaultStyleFunction = this.setNumericStepperStyles;
 			  
-			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName( NumericStepper.DEFAULT_CHILD_NAME_TEXT_INPUT,
+			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName( NumericStepper.DEFAULT_CHILD_STYLE_NAME_TEXT_INPUT,
 																				this.setNumericStepperTextInputStyles );
 			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.NUMERIC_STEPPER__CHILD_STYLE_NAME_TEXT_INPUT_NO_BACKGROUND,
 				this.setNumericStepperTextInputStylesWithoutBackground );
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( NumericStepper.DEFAULT_CHILD_NAME_DECREMENT_BUTTON,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( NumericStepper.DEFAULT_CHILD_STYLE_NAME_DECREMENT_BUTTON,
 																			 this.setNumericStepperButtonStyles );
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( NumericStepper.DEFAULT_CHILD_NAME_INCREMENT_BUTTON,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( NumericStepper.DEFAULT_CHILD_STYLE_NAME_INCREMENT_BUTTON,
 																			 this.setNumericStepperButtonStyles );
 
 			 
@@ -1847,18 +1893,18 @@ package feathers.extension.ahhenderson.themes {
 			
 			//panel
 			this.getStyleProviderForClass( Panel ).defaultStyleFunction = this.setPanelStyles;
-			this.getStyleProviderForClass( Header ).setFunctionForStyleName( Panel.DEFAULT_CHILD_NAME_HEADER,
+			this.getStyleProviderForClass( Header ).setFunctionForStyleName( Panel.DEFAULT_CHILD_STYLE_NAME_HEADER,
 																			 this.setHeaderBoldFontStyles );
 
 			 
 			//panel screen
-			this.getStyleProviderForClass( Header ).setFunctionForStyleName( PanelScreen.DEFAULT_CHILD_NAME_HEADER,
+			this.getStyleProviderForClass( Header ).setFunctionForStyleName( PanelScreen.DEFAULT_CHILD_STYLE_NAME_HEADER,
 																			 this.setPanelScreenHeaderStyles );
 
 			
 			//picker list (see also: list and item renderers)
 			this.getStyleProviderForClass( PickerList ).defaultStyleFunction = this.setPickerListStyles;
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( PickerList.DEFAULT_CHILD_NAME_BUTTON,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( PickerList.DEFAULT_CHILD_STYLE_NAME_BUTTON,
 																			 this.setPickerListButtonStyles );
 
 			
@@ -1872,7 +1918,7 @@ package feathers.extension.ahhenderson.themes {
 			
 			//scroll container
 			this.getStyleProviderForClass( ScrollContainer ).defaultStyleFunction = this.setScrollContainerStyles;
-			this.getStyleProviderForClass( ScrollContainer ).setFunctionForStyleName( ScrollContainer.ALTERNATE_NAME_TOOLBAR,
+			this.getStyleProviderForClass( ScrollContainer ).setFunctionForStyleName( ScrollContainer.ALTERNATE_STYLE_NAME_TOOLBAR,
 																					  this.setToolbarScrollContainerStyles );
 
 			
@@ -1893,7 +1939,7 @@ package feathers.extension.ahhenderson.themes {
 			
 			//slider
 			this.getStyleProviderForClass( Slider ).defaultStyleFunction = this.setSliderStyles;
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Slider.DEFAULT_CHILD_NAME_THUMB,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( Slider.DEFAULT_CHILD_STYLE_NAME_THUMB,
 																			 this.setSimpleButtonInitializerRedLightSlider );
 			this.getStyleProviderForClass( Button ).setFunctionForStyleName( THEME_NAME_HORIZONTAL_SLIDER_MINIMUM_TRACK,
 																			 this.setHorizontalSliderMinimumTrackStyles );
@@ -1907,12 +1953,12 @@ package feathers.extension.ahhenderson.themes {
 			
 			//tab bar
 			this.getStyleProviderForClass( TabBar ).defaultStyleFunction = this.setTabBarStyles;
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( TabBar.DEFAULT_CHILD_NAME_TAB, this.setTabStyles );
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( TabBar.DEFAULT_CHILD_STYLE_NAME_TAB, this.setTabStyles );
 
 			
 			//text input
 			this.getStyleProviderForClass( TextInput ).defaultStyleFunction = this.setTextInputStyles;
-			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName( TextInput.ALTERNATE_NAME_SEARCH_TEXT_INPUT,
+			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName( TextInput.ALTERNATE_STYLE_NAME_SEARCH_TEXT_INPUT,
 																				this.setSearchTextInputStyles );
 			  
 			
@@ -1930,9 +1976,9 @@ package feathers.extension.ahhenderson.themes {
 
 			//toggle switch
 			this.getStyleProviderForClass( ToggleSwitch ).defaultStyleFunction = this.setToggleSwitchStyles;
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( ToggleSwitch.DEFAULT_CHILD_NAME_THUMB,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( ToggleSwitch.DEFAULT_CHILD_STYLE_NAME_THUMB,
 																			 this.setSimpleButtonInitializerWhite );
-			this.getStyleProviderForClass( Button ).setFunctionForStyleName( ToggleSwitch.DEFAULT_CHILD_NAME_ON_TRACK,
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( ToggleSwitch.DEFAULT_CHILD_STYLE_NAME_ON_TRACK,
 																			 this.setToggleSwitchTrackStyles );
 			//we don't need a style function for the off track in this theme
 			//the toggle switch layout uses a single track
@@ -2075,7 +2121,7 @@ package feathers.extension.ahhenderson.themes {
 			group.distributeButtonSizes = false;
 			group.gap = this.smallGutterSize;
 			group.padding = this.smallGutterSize;
-			group.customButtonName = THEME_NAME_ALERT_BUTTON_GROUP_BUTTON;
+			group.customButtonStyleName = THEME_NAME_ALERT_BUTTON_GROUP_BUTTON;
 
 		}
 
@@ -2474,15 +2520,15 @@ package feathers.extension.ahhenderson.themes {
 		 * 
 		 * @param list
 		 */
-		protected function setInsetGroupedListStyles( list:GroupedList ):void {
-
-			list.itemRendererName = GroupedList.ALTERNATE_CHILD_NAME_INSET_ITEM_RENDERER;
-			list.firstItemRendererName = GroupedList.ALTERNATE_CHILD_NAME_INSET_FIRST_ITEM_RENDERER;
-			list.lastItemRendererName = GroupedList.ALTERNATE_CHILD_NAME_INSET_LAST_ITEM_RENDERER;
-			list.singleItemRendererName = GroupedList.ALTERNATE_CHILD_NAME_INSET_SINGLE_ITEM_RENDERER;
-			list.headerRendererName = GroupedList.ALTERNATE_CHILD_NAME_INSET_HEADER_RENDERER;
-			list.footerRendererName = GroupedList.ALTERNATE_CHILD_NAME_INSET_FOOTER_RENDERER;
-
+		protected function setInsetGroupedListStyles(list:GroupedList):void
+		{
+			list.customItemRendererStyleName = GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_ITEM_RENDERER;
+			list.customFirstItemRendererStyleName = GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_FIRST_ITEM_RENDERER;
+			list.customLastItemRendererStyleName = GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_LAST_ITEM_RENDERER;
+			list.customSingleItemRendererStyleName = GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_SINGLE_ITEM_RENDERER;
+			list.customHeaderRendererStyleName = GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_HEADER_RENDERER;
+			list.customFooterRendererStyleName = GroupedList.ALTERNATE_CHILD_STYLE_NAME_INSET_FOOTER_RENDERER;
+			
 			var layout:VerticalLayout = new VerticalLayout();
 			layout.useVirtualLayout = true;
 			layout.padding = this.smallGutterSize;
@@ -3057,11 +3103,28 @@ package feathers.extension.ahhenderson.themes {
 		// PickerList
 		//-------------------------
 
+		protected function setPickerListStyles(list:PickerList):void
+		{
+			if(DeviceCapabilities.isTablet(Starling.current.nativeStage))
+			{
+				list.popUpContentManager = new CalloutPopUpContentManager();
+			}
+			else
+			{
+				list.listFactory = pickerListSpinnerListFactory;
+				list.popUpContentManager = new BottomDrawerPopUpContentManager();
+			}
+			
+			// Ahhender Changes:
+			//list.listProperties.itemRendererName = THEME_NAME_PICKER_LIST_ITEM_RENDERER;
+			list.resetObjectFunction = BaseFlatThemePoolFunctions.resetPickerListObject;
+		}
+		
 		/**
 		 * 
 		 * @param list
 		 */
-		protected function setPickerListStyles( list:PickerList ):void {
+		/*protected function setPickerListStyles( list:PickerList ):void {
 
 			if ( DeviceCapabilities.isTablet( Starling.current.nativeStage )) {
 				list.popUpContentManager = new CalloutPopUpContentManager();
@@ -3097,7 +3160,7 @@ package feathers.extension.ahhenderson.themes {
 			list.listProperties.itemRendererName = THEME_NAME_PICKER_LIST_ITEM_RENDERER;
 			
 			list.resetObjectFunction = BaseFlatThemePoolFunctions.resetPickerListObject;
-		}
+		}*/
 
 		/**
 		 * 
@@ -3379,46 +3442,40 @@ package feathers.extension.ahhenderson.themes {
 		// SimpleScrollBar
 		//-------------------------
 
-		/**
-		 * 
-		 * @param scrollBar
-		 */
-		protected function setSimpleScrollBarStyles( scrollBar:SimpleScrollBar ):void {
-
-			if ( scrollBar.direction == SimpleScrollBar.DIRECTION_HORIZONTAL ) {
+		//-------------------------
+		// SimpleScrollBar
+		//-------------------------
+		
+		protected function setSimpleScrollBarStyles(scrollBar:SimpleScrollBar):void
+		{
+			if(scrollBar.direction == SimpleScrollBar.DIRECTION_HORIZONTAL)
+			{
 				scrollBar.paddingRight = this.scrollBarGutterSize;
 				scrollBar.paddingBottom = this.scrollBarGutterSize;
 				scrollBar.paddingLeft = this.scrollBarGutterSize;
-				scrollBar.customThumbName = THEME_NAME_HORIZONTAL_SIMPLE_SCROLL_BAR_THUMB;
-			} else {
+				scrollBar.customThumbStyleName = THEME_STYLE_NAME_HORIZONTAL_SIMPLE_SCROLL_BAR_THUMB;
+			}
+			else
+			{
 				scrollBar.paddingTop = this.scrollBarGutterSize;
 				scrollBar.paddingRight = this.scrollBarGutterSize;
 				scrollBar.paddingBottom = this.scrollBarGutterSize;
-				scrollBar.customThumbName = THEME_NAME_VERTICAL_SIMPLE_SCROLL_BAR_THUMB;
+				scrollBar.customThumbStyleName = THEME_STYLE_NAME_VERTICAL_SIMPLE_SCROLL_BAR_THUMB;
 			}
 		}
-
-		/**
-		 * 
-		 * @param thumb
-		 */
-		protected function setHorizontalSimpleScrollBarThumbStyles( thumb:Button ):void {
-
-			var defaultSkin:Scale3Image =
-				new Scale3Image( this.horizontalScrollBarThumbSkinTextures, this.contentScaleFactor );
-			defaultSkin.width = this.largeGutterSize;
+		
+		protected function setHorizontalSimpleScrollBarThumbStyles(thumb:Button):void
+		{
+			var defaultSkin:Scale3Image = new Scale3Image(this.horizontalScrollBarThumbSkinTextures, this.scale);
+			defaultSkin.width = this.smallGutterSize;
 			thumb.defaultSkin = defaultSkin;
 			thumb.hasLabelTextRenderer = false;
 		}
-
-		/**
-		 * 
-		 * @param thumb
-		 */
-		protected function setVerticalSimpleScrollBarThumbStyles( thumb:Button ):void {
-
-			var defaultSkin:Scale3Image = new Scale3Image( this.verticalScrollBarThumbSkinTextures, this.contentScaleFactor );
-			defaultSkin.height = this.largeGutterSize;
+		
+		protected function setVerticalSimpleScrollBarThumbStyles(thumb:Button):void
+		{
+			var defaultSkin:Scale3Image = new Scale3Image(this.verticalScrollBarThumbSkinTextures, this.scale);
+			defaultSkin.height = this.smallGutterSize;
 			thumb.defaultSkin = defaultSkin;
 			thumb.hasLabelTextRenderer = false;
 		}
@@ -3431,16 +3488,20 @@ package feathers.extension.ahhenderson.themes {
 		 * 
 		 * @param slider
 		 */
-		protected function setSliderStyles( slider:Slider ):void {
-
+		protected function setSliderStyles(slider:Slider):void
+		{
 			slider.trackLayoutMode = Slider.TRACK_LAYOUT_MODE_MIN_MAX;
-
-			if ( slider.direction == Slider.DIRECTION_VERTICAL ) {
-				slider.customMinimumTrackName = THEME_NAME_VERTICAL_SLIDER_MINIMUM_TRACK;
-				slider.customMaximumTrackName = THEME_NAME_VERTICAL_SLIDER_MAXIMUM_TRACK;
-			} else {
-				slider.customMinimumTrackName = THEME_NAME_HORIZONTAL_SLIDER_MINIMUM_TRACK;
-				slider.customMaximumTrackName = THEME_NAME_HORIZONTAL_SLIDER_MAXIMUM_TRACK;
+			if(slider.direction == Slider.DIRECTION_VERTICAL)
+			{
+				slider.customMinimumTrackStyleName = THEME_STYLE_NAME_VERTICAL_SLIDER_MINIMUM_TRACK;
+				slider.customMaximumTrackStyleName = THEME_STYLE_NAME_VERTICAL_SLIDER_MAXIMUM_TRACK;
+				slider.minWidth = this.controlSize;
+			}
+			else //horizontal
+			{
+				slider.customMinimumTrackStyleName = THEME_STYLE_NAME_HORIZONTAL_SLIDER_MINIMUM_TRACK;
+				slider.customMaximumTrackStyleName = THEME_STYLE_NAME_HORIZONTAL_SLIDER_MAXIMUM_TRACK;
+				slider.minHeight = this.controlSize;
 			}
 		}
 
@@ -3876,7 +3937,11 @@ package feathers.extension.ahhenderson.themes {
 		}
 		
 		
-
+		/////////////////////////////
+		// Includes
+		/////////////////////////////
+		
+		//include "_includes/BaseFlatTheme.inc";
 	}
 }
 
