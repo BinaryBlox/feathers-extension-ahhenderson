@@ -10,6 +10,8 @@ package feathers.extension.ahhenderson.constants {
 
 		private static var _fmgr:FeathersApplicationManager;
 
+		public static const BOTTOM_PICKER_LIST_CLOSE_BUTTON_LABEL:String ="Done";
+		
 		public static var CONTROL_GUTTER:Number = roundToNearest(10 * fmgr.theme.scaledResolution);
 
 		public static var ITEM_RENDERER_MIN_SIZE:Number = roundToNearest(30 * fmgr.theme.scaledResolution); 

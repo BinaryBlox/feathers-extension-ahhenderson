@@ -3,7 +3,7 @@ package feathers.extension.ahhenderson.constants
 	public class FeathersExtLib_StyleNameConstants
 	{
 		
-		public static const ARROW_LABEL_LIST_ITEM_RENDERER:String="ARROW-LABEL-LIST-ITEM_RENDERER";
+		public static const ARROW_LABEL_LIST_ITEM_RENDERER:String="arrow-label-list-item_renderer";
 		
 		public static const BUTTON_ALTERNATE_NAME_SOCIAL_FACEBOOK:String = "button-alternate-social-facebook";
 		
@@ -15,9 +15,9 @@ package feathers.extension.ahhenderson.constants
 		
 		public static const FORM_LABEL_LIST_ITEM_RENDERER:String="form-label-list-item-renderer";
 		
-		public static const HEADER_PANEL__DARK_TITLE:String = "PANEL-HEADER--DARK_TITLE";
+		public static const HEADER_PANEL__DARK_TITLE:String = "panel-header--dark_title";
 		
-		public static const HEADER_TRANSPARENT:String = "HEADER_TRANSPARENT";
+		public static const HEADER_TRANSPARENT:String = "header-transparent";
 		 
 		public static const HEADER_TITLED_NAVIGATOR_SCREEN:String = "header-titled-navigator-screen";
 		
@@ -30,6 +30,14 @@ package feathers.extension.ahhenderson.constants
 		public static const LIST_ITEM_RENDERER__TRANSPARENT_BACKGROUND:String = "list-item-renderer--transparent-background";
 		
 		public static const LIST__TRANSPARENT_BACKGROUND:String = "list--transparent-background";
+		
+		public static const PICKER_LIST__CUSTOM_POPUP_PANEL:String = "picker-list--custom_popup_panel";
+		
+		public static const PICKER_LIST__CUSTOM_BUTTON:String = "picker-list--custom_button";
+		
+		public static const PICKER_LIST__CUSTOM:String = "picker-list--custom";
+		
+		public static const PICKER_LIST__CUSTOM_LIST:String = "picker-list--custom_list";
 		
 		public static const DATE_SELECTOR__DEFAULT:String = "date-selector--default";
 		

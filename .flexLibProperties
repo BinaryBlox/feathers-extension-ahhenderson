@@ -97,6 +97,7 @@
     <classEntry path="feathers.extension.ahhenderson.util.FeathersPoolUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.popUps.CustomBottomDrawerPopUpManager"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

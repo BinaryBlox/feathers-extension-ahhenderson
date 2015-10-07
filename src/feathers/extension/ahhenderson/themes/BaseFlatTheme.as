@@ -85,6 +85,7 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.display.TiledImage;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
+	import feathers.extension.ahhenderson.controls.popUps.CustomBottomDrawerPopUpManager;
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.supportClasses.BaseManagedTheme;
@@ -1532,14 +1533,17 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function initializeScalingGrids():void{
 			 
-			var defBtnInset:Number = (this.scale9ButtonInset/this.scale);
-			var defCtrlSize:Number = (this.controlSize/this.scale);
+			var defBtnInset:Number = roundToNearest(this.scale9ButtonInset/this.scale);
+			var defPanelGutter:Number = defBtnInset;
+			var defCtrlSize:Number = roundToNearest(this.controlSize/this.scale);
+			var defPopUpFillSize:Number = roundToNearest(this.popUpFillSize/this.scale);
 			var alteredScale:Number = 1
+				
 			SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defCtrlSize);
 			 
-			DEFAULT_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 5, 5, 22, 22 );
+			DEFAULT_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 5, 5, defPanelGutter, defPanelGutter );
 			 
-			POPUP_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, 24, 24, 150, 150 );
+			POPUP_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defPanelGutter, defPanelGutter, defPopUpFillSize, defPopUpFillSize );
 			 
 			BUTTON_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defCtrlSize);
 			 
@@ -3004,15 +3008,16 @@ package feathers.extension.ahhenderson.themes {
 
 			this.setScrollerStyles( panel );
 
-			panel.backgroundSkin = new Scale9Image( this.bg_popup, this.scale );
-
+			panel.backgroundSkin = new Scale9Image( this.bg_popup, this.contentScaleFactor );
+			panel.backgroundSkin.alpha=0;
 			panel.paddingTop = 0;
 			panel.paddingRight = this.smallGutterSize;
 			panel.paddingBottom = this.smallGutterSize;
 			panel.paddingLeft = this.smallGutterSize;
 			 
 		}
-
+		
+	
 		/**
 		 * 
 		 * @param header
@@ -3103,22 +3108,6 @@ package feathers.extension.ahhenderson.themes {
 		// PickerList
 		//-------------------------
 
-		protected function setPickerListStyles(list:PickerList):void
-		{
-			if(DeviceCapabilities.isTablet(Starling.current.nativeStage))
-			{
-				list.popUpContentManager = new CalloutPopUpContentManager();
-			}
-			else
-			{
-				list.listFactory = pickerListSpinnerListFactory;
-				list.popUpContentManager = new BottomDrawerPopUpContentManager();
-			}
-			
-			// Ahhender Changes:
-			//list.listProperties.itemRendererName = THEME_NAME_PICKER_LIST_ITEM_RENDERER;
-			list.resetObjectFunction = BaseFlatThemePoolFunctions.resetPickerListObject;
-		}
 		
 		/**
 		 * 
@@ -3166,7 +3155,7 @@ package feathers.extension.ahhenderson.themes {
 		 * 
 		 * @param button
 		 */
-		protected function setPickerListButtonStyles( button:Button ):void {
+		/*protected function setPickerListButtonStyles( button:Button ):void {
 
 			this.setButtonStyles( button );
 			 
@@ -3184,7 +3173,7 @@ package feathers.extension.ahhenderson.themes {
 			button.gap = Number.POSITIVE_INFINITY;
 			//button.minGap = this.gutterSize; 
 			button.iconPosition = Button.ICON_POSITION_RIGHT;
-		}
+		}*/
 
 		/**
 		 * 
@@ -3892,11 +3881,16 @@ package feathers.extension.ahhenderson.themes {
 		
 		protected function setSpinnerListStyles(list:SpinnerList):void
 		{
-			this.setListStyles(list);
+			this.setScrollerStyles(list);
+			//list.backgroundSkin = new Scale9Image(this.spinnerListBackgroundSkinTextures, this.scale);
+			list.customItemRendererStyleName = THEME_STYLE_NAME_SPINNER_LIST_ITEM_RENDERER;
+			list.selectionOverlaySkin = new Scale9Image(this.spinnerListSelectionOverlaySkinTextures, this.scale);
+			
+			/*this.setListStyles(list);
 			list.customItemRendererStyleName = THEME_STYLE_NAME_SPINNER_LIST_ITEM_RENDERER;
 			
 			list.selectionOverlaySkin = new Scale9Image(this.spinnerListSelectionOverlaySkinTextures, this.scale);
-			
+			*/
 			// Pooling
 			list.resetObjectFunction = BaseFlatThemePoolFunctions.resetSpinnerListObject;
 		}
@@ -3938,10 +3932,150 @@ package feathers.extension.ahhenderson.themes {
 		
 		
 		/////////////////////////////
-		// Includes
+		// Newly added
 		/////////////////////////////
 		
-		//include "_includes/BaseFlatTheme.inc";
+		/**
+		 * @private
+		 * The theme's custom style name for the label text renderer of an item
+		 * renderer with the "check" style.
+		 */
+		protected static const THEME_STYLE_NAME_CHECK_ITEM_RENDERER_LABEL:String = "metal-works-mobile-check-item-renderer-label";
+		
+		/**
+		 * @private
+		 * The theme's custom style name for the icon label text renderer of an
+		 * item renderer with the "check" style.
+		 */
+		protected static const THEME_STYLE_NAME_CHECK_ITEM_RENDERER_ICON_LABEL:String = "metal-works-mobile-check-item-renderer-icon-label";
+		
+		/**
+		 * @private
+		 * The theme's custom style name for the accessory label text renderer
+		 * of an item renderer with the "check" style.
+		 */
+		protected static const THEME_STYLE_NAME_CHECK_ITEM_RENDERER_ACCESSORY_LABEL:String = "metal-works-mobile-check-item-renderer-accessory-label";
+
+		
+		//-------------------------
+		// PickerList
+		//-------------------------
+		
+		protected function setPickerListStyles(list:PickerList):void
+		{
+			if(DeviceCapabilities.isTablet(Starling.current.nativeStage))
+			{
+				list.popUpContentManager = new CalloutPopUpContentManager();
+			}
+			else
+			{
+				list.listFactory = pickerListSpinnerListFactory;
+				// Ahhender Changes: 
+				list.popUpContentManager = new CustomBottomDrawerPopUpManager(); 
+			}
+			
+			// Ahhender Changes: 
+			list.resetObjectFunction = BaseFlatThemePoolFunctions.resetPickerListObject;
+		}
+		
+		protected function setPickerListPopUpListStyles(list:List):void
+		{
+			if(DeviceCapabilities.isTablet(Starling.current.nativeStage))
+			{
+				list.minWidth = this.popUpFillSize;
+				list.maxHeight = this.popUpFillSize;
+			}
+			else //phone
+			{
+				//the pop-up list should be a SpinnerList in this case, but we
+				//should provide a reasonable fallback skin if the listFactory
+				//on the PickerList returns a List instead. we don't want the
+				//List to be too big for the BottomDrawerPopUpContentManager
+				
+				var backgroundSkin:Scale9Image = new Scale9Image(this.backgroundSkinTextures, this.contentScaleFactor);
+				backgroundSkin.width = this.gridSize;
+				backgroundSkin.height = this.gridSize;
+				list.backgroundSkin =  backgroundSkin;
+				list.padding = this.smallGutterSize;
+				
+				var layout:VerticalLayout = new VerticalLayout();
+				layout.horizontalAlign = VerticalLayout.HORIZONTAL_ALIGN_JUSTIFY;
+				layout.requestedRowCount = 4;
+				list.layout = layout;
+			}
+			
+			list.customItemRendererStyleName = DefaultListItemRenderer.ALTERNATE_STYLE_NAME_CHECK;
+		}
+		
+		protected function setPickerListButtonStyles(button:Button):void
+		{
+			this.setButtonStyles(button);
+			
+			var iconSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			iconSelector.setValueTypeHandler(SubTexture, textureValueTypeHandler);
+			iconSelector.defaultValue = this.pickerListButtonIconTexture;
+			iconSelector.setValueForState(this.pickerListButtonIconDisabledTexture, Button.STATE_DISABLED, false);
+			iconSelector.displayObjectProperties =
+				{
+					textureScale: this.contentScaleFactor,
+						snapToPixels: true
+				}
+			button.stateToIconFunction = iconSelector.updateValue;
+			
+			button.gap = Number.POSITIVE_INFINITY;
+			button.minGap = this.gutterSize;
+			button.iconPosition = Button.ICON_POSITION_RIGHT;
+		}
+		
+		//-------------------------
+		// List
+		//-------------------------
+
+		protected function setCheckItemRendererStyles(renderer:BaseDefaultItemRenderer):void
+		{
+			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			skinSelector.defaultValue = this.itemRendererUpSkinTextures;
+			skinSelector.setValueForState(this.itemRendererSelectedSkinTextures, Button.STATE_DOWN, false);
+			skinSelector.displayObjectProperties =
+				{
+					width: this.gridSize,
+						height: this.gridSize,
+						textureScale: this.scale
+				};
+			renderer.stateToSkinFunction = skinSelector.updateValue;
+			
+			var defaultSelectedIcon:ImageLoader = new ImageLoader();
+			defaultSelectedIcon.source = this.pickerListItemSelectedIconTexture;
+			defaultSelectedIcon.textureScale = this.scale;
+			renderer.defaultSelectedIcon = defaultSelectedIcon;
+			defaultSelectedIcon.validate();
+			
+			var defaultIcon:Quad = new Quad(defaultSelectedIcon.width, defaultSelectedIcon.height, 0xff00ff);
+			defaultIcon.alpha = 0;
+			renderer.defaultIcon = defaultIcon;
+			
+			renderer.customLabelStyleName = THEME_STYLE_NAME_CHECK_ITEM_RENDERER_LABEL;
+			renderer.customIconLabelStyleName = THEME_STYLE_NAME_CHECK_ITEM_RENDERER_ICON_LABEL;
+			renderer.customAccessoryLabelStyleName = THEME_STYLE_NAME_CHECK_ITEM_RENDERER_ACCESSORY_LABEL;
+			
+			renderer.itemHasIcon = false;
+			renderer.horizontalAlign = BaseDefaultItemRenderer.HORIZONTAL_ALIGN_LEFT;
+			renderer.paddingTop = this.smallGutterSize;
+			renderer.paddingBottom = this.smallGutterSize;
+			renderer.paddingLeft = this.gutterSize;
+			renderer.paddingRight = this.gutterSize;
+			renderer.gap = Number.POSITIVE_INFINITY;
+			renderer.minGap = this.gutterSize;
+			renderer.iconPosition = BaseDefaultItemRenderer.ICON_POSITION_RIGHT;
+			renderer.accessoryGap = this.smallGutterSize;
+			renderer.minAccessoryGap = this.smallGutterSize;
+			renderer.accessoryPosition = BaseDefaultItemRenderer.ACCESSORY_POSITION_BOTTOM;
+			renderer.layoutOrder = BaseDefaultItemRenderer.LAYOUT_ORDER_LABEL_ACCESSORY_ICON;
+			renderer.minWidth = this.gridSize;
+			renderer.minHeight = this.gridSize;
+			renderer.minTouchWidth = this.gridSize;
+			renderer.minTouchHeight = this.gridSize;
+		}
 	}
 }
 

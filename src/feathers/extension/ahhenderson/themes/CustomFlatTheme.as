@@ -7,8 +7,12 @@ package feathers.extension.ahhenderson.themes
 	import feathers.controls.Button;
 	import feathers.controls.Header;
 	import feathers.controls.Label;
+	import feathers.controls.List;
 	import feathers.controls.Panel;
+	import feathers.controls.PickerList;
 	import feathers.controls.SpinnerList;
+	import feathers.controls.popups.BottomDrawerPopUpContentManager;
+	import feathers.controls.popups.CalloutPopUpContentManager;
 	import feathers.controls.renderers.BaseDefaultItemRenderer;
 	import feathers.controls.renderers.DefaultListItemRenderer;
 	import feathers.display.Scale9Image;
@@ -18,17 +22,24 @@ package feathers.extension.ahhenderson.themes
 	import feathers.extension.ahhenderson.controls.IconLabel;
 	import feathers.extension.ahhenderson.controls.PanelNavigator;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
+	import feathers.extension.ahhenderson.controls.popUps.CustomBottomDrawerPopUpManager;
 	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
 	import feathers.extension.ahhenderson.helpers.LayoutHelper;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeBaseTextures;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
+	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.extension.ahhenderson.themes.pool.CustomFlatThemePoolFunctions;
 	import feathers.skins.SmartDisplayObjectStateValueSelector;
+	import feathers.system.DeviceCapabilities;
 	import feathers.textures.Scale9Textures;
 	import feathers.utils.math.roundToNearest;
 	
+	import starling.core.Starling;
+	import starling.display.DisplayObject;
 	import starling.display.Quad;
+	import starling.events.Event;
+	import starling.textures.SubTexture;
 
 	public class CustomFlatTheme extends BaseFlatTheme
 	{
@@ -80,9 +91,22 @@ package feathers.extension.ahhenderson.themes
 			// PanelNavigator 
 			this.getStyleProviderForClass( PanelNavigator ).defaultStyleFunction = this.setPanelNavigatorStyles;
 			
+			// PickerList 
+			this.getStyleProviderForClass( PickerList ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.PICKER_LIST__CUSTOM, 
+				setPickerListCustomStyles) 
+			this.getStyleProviderForClass( Button ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.PICKER_LIST__CUSTOM_BUTTON,
+				this.setPickerListCustomButtonStyles )
+			this.getStyleProviderForClass( List ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.PICKER_LIST__CUSTOM_LIST, 
+				this.setPickerListCustomListStyles );
+			
+			// Panel 
+			this.getStyleProviderForClass( Panel ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.PICKER_LIST__CUSTOM_POPUP_PANEL, 
+				setPickerListCustomPopUpPanelStyles)
+			
 			// Custom spinner 
 			this.getStyleProviderForClass( SpinnerList ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.SPINNER_LIST__ALTERNATE_OVERLAY, 
 				setCustomSpinnerListStyles)
+			 
 			  
 			// Item Renderers
 			this.getStyleProviderForClass( DefaultListItemRenderer ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.FORM_LABEL_LIST_ITEM_RENDERER, 
@@ -140,9 +164,37 @@ package feathers.extension.ahhenderson.themes
 		//-------------------------
 		// Buttons
 		//-------------------------
+		
+		protected function setSocialButtonStyles(button:Button, 
+												 icon:String,
+												 upTextures:Scale9Textures=null, 
+												 downTextures:Scale9Textures=null,
+												 disabledTextures:Scale9Textures=null):void{
+			 
+			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			skinSelector.defaultValue = upTextures;
+			skinSelector.setValueForState( downTextures, Button.STATE_DOWN, false );
+			skinSelector.setValueForState( disabledTextures, Button.STATE_DISABLED, false );
+			skinSelector.displayObjectProperties = { width: this.controlSize, 
+				height: this.controlSize, 
+				textureScale: this.scale };
+			
+			button.stateToSkinFunction = skinSelector.updateValue;
+			
+			this.setBaseButtonStyles( button );
+			
+			button.defaultIcon = AssetHelper.getImage(icon);
+			
+		}
 		protected function setSocialFbButtonStyles( button:Button ):void {
 			
-			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			setSocialButtonStyles(button,  
+				FlatThemeCustomTextures.ICONS_SOCIAL_FACEBOOK,
+				this.buttonSocialFbUpSkinTextures,
+				this.buttonSocialFbDownSkinTextures,
+				this.buttonDisabledSkinTextures);
+			
+			/*var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
 			skinSelector.defaultValue = this.buttonSocialFbUpSkinTextures;
 			skinSelector.setValueForState( this.buttonSocialFbDownSkinTextures, Button.STATE_DOWN, false );
 			skinSelector.setValueForState( this.buttonDisabledSkinTextures, Button.STATE_DISABLED, false );
@@ -151,12 +203,18 @@ package feathers.extension.ahhenderson.themes
 			
 			this.setBaseButtonStyles( button );
 			
-			button.defaultIcon = AssetHelper.getImage(FlatThemeCustomTextures.ICONS_SOCIAL_FACEBOOK);
+			button.defaultIcon = AssetHelper.getImage(FlatThemeCustomTextures.ICONS_SOCIAL_FACEBOOK);*/
 		}
 		
 		protected function setSocialGoogPlusButtonStyles( button:Button ):void {
 			
-			var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			setSocialButtonStyles(button,  
+				FlatThemeCustomTextures.ICONS_SOCIAL_GOOGLE_PLUS,
+				this.buttonSocialGoogPlusUpSkinTextures,
+				this.buttonSocialGoogPlusDownSkinTextures,
+				this.buttonDisabledSkinTextures);
+			
+			/*var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
 			skinSelector.defaultValue = this.buttonSocialGoogPlusUpSkinTextures;
 			skinSelector.setValueForState( this.buttonSocialGoogPlusDownSkinTextures, Button.STATE_DOWN, false );
 			skinSelector.setValueForState( this.buttonDisabledSkinTextures, Button.STATE_DISABLED, false );
@@ -165,7 +223,7 @@ package feathers.extension.ahhenderson.themes
 			
 			this.setBaseButtonStyles( button );
 			 
-			button.defaultIcon = AssetHelper.getImage(FlatThemeCustomTextures.ICONS_SOCIAL_GOOGLE_PLUS);
+			button.defaultIcon = AssetHelper.getImage(FlatThemeCustomTextures.ICONS_SOCIAL_GOOGLE_PLUS);*/
 		}
 		
 		protected function setSocialTwitterButtonStyles( button:Button ):void {
@@ -413,6 +471,80 @@ package feathers.extension.ahhenderson.themes
 			panel.paddingLeft = this.smallGutterSize;
 			
 		}
+		
+		//-------------------------
+		// PopUpManager
+		//-------------------------
+		
+		//-------------------------
+		// PickerList
+		//-------------------------
+		
+		protected function setPickerListCustomStyles(list:PickerList):void
+		{
+			super.setPickerListStyles(list);
+			
+			list.customButtonStyleName = FeathersExtLib_StyleNameConstants.PICKER_LIST__CUSTOM_BUTTON;
+			list.customListStyleName = FeathersExtLib_StyleNameConstants.PICKER_LIST__CUSTOM_LIST;
+		 
+			if(list.popUpContentManager && (list.popUpContentManager is CustomBottomDrawerPopUpManager)){
+				(list.popUpContentManager as CustomBottomDrawerPopUpManager).openOrCloseDuration=.30;
+				(list.popUpContentManager as CustomBottomDrawerPopUpManager).customPanelStyleName = FeathersExtLib_StyleNameConstants.PICKER_LIST__CUSTOM_POPUP_PANEL;
+				(list.popUpContentManager as CustomBottomDrawerPopUpManager).closeButtonLabel = FeathersExtLib_ThemeConstants.BOTTOM_PICKER_LIST_CLOSE_BUTTON_LABEL;
+			} 
+		}
+		 
+		protected function setPickerListCustomListStyles( list:List ):void {
+			
+			this.setScrollerStyles( list );
+			
+			var listSize:Number = roundToNearest(this.gridSize *2);
+			var backgroundSkin:Quad = new Quad( listSize, listSize, LIST_BACKGROUND_COLOR );
+			list.backgroundSkin = backgroundSkin;
+		}
+		
+		protected function setPickerListCustomPopUpPanelStyles( panel:Panel ):void {
+			
+			 
+			this.setScrollerStyles( panel );
+			
+			//panel.backgroundSkin = new Scale9Image( this.bg_popup, this.scale );
+			panel.backgroundSkin = new Quad(10, 10, 0x444444);
+			panel.backgroundSkin.alpha = 1;
+			
+			panel.paddingTop = 0;
+			panel.paddingRight = 0;//this.smallGutterSize;
+			panel.paddingBottom = 0;//this.smallGutterSize;
+			panel.paddingLeft = 0;//this.smallGutterSize;
+			
+			
+		}
+		
+		protected function setPickerListCustomButtonStyles(button:Button):void
+		{
+			 
+			this.setQuietButtonStyles(button);
+			
+			//button.styleNameList.add(Button.ALTERNATE_STYLE_NAME_QUIET_BUTTON);
+			
+			var iconSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			iconSelector.setValueTypeHandler(SubTexture, textureValueTypeHandler);
+			iconSelector.defaultValue = this.pickerListButtonIconTexture;
+			iconSelector.setValueForState(this.pickerListButtonIconDisabledTexture, Button.STATE_DISABLED, false);
+			iconSelector.displayObjectProperties =
+				{
+					textureScale: this.contentScaleFactor,
+						snapToPixels: true
+				}
+			button.stateToIconFunction = iconSelector.updateValue;
+			
+			button.gap = Number.POSITIVE_INFINITY;
+			button.minGap = this.gutterSize;
+			button.iconPosition = Button.ICON_POSITION_RIGHT;
+		}
+		
+		
+	
 		
 		//-------------------------
 		// PageIndicator
