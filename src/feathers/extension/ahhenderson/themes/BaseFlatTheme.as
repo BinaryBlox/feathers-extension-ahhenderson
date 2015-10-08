@@ -158,6 +158,42 @@ package feathers.extension.ahhenderson.themes {
 		 * 
 		 * @default 
 		 */
+		protected static var LIGHT_FORM_TEXT_COLOR:uint = 0xe5e5e5;
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected static var LIGHT_FORM_PROMPT_COLOR:uint = 0xe5e5e5;
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected static var LIGHT_FORM_LABEL_COLOR:uint = 0xe5e5e5;
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected static var DARK_FORM_TEXT_COLOR:uint = 0xe5e5e5;
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected static var DARK_FORM_PROMPT_COLOR:uint = 0xe5e5e5;
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected static var DARK_FORM_LABEL_COLOR:uint = 0xe5e5e5;
+		
+		/**
+		 * 
+		 * @default 
+		 */
 		protected static var ITEM_RENDERER_LABEL_COLOR_DARK:uint = 0x404040;
 		
 		/**
@@ -418,17 +454,17 @@ package feathers.extension.ahhenderson.themes {
 		internal var customAtlasName:String;
 
 		// THEME PADDING
-		private var buttonPaddingTop:Number;
+		protected var buttonPaddingTop:Number;
 
-		private var buttonPaddingBottom:Number;
+		protected var buttonPaddingBottom:Number;
 		
-		private var buttonPaddingLeft:Number;
+		protected var buttonPaddingLeft:Number;
 		
-		private var buttonPaddingRight:Number;
+		protected var buttonPaddingRight:Number;
 
-		private var itemPaddingTop:Number;
+		protected var itemPaddingTop:Number;
 
-		private var itemPaddingBottom:Number;
+		protected var itemPaddingBottom:Number;
 		
 		
 		
@@ -1148,6 +1184,17 @@ package feathers.extension.ahhenderson.themes {
 		 * 
 		 * @default 
 		 */
+		protected var pickerListButtonDarkIconTexture:Texture;
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected var pickerListButtonDarkIconDisabledTexture:Texture;
+		/**
+		 * 
+		 * @default 
+		 */
 		protected var tabDownSkinTextures:Scale9Textures;
 
 		/**
@@ -1437,14 +1484,14 @@ package feathers.extension.ahhenderson.themes {
  
 
 			// THEME COLORS
-			ITEM_RENDERER_BACKGROUND_COLOR= getThemePropertyValue(this.themeProperties.ITEM_RENDERER_BACKGROUND_COLOR);
-			ITEM_RENDERER_LABEL_COLOR_DARK = getThemePropertyValue(this.themeProperties.ITEM_RENDERER_LABEL_COLOR_DARK);
+			ITEM_RENDERER_BACKGROUND_COLOR= getThemePropertyValue(this.themeProperties.ITEM_RENDERER_BACKGROUND_COLOR); 
 			ITEM_RENDERER_LABEL_COLOR_LIGHT = getThemePropertyValue(this.themeProperties.ITEM_RENDERER_LABEL_COLOR_LIGHT);
 			PRIMARY_BACKGROUND_COLOR = getThemePropertyValue(this.themeProperties.PRIMARY_BACKGROUND_COLOR);
 			LIGHT_TEXT_COLOR = getThemePropertyValue(this.themeProperties.LIGHT_TEXT_COLOR); 
-			SELECTED_TEXT_COLOR = getThemePropertyValue(this.themeProperties.SELECTED_TEXT_COLOR);
-			DISABLED_TEXT_COLOR = getThemePropertyValue(this.themeProperties.DISABLED_TEXT_COLOR);
 			DARK_TEXT_COLOR = getThemePropertyValue(this.themeProperties.DARK_TEXT_COLOR);
+			ITEM_RENDERER_LABEL_COLOR_DARK = getThemePropertyValue(this.themeProperties.ITEM_RENDERER_LABEL_COLOR_DARK);
+			SELECTED_TEXT_COLOR = getThemePropertyValue(this.themeProperties.SELECTED_TEXT_COLOR);
+			DISABLED_TEXT_COLOR = getThemePropertyValue(this.themeProperties.DISABLED_TEXT_COLOR); 
 			DARK_DISABLED_TEXT_COLOR = getThemePropertyValue(this.themeProperties.DARK_DISABLED_TEXT_COLOR);
 			LIST_BACKGROUND_COLOR = getThemePropertyValue(this.themeProperties.LIST_BACKGROUND_COLOR);
 			TAB_DISABLED_BACKGROUND_COLOR = getThemePropertyValue(this.themeProperties.TAB_DISABLED_BACKGROUND_COLOR);
@@ -1452,7 +1499,7 @@ package feathers.extension.ahhenderson.themes {
 			GROUPED_LIST_FOOTER_BACKGROUND_COLOR = getThemePropertyValue(this.themeProperties.GROUPED_LIST_FOOTER_BACKGROUND_COLOR);
 			MODAL_OVERLAY_COLOR = getThemePropertyValue(this.themeProperties.MODAL_OVERLAY_COLOR);
 			MODAL_OVERLAY_ALPHA = getThemePropertyValue(this.themeProperties.MODAL_OVERLAY_ALPHA);
-
+			
 			// THEME FONTS
 			FONT_NAME = this.themeProperties.FONT_NAME;
 			FONT_NAME_BOLD = this.themeProperties.FONT_NAME_BOLD;
@@ -1741,6 +1788,10 @@ package feathers.extension.ahhenderson.themes {
 			
 			this.pickerListButtonIconTexture = fmgr.theme.assetManager.getTexture(FlatThemeCustomTextures.ICONS_CONTROL_DROPDOWN_ARROW_DOWN);
 			this.pickerListButtonIconDisabledTexture = fmgr.theme.assetManager.getTexture("picker-list-icon-disabled");
+			
+			this.pickerListButtonDarkIconTexture  = fmgr.theme.assetManager.getTexture(FlatThemeCustomTextures.ICONS_CONTROLDARK_DROPDOWN_ARROW_DOWN);
+			this.pickerListButtonDarkIconDisabledTexture = fmgr.theme.assetManager.getTexture("picker-list-icon-disabled");
+			
 			this.pickerListItemSelectedIconTexture = fmgr.theme.assetManager.getTexture("picker-list-item-selected-icon");
 			
 			this.pageIndicatorSelectedSkinTexture = fmgr.theme.assetManager.getTexture("page-indicator-selected-skin");
@@ -1762,7 +1813,7 @@ package feathers.extension.ahhenderson.themes {
 			this.headerBackgroundSkinTexture = fmgr.theme.assetManager.getTexture("header-background-skin");
 			
 			this.calloutTopArrowSkinTexture = fmgr.theme.assetManager.getTexture("callout-arrow-top-skin");
-			this.calloutRightArrowSkinTexture = fmgr.theme.assetManager.getTexture("callout-arrow-right-skin");
+			this.calloutRightArrowSkinTexture = fmgr.theme.assetManager.getTexture("callout-arrow-right-skin"); 
 			this.calloutBottomArrowSkinTexture = fmgr.theme.assetManager.getTexture("callout-arrow-bottom-skin");
 			this.calloutLeftArrowSkinTexture = fmgr.theme.assetManager.getTexture("callout-arrow-left-skin");
 			
@@ -1953,19 +2004,16 @@ package feathers.extension.ahhenderson.themes {
 																			 this.setVerticalSliderMinimumTrackStyles );
 			this.getStyleProviderForClass( Button ).setFunctionForStyleName( THEME_NAME_VERTICAL_SLIDER_MAXIMUM_TRACK,
 																			 this.setVerticalSliderMaximumTrackStyles );
-
-			
+ 
 			//tab bar
 			this.getStyleProviderForClass( TabBar ).defaultStyleFunction = this.setTabBarStyles;
 			this.getStyleProviderForClass( Button ).setFunctionForStyleName( TabBar.DEFAULT_CHILD_STYLE_NAME_TAB, this.setTabStyles );
-
-			
+ 
 			//text input
 			this.getStyleProviderForClass( TextInput ).defaultStyleFunction = this.setTextInputStyles;
 			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName( TextInput.ALTERNATE_STYLE_NAME_SEARCH_TEXT_INPUT,
 																				this.setSearchTextInputStyles );
-			  
-			
+			   
 			this.getStyleProviderForClass( TextInput ).setFunctionForStyleName(  FeathersExtLib_StyleNameConstants.TEXT_INPUT__ALTERNATE_NAME_TEXT_INPUT_SEMI,
 				this.setTextInputSemiTransparentStyles);
 			

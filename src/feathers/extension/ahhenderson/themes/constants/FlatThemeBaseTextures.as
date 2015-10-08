@@ -2,9 +2,6 @@ package feathers.extension.ahhenderson.themes.constants {
 
 
 	public class FlatThemeBaseTextures {
-
-		public static const PRIMARY_BACKGROUND_COLOR:String = 'primary_background_color';
-
 		public static const BACKGROUND_POPUP_SKIN:String = 'background-popup-skin';
 
 		public static const BUTTON_BLUE_SECOND:String = 'button-blue-second';
@@ -51,9 +48,9 @@ package feathers.extension.ahhenderson.themes.constants {
 
 		public static const CHECK_BG_DIS:String = 'check-bg-dis';
 
-		public static const CHECK_BG_OFF_DIS:String = 'check-bg-off-dis';
-
 		public static const CHECK_BG_OFF:String = 'check-bg-off';
+
+		public static const CHECK_BG_OFF_DIS:String = 'check-bg-off-dis';
 
 		public static const CHECK_BG_ON:String = 'check-bg-on';
 
@@ -89,9 +86,9 @@ package feathers.extension.ahhenderson.themes.constants {
 
 		public static const PAGE_INDICATOR_SELECTED_SKIN:String = 'page-indicator-selected-skin';
 
-		public static const PICKER_LIST_ICON_DISABLED:String = 'picker-list-icon-disabled';
-
 		public static const PICKER_LIST_ICON:String = 'picker-list-icon';
+
+		public static const PICKER_LIST_ICON_DISABLED:String = 'picker-list-icon-disabled';
 
 		public static const PICKER_LIST_ITEM_SELECTED_ICON:String = 'picker-list-item-selected-icon';
 
@@ -103,19 +100,21 @@ package feathers.extension.ahhenderson.themes.constants {
 
 		public static const PRELOADER_FILL_DIS:String = 'preloader_fill_dis';
 
+		public static const PRIMARY_BACKGROUND_COLOR:String = 'primary_background_color';
+
 		public static const PROGRESSBAR_ALL:String = 'progressbar-all';
 
 		public static const RADIO_BG_DIS:String = 'radio-bg-dis';
 
-		public static const RADIO_BG_OFF_DIS:String = 'radio-bg-off-dis';
-
 		public static const RADIO_BG_OFF:String = 'radio-bg-off';
+
+		public static const RADIO_BG_OFF_DIS:String = 'radio-bg-off-dis';
 
 		public static const RADIO_BG_ON:String = 'radio-bg-on';
 
-		public static const SEARCH_ICON_DISABLED:String = 'search-icon-disabled';
-
 		public static const SEARCH_ICON:String = 'search-icon';
+
+		public static const SEARCH_ICON_DISABLED:String = 'search-icon-disabled';
 
 		public static const SHADOW:String = 'shadow';
 
@@ -144,8 +143,6 @@ package feathers.extension.ahhenderson.themes.constants {
 		public static const TEXTINPUT_SEMI_TRANS_UP:String = 'textinput-semi-trans-up';
 
 		public static const TEXTINPUT_UP:String = 'textinput-up';
-
-		public static const VERTICAL_SCROLL_BAR_THUMB_SKIN:String = 'vertical-scroll-bar-thumb-skin';
 
 		public static const TEXTURES_LIST:Array =
 			[ FlatThemeBaseTextures.PRIMARY_BACKGROUND_COLOR, FlatThemeBaseTextures.BACKGROUND_POPUP_SKIN,
@@ -179,5 +176,7 @@ package feathers.extension.ahhenderson.themes.constants {
 			  FlatThemeBaseTextures.TAB_SELECTED_SKIN, FlatThemeBaseTextures.TEXTINPUT_FOCUS,
 			  FlatThemeBaseTextures.TEXTINPUT_SEMI_TRANS_FOCUS, FlatThemeBaseTextures.TEXTINPUT_SEMI_TRANS_UP,
 			  FlatThemeBaseTextures.TEXTINPUT_UP, FlatThemeBaseTextures.VERTICAL_SCROLL_BAR_THUMB_SKIN ];
+
+		public static const VERTICAL_SCROLL_BAR_THUMB_SKIN:String = 'vertical-scroll-bar-thumb-skin';
 	}
 }

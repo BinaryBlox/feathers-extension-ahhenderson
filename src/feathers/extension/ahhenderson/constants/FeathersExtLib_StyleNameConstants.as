@@ -27,17 +27,35 @@ package feathers.extension.ahhenderson.constants
 		
 		public static const LABEL_ALTERNATE_DARK_STYLE_NAME_NORMAL:String = "feathers-dark-normal-label";
 		
+		public static const LABEL_FORM_DARK:String = "label-form-dark";
+		
+		public static const LABEL_FORM_LIGHT:String = "label-form-light";
+		
+		public static const TEXT_INPUT_TRANSPARENT_FORM_DARK:String = "text-input-form-dark";
+		
+		public static const TEXT_INPUT_TRANSPARENT_FORM_LIGHT:String = "text-input-form-light";
+		
+		public static const PROMPT_FORM_DARK:String = "prompt-form-dark";
+		
+		public static const PROMPT_FORM_LIGHT:String = "prompt-form-light";
+		
 		public static const LIST_ITEM_RENDERER__TRANSPARENT_BACKGROUND:String = "list-item-renderer--transparent-background";
 		
 		public static const LIST__TRANSPARENT_BACKGROUND:String = "list--transparent-background";
 		
-		public static const PICKER_LIST__CUSTOM_POPUP_PANEL:String = "picker-list--custom_popup_panel";
+		public static const PICKER_LIST_DATETIME__TRANSPARENT_LIGHT:String = "picker-list-datetime--transparent-light";
 		
-		public static const PICKER_LIST__CUSTOM_BUTTON:String = "picker-list--custom_button";
+		public static const PICKER_LIST__TRANSPARENT_POPUP_PANEL:String = "picker-list--transparent-popup-panel";
 		
-		public static const PICKER_LIST__CUSTOM:String = "picker-list--custom";
+		public static const PICKER_LIST__TRANSPARENT_LIGHT_BUTTON:String = "picker-list--transparent-light-button";
 		
-		public static const PICKER_LIST__CUSTOM_LIST:String = "picker-list--custom_list";
+		public static const PICKER_LIST__TRANSPARENT_LIGHT:String = "picker-list--transparent-light";
+		
+		public static const PICKER_LIST__TRANSPARENT_DARK_BUTTON:String = "picker-list--transparent-dark-button";
+		
+		public static const PICKER_LIST__TRANSPARENT_DARK:String = "picker-list--transparent-dark";
+		
+		public static const PICKER_LIST__TRANSPARENT_LIST:String = "picker-list--transparent-list";
 		
 		public static const DATE_SELECTOR__DEFAULT:String = "date-selector--default";
 		
