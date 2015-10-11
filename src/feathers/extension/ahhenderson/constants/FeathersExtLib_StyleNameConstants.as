@@ -43,7 +43,9 @@ package feathers.extension.ahhenderson.constants
 		
 		public static const LIST__TRANSPARENT_BACKGROUND:String = "list--transparent-background";
 		
-		public static const PICKER_LIST_DATETIME__TRANSPARENT_LIGHT:String = "picker-list-datetime--transparent-light";
+		public static const DATE_TIME_PICKER__TRANSPARENT_LIGHT:String = "date-time-picker--transparent-light";
+		
+		public static const DATE_TIME_PICKER__TRANSPARENT_DARK:String = "date-time-picker--transparent-dark";
 		
 		public static const PICKER_LIST__TRANSPARENT_POPUP_PANEL:String = "picker-list--transparent-popup-panel";
 		

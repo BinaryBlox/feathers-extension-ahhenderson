@@ -3,6 +3,7 @@ package feathers.extension.ahhenderson.controls.popUps
 	import feathers.controls.Button;
 	import feathers.controls.Header;
 	import feathers.controls.popups.BottomDrawerPopUpContentManager;
+	import feathers.core.IFeathersControl;
 	
 	import starling.display.DisplayObject;
 	import starling.events.Event;
@@ -14,6 +15,19 @@ package feathers.extension.ahhenderson.controls.popUps
 			super();
 		}
 		
+		
+		override protected function layout():void
+		{
+			super.layout();
+			
+			content.width = this.panel.width;
+			
+			if(content is IFeathersControl){
+				(content as IFeathersControl).validate();
+			}
+		}
+		
+	 
 		/**
 		 * @private
 		 */

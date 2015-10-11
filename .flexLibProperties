@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<flexLibProperties includeAllClasses="true" useMultiPlatformConfig="false" version="3">
+<flexLibProperties includeAllClasses="false" useMultiPlatformConfig="false" version="3">
   <includeClasses>
     <classEntry path="feathers.controls.Header"/>
     <classEntry path="feathers.controls.popups.VerticalCenteredPopUpContentManager"/>
@@ -12,6 +12,7 @@
     <classEntry path="feathers.extension.ahhenderson.constants.FeathersExtLib_ThemeConstants"/>
     <classEntry path="feathers.extension.ahhenderson.controls.CustomImageLoader"/>
     <classEntry path="feathers.extension.ahhenderson.controls.DateSelector"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.DateTimePicker"/>
     <classEntry path="feathers.extension.ahhenderson.controls.IconLabel"/>
     <classEntry path="feathers.extension.ahhenderson.controls.ImageLoaderCache"/>
     <classEntry path="feathers.extension.ahhenderson.controls.PanelNavigator"/>
@@ -20,6 +21,11 @@
     <classEntry path="feathers.extension.ahhenderson.controls.core.FeathersRootContainer"/>
     <classEntry path="feathers.extension.ahhenderson.controls.dialogs.LoadingDialog"/>
     <classEntry path="feathers.extension.ahhenderson.controls.interfaces.IPanelNavigatorScreen"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.interfaces.IPickerContent"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.pickerContent.DateTimePickerContent"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.popUps.CustomBottomDrawerPopUpManager"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.popUps.MenuPopUpManagerBase"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.popUps.PopUpManagerBase"/>
     <classEntry path="feathers.extension.ahhenderson.controls.renderers.DefaultCardItemRenderer"/>
     <classEntry path="feathers.extension.ahhenderson.controls.renderers.HorizontalTitledTextBlockItemRenderer"/>
     <classEntry path="feathers.extension.ahhenderson.controls.renderers.IntroCardItemRenderer"/>
@@ -36,6 +42,7 @@
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorScreenMediator"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.GroupedListDataViewPort"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.PickerContentBase"/>
     <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_NotificationConstants"/>
     <classEntry path="feathers.extension.ahhenderson.data.service.constants.DataService_SessionPropertyKeys"/>
     <classEntry path="feathers.extension.ahhenderson.data.service.helpers.DS_FacadeHelper"/>
@@ -79,7 +86,6 @@
     <classEntry path="feathers.extension.ahhenderson.managers.enums.MenuPosition"/>
     <classEntry path="feathers.extension.ahhenderson.managers.events.MenuEvent"/>
     <classEntry path="feathers.extension.ahhenderson.managers.events.PopUpContentEvent"/>
-    <classEntry path="feathers.extension.ahhenderson.managers.popup.base.PopUpManagerBase"/>
     <classEntry path="feathers.extension.ahhenderson.mvc.actor.FeathersCommand"/>
     <classEntry path="feathers.extension.ahhenderson.mvc.actor.FeathersMediator"/>
     <classEntry path="feathers.extension.ahhenderson.mvc.actor.FeathersModel"/>
@@ -97,7 +103,6 @@
     <classEntry path="feathers.extension.ahhenderson.util.FeathersPoolUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.popUps.CustomBottomDrawerPopUpManager"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

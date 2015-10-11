@@ -1,6 +1,7 @@
 package feathers.extension.ahhenderson.enums{
 	import ahhenderson.core.managers.dependency.objectPool.interfaces.IPoolType;
 	
+	import feathers.extension.ahhenderson.controls.DateTimePicker;
 	import feathers.extension.ahhenderson.controls.IconLabel;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
 
@@ -14,6 +15,7 @@ package feathers.extension.ahhenderson.enums{
 		
 		public static const ICON_LABEL:CustomComponentPoolType = new CustomComponentPoolType("ICON_LABEL", IconLabel);
 		
+		public static const DATE_TIME_PICKER:CustomComponentPoolType = new CustomComponentPoolType("DATE_TIME_PICKER", DateTimePicker);
 		
 		public function CustomComponentPoolType(type:String, objClass:Class):void {
 			if (locked) {

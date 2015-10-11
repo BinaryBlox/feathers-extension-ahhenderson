@@ -1,4 +1,4 @@
-package feathers.extension.ahhenderson.managers.popup.base {
+package feathers.extension.ahhenderson.controls.popUps {
 
 	import ahhenderson.core.mvc.patterns.facade.FacadeMessage;
 	import ahhenderson.core.mvc.patterns.facade.FacadeMessageFilter;

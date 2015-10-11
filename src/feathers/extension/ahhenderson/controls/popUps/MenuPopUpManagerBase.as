@@ -5,7 +5,7 @@
 //
 //------------------------------------------------------------------------------
 
-package feathers.extension.ahhenderson.managers.popup.base {
+package feathers.extension.ahhenderson.controls.popUps {
 
 	import flash.geom.Point;
 	

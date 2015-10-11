@@ -89,6 +89,7 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.extension.ahhenderson.managers.dependency.themeManager.supportClasses.BaseManagedTheme;
+	import feathers.extension.ahhenderson.themes.constants.FlatThemeBaseTextures;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
 	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.extension.ahhenderson.util.DrawingUtils;
@@ -517,8 +518,10 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected static var THEME_NAME_VERTICAL_SLIDER_MAXIMUM_TRACK:String;
 
-		// NEW CODE
+		// From new theme
 		protected var spinnerListSelectionOverlaySkinTextures:Scale9Textures;
+		protected var spinnerListBackgroundSkinTextures:Scale9Textures;
+		
 		/**
 		 * @private
 		 * The theme's custom style name for item renderers in a SpinnerList.
@@ -1580,13 +1583,20 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected function initializeScalingGrids():void{
 			 
+			var defPadding:Number = 1;;
 			var defBtnInset:Number = roundToNearest(this.scale9ButtonInset/this.scale);
 			var defPanelGutter:Number = defBtnInset;
 			var defCtrlSize:Number = roundToNearest(this.controlSize/this.scale);
 			var defPopUpFillSize:Number = roundToNearest(this.popUpFillSize/this.scale);
 			var alteredScale:Number = 1
-				
-			SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defCtrlSize);
+			var defLeftRightBorder:Number = (2 * this.scale) + defPadding;
+			
+			// Spinner List 
+			var defSpinnerListTopBottom:Number = (8 * this.scale) + defPadding;
+			var defSpinnerListItemRendererHeight:Number = (roundToNearest(100 * this.scale)) - (defSpinnerListTopBottom*2);
+			
+			SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = new Rectangle(defLeftRightBorder, defSpinnerListTopBottom, 1, defSpinnerListItemRendererHeight);
+			//SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defItemRendererHeight);
 			 
 			DEFAULT_SCALE9_GRID = DrawingUtils.getScaledRectangle(this.scale, 5, 5, defPanelGutter, defPanelGutter );
 			 
@@ -1703,6 +1713,7 @@ package feathers.extension.ahhenderson.themes {
 									 RenderingMode.CFF,
 									 CFFHinting.NONE );
  
+			
 			this.itemRendererLabelFormatDark = new ElementFormat( this.regularFontDescription, this.mediumFontSize, ITEM_RENDERER_LABEL_COLOR_DARK );
 			this.itemRendererLabelFormatLight = new ElementFormat( this.regularFontDescription, this.mediumFontSize, ITEM_RENDERER_LABEL_COLOR_LIGHT );
 			this.headerElementFormatBold = new ElementFormat( this.boldFontDescription, this.extraLargeFontSize, LIGHT_TEXT_COLOR );
@@ -1819,8 +1830,8 @@ package feathers.extension.ahhenderson.themes {
 			
 			this.horizontalScrollBarThumbSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("horizontal-scroll-bar-thumb-skin"), SCROLL_BAR_THUMB_REGION1, SCROLL_BAR_THUMB_REGION2, Scale3Textures.DIRECTION_HORIZONTAL);
 			this.verticalScrollBarThumbSkinTextures = new Scale3Textures(fmgr.theme.assetManager.getTexture("vertical-scroll-bar-thumb-skin"), SCROLL_BAR_THUMB_REGION1, SCROLL_BAR_THUMB_REGION2, Scale3Textures.DIRECTION_VERTICAL);
-			
-			this.spinnerListSelectionOverlaySkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture("textinput-focus"), SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID);
+			//this.spinnerListBackgroundSkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture("spinner-list-background-skin"), ITEM_RENDERER_SCALE9_GRID);
+			this.spinnerListSelectionOverlaySkinTextures = new Scale9Textures(fmgr.theme.assetManager.getTexture(FlatThemeBaseTextures.SPINNER_OVERLAY), SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID);
 			
 			StandardIcons.listDrillDownAccessoryTexture = fmgr.theme.assetManager.getTexture("list-accessory-drill-down-icon");
 		}
@@ -2868,6 +2879,7 @@ package feathers.extension.ahhenderson.themes {
 				};*/
 			renderer.stateToSkinFunction = skinSelector.updateValue;
 
+			
 			renderer.defaultLabelProperties.elementFormat = this.largeDarkElementFormat;
 			renderer.downLabelProperties.elementFormat = this.largeLightElementFormat;
 			renderer.defaultSelectedLabelProperties.elementFormat = this.largeLightElementFormat;
@@ -3930,9 +3942,10 @@ package feathers.extension.ahhenderson.themes {
 		protected function setSpinnerListStyles(list:SpinnerList):void
 		{
 			this.setScrollerStyles(list);
+			list.backgroundDisabledSkin = new Quad(10,10, 0xFFFFFF);
 			//list.backgroundSkin = new Scale9Image(this.spinnerListBackgroundSkinTextures, this.scale);
 			list.customItemRendererStyleName = THEME_STYLE_NAME_SPINNER_LIST_ITEM_RENDERER;
-			list.selectionOverlaySkin = new Scale9Image(this.spinnerListSelectionOverlaySkinTextures, this.scale);
+			list.selectionOverlaySkin = new Scale9Image(this.spinnerListSelectionOverlaySkinTextures, this.contentScaleFactor);
 			
 			/*this.setListStyles(list);
 			list.customItemRendererStyleName = THEME_STYLE_NAME_SPINNER_LIST_ITEM_RENDERER;

@@ -19,11 +19,13 @@ package feathers.extension.ahhenderson.helpers {
 	import feathers.controls.renderers.DefaultListItemRenderer;
 	import feathers.controls.renderers.IListItemRenderer;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
+	import feathers.extension.ahhenderson.controls.DateTimePicker;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.layout.AnchorLayoutData;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
+	
 	import starling.textures.TextureSmoothing;
 
 
@@ -120,27 +122,57 @@ package feathers.extension.ahhenderson.helpers {
 												  itemRendererFactory:IListItemRenderer = null,  
 												  prompt:String = "Select an Item", 
 												  listHeight:int = 250 ):PickerList {
-
+			
 			var control:PickerList = fmgr.pool.borrowObj( FeathersComponentPoolType.PICKER_LIST );
-
+			
 			// Defaults 
 			control.listProperties.itemRendererFactory = UiFactoryHelper.defaultItemRendererFactory;
+			control.styleNameList.add( FeathersExtLib_StyleNameConstants.PICKER_LIST__TRANSPARENT_DARK );
+			
+			if ( customStyleName ) {
+				control.styleNameList.add( customStyleName );
+			}
+			
+			if ( itemRendererFactory ) {
+				control.listProperties.itemRendererFactory = UiFactoryHelper.defaultItemRendererFactory;
+			}
+			
+			// Defined
+			control.prompt = prompt;
+			control.labelField = labelField;
+			control.listProperties.typicalItem = typicalItem;
+			control.listProperties.height = listHeight * fmgr.theme.scaledResolution;
+			
+			return control;
+		}
+		
+		public static function dateTimePickerFactory( customStyleName:String = null,  
+												  labelField:String = "labelField", 
+												  typicalItem:String ="XXXXXXXXX", 
+												  itemRendererFactory:IListItemRenderer = null,  
+												  prompt:String = "Select Date/Time", 
+												  contentHeight:int = 250 ):DateTimePicker {
+
+			var control:DateTimePicker = new DateTimePicker();// = fmgr.pool.borrowObj( FeathersComponentPoolType.PICKER_LIST );
+
+			// Defaults 
+			//control.listProperties.itemRendererFactory = UiFactoryHelper.defaultItemRendererFactory;
 			control.styleNameList.add( FeathersExtLib_StyleNameConstants.PICKER_LIST__TRANSPARENT_DARK );
 
 			if ( customStyleName ) {
 				control.styleNameList.add( customStyleName );
 			}
 
-			if ( itemRendererFactory ) {
+			/*if ( itemRendererFactory ) {
 				control.listProperties.itemRendererFactory = UiFactoryHelper.defaultItemRendererFactory;
-			}
+			}*/
 
 			// Defined
 			control.prompt = prompt;
 			control.labelField = labelField;
-			control.listProperties.typicalItem = typicalItem;
-			control.listProperties.height = listHeight * fmgr.theme.scaledResolution;
-
+			control.pickerContentProperties.typicalItem = typicalItem;
+			control.pickerContentProperties.height = contentHeight * fmgr.theme.scaledResolution;
+			 
 			return control;
 		}
 

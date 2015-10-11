@@ -11,6 +11,7 @@ package feathers.extension.ahhenderson.themes.pool
 	import feathers.controls.ScreenNavigator;
 	import feathers.controls.SpinnerList;
 	import feathers.controls.TextInput;
+	import feathers.extension.ahhenderson.controls.DateTimePicker;
 	
 	import starling.display.Quad;
 	import starling.events.Event;
@@ -90,6 +91,8 @@ package feathers.extension.ahhenderson.themes.pool
 			
 			removeStyles(input);
 		}
+		
+		
 		
 		public static function resetSpinnerListObject(input:SpinnerList):void{
 			

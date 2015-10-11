@@ -1,3 +1,4 @@
+
 package feathers.extension.ahhenderson.themes {
 
 	import flash.geom.Rectangle;
@@ -22,13 +23,16 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_ThemeConstants;
 	import feathers.extension.ahhenderson.controls.DateSelector;
+	import feathers.extension.ahhenderson.controls.DateTimePicker;
 	import feathers.extension.ahhenderson.controls.IconLabel;
 	import feathers.extension.ahhenderson.controls.PanelNavigator;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
+	import feathers.extension.ahhenderson.controls.pickerContent.DateTimePickerContent;
 	import feathers.extension.ahhenderson.controls.popUps.CustomBottomDrawerPopUpManager;
 	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
 	import feathers.extension.ahhenderson.helpers.LayoutHelper;
+	import feathers.extension.ahhenderson.helpers.UiFactoryHelper;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeBaseTextures;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
 	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
@@ -133,11 +137,8 @@ package feathers.extension.ahhenderson.themes {
 			
 			// Titled Text Block
 			this.getStyleProviderForClass( TitledTextBlock ).defaultStyleFunction = this.setTitledTextBlockStyles;
-
-			// Date Selector
-			this.getStyleProviderForClass( DateSelector ).defaultStyleFunction = this.setDateSelectorStyles;
-
-			// Icon label
+  
+			// IconLabel
 			this.getStyleProviderForClass( IconLabel ).defaultStyleFunction = this.setIconLabelStyles;
 
 			// PanelNavigator 
@@ -157,9 +158,12 @@ package feathers.extension.ahhenderson.themes {
 			this.getStyleProviderForClass( Panel ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.PICKER_LIST__TRANSPARENT_POPUP_PANEL,
 																			setPickerListTransparentPopUpPanelStyles )
 				
-			// PickerList - DateTime
-			this.getStyleProviderForClass( PickerList ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.PICKER_LIST_DATETIME__TRANSPARENT_LIGHT,
-				setPickerListDateTimeStyles )
+			// DateTimePicker
+			this.getStyleProviderForClass( DateTimePicker ).defaultStyleFunction = this.setDateTimePickerTransparentDarkStyles; 
+			this.getStyleProviderForClass( DateTimePicker ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.DATE_TIME_PICKER__TRANSPARENT_LIGHT,
+				setDateTimePickerTransparentLightStyles )
+			this.getStyleProviderForClass( DateTimePicker ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.DATE_TIME_PICKER__TRANSPARENT_DARK,
+				setDateTimePickerTransparentDarkStyles )
 			
 			// Custom spinner 
 			this.getStyleProviderForClass( SpinnerList ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.SPINNER_LIST__ALTERNATE_OVERLAY,
@@ -224,10 +228,10 @@ package feathers.extension.ahhenderson.themes {
 				new Scale9Textures( fmgr.theme.assetManager.getTexture( FlatThemeBaseTextures.BUTTON_SOCIAL_GPLUS_DOWN_SKIN ),
 																		BUTTON_SCALE9_GRID );
 
-			this.spinnerListSelectionCustomOverlaySkinTextures =
+			/*this.spinnerListSelectionCustomOverlaySkinTextures =
 				new Scale9Textures( fmgr.theme.assetManager.getTexture( FlatThemeBaseTextures.SPINNER_OVERLAY ),
 																		SPINNER_LIST_SELECTION_CUSTOM_OVERLAY_SCALE9_GRID );
-
+*/
 		}
 
 		override protected function initializeObjectPools():void {
@@ -624,7 +628,8 @@ package feathers.extension.ahhenderson.themes {
 			this.setScrollerStyles( panel );
 
 			//panel.backgroundSkin = new Scale9Image( this.bg_popup, this.scale );
-			panel.backgroundSkin = new Quad( 10, 10, 0x444444 );
+			//panel.backgroundSkin = new Quad( 10, 10, 0x040404 );
+			panel.backgroundSkin = new Quad( 10, 10, 0xFFFFFF );
 			panel.backgroundSkin.alpha = 1;
 
 			panel.paddingTop = 0;
@@ -746,25 +751,64 @@ package feathers.extension.ahhenderson.themes {
 		
 
 		//-------------------------
-		// PickerList - DateTime
+		// DateTimePicker
 		//-------------------------
 		
-		protected function setPickerListDateTimeStyles(list:PickerList):void
+		protected function setDateTimePickerStyles(dateTimePicker:DateTimePicker):void
 		{
+			dateTimePicker.pickerContentFactory = dateTimePickerContentFactory; 
+			
 			if(DeviceCapabilities.isTablet(Starling.current.nativeStage))
-			{
-				list.popUpContentManager = new CalloutPopUpContentManager();
+			{ 
+				dateTimePicker.popUpContentManager = new CalloutPopUpContentManager();
 			}
 			else
-			{
-				list.listFactory = pickerListDateTimeSpinnerListFactory;
-				// Ahhender Changes: 
-				list.popUpContentManager = new CustomBottomDrawerPopUpManager(); 
+			{ 
+				dateTimePicker.popUpContentManager = new CustomBottomDrawerPopUpManager(); 
 			}
 			
 			// Ahhender Changes: 
-			list.resetObjectFunction = BaseFlatThemePoolFunctions.resetPickerListObject;
+			dateTimePicker.resetObjectFunction = CustomFlatThemePoolFunctions.resetDateTimePickerObject;
 		}
+		
+		protected function setDateTimePickerTransparentBaseStyles( dateTimePicker:DateTimePicker ):void {
+			
+			this.setDateTimePickerStyles( dateTimePicker );
+			
+			// Default
+			dateTimePicker.customButtonStyleName = FeathersExtLib_StyleNameConstants.PICKER_LIST__TRANSPARENT_LIGHT_BUTTON;
+			
+			if ( dateTimePicker.popUpContentManager && ( dateTimePicker.popUpContentManager is CustomBottomDrawerPopUpManager )) {
+				( dateTimePicker.popUpContentManager as CustomBottomDrawerPopUpManager ).openOrCloseDuration = .30;
+				( dateTimePicker.popUpContentManager as CustomBottomDrawerPopUpManager ).customPanelStyleName =
+					FeathersExtLib_StyleNameConstants.PICKER_LIST__TRANSPARENT_POPUP_PANEL;
+				( dateTimePicker.popUpContentManager as CustomBottomDrawerPopUpManager ).closeButtonLabel =
+					FeathersExtLib_ThemeConstants.BOTTOM_PICKER_LIST_CLOSE_BUTTON_LABEL;
+			}
+		}
+		
+		protected function setDateTimePickerTransparentLightStyles( dateTimePicker:DateTimePicker ):void {
+			
+			this.setDateTimePickerTransparentBaseStyles( dateTimePicker );
+			
+		}
+		  
+		protected function setDateTimePickerTransparentDarkStyles( dateTimePicker:DateTimePicker ):void {
+			
+			this.setDateTimePickerTransparentBaseStyles( dateTimePicker );
+			
+			dateTimePicker.customButtonStyleName = FeathersExtLib_StyleNameConstants.PICKER_LIST__TRANSPARENT_DARK_BUTTON;
+			
+		}
+		
+		protected static function dateTimePickerContentFactory():DateTimePickerContent{
+			 
+			var pickerContent:DateTimePickerContent = new DateTimePickerContent();
+			 
+			return new DateTimePickerContent();
+		}
+		
+		 
 		
 		//-------------------------
 		// PageIndicator
