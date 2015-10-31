@@ -32,6 +32,7 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.extension.ahhenderson.controls.renderers.HorizontalTitledTextBlockItemRenderer;
 	import feathers.extension.ahhenderson.controls.renderers.VerticalTitledTextBlockItemRenderer;
 	import feathers.extension.ahhenderson.controls.renderers.base.BaseTitledTextBlockItemRenderer;
+	import feathers.extension.ahhenderson.controls.screens.drawers.TopDrawer;
 	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
 	import feathers.extension.ahhenderson.helpers.LayoutHelper;
@@ -164,6 +165,15 @@ package feathers.extension.ahhenderson.themes {
 																			 setTitledNavigationHeaderStyles );
 			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.PICKER_LIST__PANEL_HEADER, 
 				setPickerListPanelHeaderStyles);
+			
+			// Drawer
+			this.getStyleProviderForClass( TopDrawer ).defaultStyleFunction = this.setTopDrawerSemiDarkStyles;
+			
+			this.getStyleProviderForClass( TopDrawer).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.DRAWER__TOP_SEMI_DARK, 
+				this.setTopDrawerSemiDarkStyles);
+			
+			this.getStyleProviderForClass( TopDrawer).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.DRAWER__TOP_SEMI_LIGHT, 
+				this.setTopDrawerSemiLightStyles);
 			
 			// Header-SubHeader
 			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_LIGHT, 
@@ -456,9 +466,35 @@ package feathers.extension.ahhenderson.themes {
 			header.titleProperties.elementFormat = this.lightUIElementFormat; 
 		}
 		
+		protected function setTopDrawerBaseStyles( header:Header ):void {
+			
+			setSubHeaderBaseStyles(header);
+			 
+			header.minHeight =  this.headerSize ; 
+		}
+		
+		
+		protected function setTopDrawerSemiDarkStyles( header:Header ):void {
+			
+			setTopDrawerBaseStyles( header );
+			
+			header.backgroundSkin = new Quad(10, 10, 0x000000); 
+			header.backgroundSkin.alpha = .4;
+			header.titleProperties.elementFormat = this.lightUIElementFormat;
+		}
+		
+		protected function setTopDrawerSemiLightStyles( header:Header ):void {
+			
+			setTopDrawerBaseStyles( header );
+			
+			header.backgroundSkin = new Quad(10, 10, 0xFFFFFF); 
+			header.backgroundSkin.alpha = .4;
+			header.titleProperties.elementFormat = this.darkUIElementFormat;
+		}
+		
 		protected function setSubHeaderLightStyles( header:Header ):void {
 			
-			setSubHeaderBaseStyles( header );
+			setTopDrawerBaseStyles( header );
 			
 			header.backgroundSkin = new Quad(10, 10, 0xFFFFFF); 
 			header.titleProperties.elementFormat = this.darkUIElementFormat; 

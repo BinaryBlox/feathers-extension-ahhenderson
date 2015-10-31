@@ -81,6 +81,10 @@ package feathers.extension.ahhenderson.constants
 		
 		public static const HEADER__SUB_HEADER_DARK:String = "HEADER__SUB_HEADER_DARK";
 		
+		public static const DRAWER__TOP_SEMI_LIGHT:String = "DRAWER__TOP_SEMI_LIGHT";
+		
+		public static const DRAWER__TOP_SEMI_DARK:String = "DRAWER__TOP_SEMI_LIGHT";
+		
 		public static const TITLED_TEXTBOX__DARK_STYLES:String = "TITLED_TEXTBOX__DARK_STYLES";
 	}
 }

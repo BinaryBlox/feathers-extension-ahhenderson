@@ -2,11 +2,15 @@ package feathers.extension.ahhenderson.managers
 {
 
 	import flash.events.EventDispatcher;
+	import flash.events.LocationChangeEvent;
+	import flash.text.engine.BreakOpportunity;
 	
 	import ahhenderson.core.ui.enums.LayoutDirectionType;
+	import ahhenderson.core.ui.layout.HorizontalAlign;
 	import ahhenderson.core.util.StringUtil;
 	
 	import feathers.controls.Drawers;
+	import feathers.controls.Header;
 	import feathers.controls.ScreenNavigator;
 	import feathers.extension.ahhenderson.ahhenderson_extension_internal;
 	import feathers.extension.ahhenderson.controls.core.FeathersRootContainer;
@@ -14,6 +18,8 @@ package feathers.extension.ahhenderson.managers
 	import feathers.extension.ahhenderson.util.ScreenUtil;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 	
+	import starling.animation.Transitions;
+	import starling.core.Starling;
 	import starling.display.DisplayObject;
 
 	use namespace ahhenderson_extension_internal;
@@ -161,9 +167,54 @@ package feathers.extension.ahhenderson.managers
 				this._rootContainer.headerDockingMode = docked;
 		}
 		
+		private function onHeaderFadeOutTweenComplete():void {
+			
+			var header:Header = getDrawer(LayoutDirectionType.TOP);
+			header.touchable = false;
+			header.visible = false;
+			 
+		}
+		
+		private function onHeaderFadeInTweenComplete():void {
+			
+			var header:Header = getDrawer(LayoutDirectionType.TOP);
+			header.touchable = true;
+			 
+		}
+		
+		 
+		protected function toggleVisibility(show:Boolean):void{
+			 
+			var header:Header = getDrawer(LayoutDirectionType.TOP);
+			
+			
+			if(show){
+				
+				// Already visible
+				if(header.visible && (header.alpha == 1))
+					return;
+				
+				header.touchable = false;
+				header.alpha = 0;
+				header.visible = true;   
+				Starling.juggler.tween( header, .20, { transition: Transitions.EASE_IN_OUT, alpha: 1, onComplete: onHeaderFadeInTweenComplete });
+			}
+			else{
+				
+				// Already hidden
+				if(!header.visible)
+					return;
+				
+				header.touchable = false;
+				Starling.juggler.tween( header, .25, { transition: Transitions.EASE_IN_OUT, alpha: 0, onComplete: onHeaderFadeInTweenComplete }); 
+			} 
+			
+		}
+		
 		public function toggleHeaderVisibility(visible:Boolean):void{
 			
-			this._rootContainer.toggleHeaderVisibility(visible);
+			toggleVisibility(visible);
+			//this._rootContainer.toggleHeaderVisibility(visible);
 		}
 		
 		private var _fmgr:FeathersApplicationManager;
@@ -197,9 +248,21 @@ package feathers.extension.ahhenderson.managers
 			this._rootContainer.screenNavigator.showScreen(id, transition);
 		}
   
+		private function getDrawer(location:LayoutDirectionType):*{
+			
+			var drawerDisplayObjectProperty:String=location.value.toLowerCase() + "Drawer"
+				
+			// Ensure drawer exists
+			if (!this._rootContainer.drawers[drawerDisplayObjectProperty])
+				throw new Error("No " + location.value + " was created.");
+			
+			return this._rootContainer.drawers[drawerDisplayObjectProperty];
+			
+		}
+		
 		public function toggleDrawer(location:LayoutDirectionType, duration:Number=NaN):void
 		{
-
+ 
 			validateManager();
 
 			var drawerDockModeProperty:String=location.value.toLowerCase() + "DrawerDockMode";
@@ -265,30 +328,70 @@ package feathers.extension.ahhenderson.managers
 		}
  
 		public function updateLeftHeaderItems(items:Vector.<DisplayObject>):void
-		{ 
+		{  
+			if (items) 
+				updateHeaderItems(items, HorizontalAlign.LEFT);
+		}
+		
+		public function updateCenterHeaderItems(items:Vector.<DisplayObject>):void
+		{  
+			if (items) 
+				updateHeaderItems(items, HorizontalAlign.CENTER);
+		}
+		
+		private function updateHeaderItems(items:Vector.<DisplayObject>, position:String):void{
+			
 			validateManager();
-
-			if (items)
-				this._rootContainer.header.leftItems=items;
-
+			
+			if(!position){
+				fmgr.logger.log("{0}: Postion param is null", "updateHeaderItems");
+				return;
+			}
+			
+			var header:Header = getDrawer(LayoutDirectionType.TOP) as Header;
+			var propertyName:String;
+			
+			
+			if(!header) 
+				return;
+			
+			switch(position){
+				
+				case HorizontalAlign.LEFT:
+					propertyName = "leftItems"
+					break;
+				
+				case HorizontalAlign.RIGHT:
+					propertyName = "rightItems";
+					break;
+				
+				case HorizontalAlign.CENTER:
+					propertyName = "centerItems";
+					break;
+			}
+			 
+			if (items && propertyName && header.hasOwnProperty(propertyName))
+				header[propertyName]=items;
 		}
 
 		public function updateRightHeaderItems(items:Vector.<DisplayObject>):void
-		{ 
-			validateManager();
-
+		{  
 			if (items) 
-				this._rootContainer.header.rightItems=items;
-			 
+				updateHeaderItems(items, HorizontalAlign.RIGHT); 
 		}
 
 		public function updateHeaderTitle(title:String):void
 		{
 			validateManager();
-
-			if (title)
-				this._rootContainer.updateTitle(title);
-
+ 
+			var header:Header = getDrawer(LayoutDirectionType.TOP) as Header;
+			var propertyName:String;
+			
+			if(!header) 
+				return; 
+			
+			header.title = title;
+			  
 		}
 		
 		public function getHeaderHeight():Number{

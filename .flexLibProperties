@@ -37,6 +37,8 @@
     <classEntry path="feathers.extension.ahhenderson.controls.screens.ScrollContainerScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.TitledNavigatorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.dateSelector.DateSelectorScreenConfig"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopDrawer"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopHeaderDrawerOld"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorFormScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorFormScreenMediator"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorScreen"/>
@@ -104,7 +106,6 @@
     <classEntry path="feathers.extension.ahhenderson.util.FeathersPoolUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopHeaderDrawer"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

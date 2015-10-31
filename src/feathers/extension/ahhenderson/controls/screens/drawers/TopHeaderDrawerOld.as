@@ -11,9 +11,9 @@ package feathers.extension.ahhenderson.controls.screens.drawers
 	import starling.display.Quad;
 	import starling.events.Event;
 	
-	public class TopHeaderDrawer extends LayoutGroup
+	public class TopHeaderDrawerOld extends LayoutGroup
 	{
-		public function TopHeaderDrawer()
+		public function TopHeaderDrawerOld()
 		{
 			super();
  		}
