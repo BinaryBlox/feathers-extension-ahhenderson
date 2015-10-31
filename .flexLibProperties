@@ -38,7 +38,7 @@
     <classEntry path="feathers.extension.ahhenderson.controls.screens.TitledNavigatorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.dateSelector.DateSelectorScreenConfig"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopDrawer"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopHeaderDrawerOld"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopDrawerHeader"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorFormScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorFormScreenMediator"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorScreen"/>
