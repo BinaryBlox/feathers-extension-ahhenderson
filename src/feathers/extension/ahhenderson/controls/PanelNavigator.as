@@ -77,7 +77,7 @@ package feathers.extension.ahhenderson.controls {
 		public function showScreen(  id:String, delay:int = 0, transition:Function=null ):void {
 			_lastScreenId = this.navigator.activeScreenID;
 			
-			ScreenUtil.showScreen(this.navigator, id, delay);
+			ScreenUtil.showScreen(this.navigator, id, delay, transition);
 		}
 		
 		/**

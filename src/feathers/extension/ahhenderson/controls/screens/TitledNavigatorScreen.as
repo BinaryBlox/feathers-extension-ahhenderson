@@ -8,8 +8,7 @@ package feathers.extension.ahhenderson.controls.screens {
 	import feathers.layout.AnchorLayoutData;
 	import feathers.layout.VerticalLayout;
 	import feathers.skins.IStyleProvider;
-	import feathers.utils.math.roundToNearest;
-
+	
 	import starling.animation.Transitions;
 	import starling.core.Starling;
 
@@ -242,6 +241,7 @@ package feathers.extension.ahhenderson.controls.screens {
 			_navigator.layoutData = navigatorLayoutData;
 			_navigator.visible = false;
 
+			
 			this.addChild( _navigator );
 		}
 	}

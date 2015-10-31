@@ -202,6 +202,7 @@ package feathers.extension.ahhenderson.managers
 
 			validateManager();
 
+			var drawerDockModeProperty:String=location.value.toLowerCase() + "DrawerDockMode";
 			var drawerDisplayObjectProperty:String=location.value.toLowerCase() + "Drawer"
 
 			var toggleDrawerMethod:String="toggle";
@@ -213,6 +214,29 @@ package feathers.extension.ahhenderson.managers
 				throw new Error("No " + location.value + " was created.");
 
 			// Show drawer
+			
+			// Handle Top location differently
+			if(location == LayoutDirectionType.TOP){
+				
+				var dockMode:String = this._rootContainer.drawers[drawerDockModeProperty];
+				var targetDockMode:String;
+				
+				switch(dockMode){
+					
+					case Drawers.DOCK_MODE_PORTRAIT:
+						targetDockMode = Drawers.DOCK_MODE_NONE;
+						break;
+					
+					case Drawers.DOCK_MODE_NONE:
+						targetDockMode = Drawers.DOCK_MODE_PORTRAIT;
+						break; 
+				}
+				  
+				this._rootContainer.drawers[drawerDockModeProperty]=targetDockMode;
+				return;
+			}
+			
+			// Left menu
 			this._rootContainer.drawers[toggleDrawerMethod](duration);
 
 		}

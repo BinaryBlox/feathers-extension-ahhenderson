@@ -30,12 +30,25 @@ package feathers.extension.ahhenderson.managers {
 
 		private static const _instance:FeathersApplicationManager = new FeathersApplicationManager( SingletonLock );
 
+		public function get isOfflineMode():Boolean
+		{
+			return _isOfflineMode;
+		}
+
+		public function set isOfflineMode(value:Boolean):void
+		{
+			_isOfflineMode = value;
+		}
+
 		public function get isDebuggable():Boolean
 		{
 			return _isDebuggable;
 			 
 		}
 
+		
+		private var _isOfflineMode:Boolean=false;
+		
 		/**
 		 *
 		 * @return

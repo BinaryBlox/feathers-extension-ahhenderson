@@ -5,24 +5,30 @@ package feathers.extension.ahhenderson.controls.pickerContent
 	
 	public class DateTimePickerContent extends DateTimeSpinner implements IPickerContent
 	{
+		
+		/*this.pickerContent.addEventListener( Event.CHANGE, content_changeHandler );
+		this.pickerContent.addEventListener( Event.TRIGGERED, content_triggeredHandler );
+		this.pickerContent.addEventListener( Event.REMOVED_FROM_STAGE, content_removedFromStageHandler );*/
 		public function DateTimePickerContent()
 		{
 			super();
 		}
 		
 		public function get selectedItem():Object
-		{
-			// TODO Auto Generated method stub
-			return null;
+		{ 
+			return this.value;
 		}
 		
 		public function set selectedItem(value:Object):void
 		{
-			// TODO Auto Generated method stub
+			if(!(value is Date)){
+				throw new Error("DateTimePickerContent.selectedItem - Values must be date");
+				
+			}
+			this.value = value as Date;
 			
 		}
 		
-		
-		
+		 
 	}
 }

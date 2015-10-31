@@ -73,7 +73,8 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 			 
 			// Controls list.
 			this.formControlList = UiFactoryHelper.formControlListFactory();
-			this.formControlList.layoutData = new AnchorLayoutData( 0, 0, NaN, 0 );
+			this.formControlList.visible = false;
+			this.formControlList.layoutData = new AnchorLayoutData( 0, 0, 0, 0 );
 			
 			// Add form controls to list
 			initPanelControls();

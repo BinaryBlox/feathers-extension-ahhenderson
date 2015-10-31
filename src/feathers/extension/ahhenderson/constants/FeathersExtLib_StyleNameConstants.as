@@ -59,6 +59,8 @@ package feathers.extension.ahhenderson.constants
 		
 		public static const PICKER_LIST__TRANSPARENT_LIST:String = "picker-list--transparent-list";
 		
+		public static const PICKER_LIST__PANEL_HEADER:String = "picker-list--panel-header";
+		 
 		public static const DATE_SELECTOR__DEFAULT:String = "date-selector--default";
 		
 		public static const NUMERIC_STEPPER__CHILD_STYLE_NAME_TEXT_INPUT_NO_BACKGROUND:String = "numeric-stepper--child-style-name-text-input-no-background";
@@ -70,5 +72,15 @@ package feathers.extension.ahhenderson.constants
 		public static const TEXT_INPUT__ALTERNATE_NAME_TEXT_INPUT_TRANSPARENT:String = "text-input--alternate-name-text-input-transparent";
 		
 		public static const SPINNER_LIST__ALTERNATE_OVERLAY:String = "spinner-list--alternate-overlay";
+		
+		public static const HEADER__SUB_HEADER_TRANSPARENT_LIGHT:String = "HEADER__SUB_HEADER_TRANSPARENT_LIGHT";
+		
+		public static const HEADER__SUB_HEADER_TRANSPARENT_DARK:String = "HEADER__SUB_HEADER_TRANSPARENT_DARK";
+		
+		public static const HEADER__SUB_HEADER_LIGHT:String = "HEADER__SUB_HEADER_LIGHT";
+		
+		public static const HEADER__SUB_HEADER_DARK:String = "HEADER__SUB_HEADER_DARK";
+		
+		public static const TITLED_TEXTBOX__DARK_STYLES:String = "TITLED_TEXTBOX__DARK_STYLES";
 	}
 }

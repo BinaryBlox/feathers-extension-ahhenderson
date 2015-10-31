@@ -29,13 +29,14 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
 	import feathers.extension.ahhenderson.controls.pickerContent.DateTimePickerContent;
 	import feathers.extension.ahhenderson.controls.popUps.CustomBottomDrawerPopUpManager;
+	import feathers.extension.ahhenderson.controls.renderers.HorizontalTitledTextBlockItemRenderer;
+	import feathers.extension.ahhenderson.controls.renderers.VerticalTitledTextBlockItemRenderer;
+	import feathers.extension.ahhenderson.controls.renderers.base.BaseTitledTextBlockItemRenderer;
 	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
 	import feathers.extension.ahhenderson.helpers.LayoutHelper;
-	import feathers.extension.ahhenderson.helpers.UiFactoryHelper;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeBaseTextures;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
-	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.extension.ahhenderson.themes.pool.CustomFlatThemePoolFunctions;
 	import feathers.skins.SmartDisplayObjectStateValueSelector;
 	import feathers.system.DeviceCapabilities;
@@ -76,20 +77,7 @@ package feathers.extension.ahhenderson.themes {
 
 		protected var buttonSocialGoogPlusDownSkinTextures:Scale9Textures;
 		
-		/**
-		 * An ElementFormat with a dark tint meant for UI controls.
-		 */
-		protected var darkFormLabelElementFormat:ElementFormat;
-		
-		protected var darkFormTextElementFormat:ElementFormat;
-		
-		protected var darkFormPromptElementFormat:ElementFormat;
-		
-		protected var lightFormLabelElementFormat:ElementFormat;
-		
-		protected var lightFormTextElementFormat:ElementFormat;
-		
-		protected var lightFormPromptElementFormat:ElementFormat;
+		protected static var SUB_HEADER_COLOR:uint =0x404040;
 
 		/**
 		 * Initializes the theme colors. Expected to be called by subclasses after the
@@ -97,31 +85,16 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		override public function preinitializeThemeParams():void {
 			
-			super.preinitializeThemeParams();
-			 
-			// FORM THEME COLORS
-			LIGHT_FORM_LABEL_COLOR  = getThemePropertyValue(this.themeProperties.LIGHT_FORM_LABEL_COLOR, 0xe5e5e5); 
-			LIGHT_FORM_TEXT_COLOR  = getThemePropertyValue(this.themeProperties.LIGHT_FORM_TEXT_COLOR, 0xe5e5e5);
-			LIGHT_FORM_PROMPT_COLOR  = getThemePropertyValue(this.themeProperties.LIGHT_FORM_PROMPT_COLOR, 0xe5e5e5);
-			
-			DARK_FORM_LABEL_COLOR  = getThemePropertyValue(this.themeProperties.DARK_FORM_LABEL_COLOR, 0x444444);
-			DARK_FORM_TEXT_COLOR  = getThemePropertyValue(this.themeProperties.DARK_FORM_TEXT_COLOR, 0x040404);
-			DARK_FORM_PROMPT_COLOR  = getThemePropertyValue(this.themeProperties.DARK_FORM_PROMPT_COLOR, 0xCCCCCC);
-			
+			super.preinitializeThemeParams(); 
 			
 		}
+		
 		override protected function initializeFonts():void{
 			
 			super.initializeFonts();
-			
-			this.darkFormLabelElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, DARK_FORM_LABEL_COLOR );
-			this.darkFormTextElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, DARK_FORM_TEXT_COLOR );
-			this.darkFormPromptElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, DARK_FORM_PROMPT_COLOR );
-			this.lightFormLabelElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, LIGHT_FORM_LABEL_COLOR );
-			this.lightFormTextElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, LIGHT_FORM_TEXT_COLOR );
-			this.lightFormPromptElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, LIGHT_FORM_PROMPT_COLOR );
-			
+		 
 		}
+		
 		override protected function initializeStyleProviders():void {
 
 			super.initializeStyleProviders();
@@ -136,8 +109,13 @@ package feathers.extension.ahhenderson.themes {
 			
 			
 			// Titled Text Block
-			this.getStyleProviderForClass( TitledTextBlock ).defaultStyleFunction = this.setTitledTextBlockStyles;
-  
+			this.getStyleProviderForClass( TitledTextBlock ).defaultStyleFunction = this.setTitledTextBlockLightStyles;
+			this.getStyleProviderForClass( TitledTextBlock ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.TITLED_TEXTBOX__DARK_STYLES,
+				setTitledTextBlockDarkStyles )
+			this.getStyleProviderForClass( TitledTextBlock ).setFunctionForStyleName( TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER,
+				this.setTitledTextBlockItemRendererStyles );
+			
+				
 			// IconLabel
 			this.getStyleProviderForClass( IconLabel ).defaultStyleFunction = this.setIconLabelStyles;
 
@@ -176,14 +154,29 @@ package feathers.extension.ahhenderson.themes {
 																							  setItemRendererFormLabelDrillDownStyles )
 			this.getStyleProviderForClass( DefaultListItemRenderer ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.ARROW_LABEL_LIST_ITEM_RENDERER,
 																							  setItemRendererArrowLabelStyles )
-
-			this.getStyleProviderForClass( TitledTextBlock ).setFunctionForStyleName( TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER,
-																					  this.setTitledTextBlockItemRendererStyles );
+ 
+			this.getStyleProviderForClass( VerticalTitledTextBlockItemRenderer ).defaultStyleFunction = this.setVerticalTitledTextBlockItemRenderer; 
+			
+			this.getStyleProviderForClass( HorizontalTitledTextBlockItemRenderer ).defaultStyleFunction = this.setHorizontalTitledTextBlockItemRenderer; 
 
 			// Header
 			this.getStyleProviderForClass( Header ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.HEADER_TITLED_NAVIGATOR_SCREEN,
 																			 setTitledNavigationHeaderStyles );
-			//this.getStyleProviderForClass( Header).setFunctionForStyleName(PANEL_HEADER__DARK_TITLE, setPanelHeaderStyles);
+			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.PICKER_LIST__PANEL_HEADER, 
+				setPickerListPanelHeaderStyles);
+			
+			// Header-SubHeader
+			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_LIGHT, 
+				setSubHeaderLightStyles);
+			
+			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_DARK, 
+				setSubHeaderDarkStyles);
+			
+			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_TRANSPARENT_LIGHT, 
+				setSubHeaderTransparentLightStyles);
+			
+			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_TRANSPARENT_DARK, 
+				setSubHeaderTransparentDarkStyles);
 
 			// labels
 			this.getStyleProviderForClass( Label ).setFunctionForStyleName( FeathersExtLib_StyleNameConstants.LABEL_ALTERNATE_DARK_STYLE_NAME_NORMAL,
@@ -243,6 +236,7 @@ package feathers.extension.ahhenderson.themes {
 
 			ObjectPoolManager.instance.createPool( CustomComponentPoolType.TITLED_TEXT_BLOCK, null, 5 );
 			ObjectPoolManager.instance.createPool( CustomComponentPoolType.ICON_LABEL, null, 5 );
+			ObjectPoolManager.instance.createPool( CustomComponentPoolType.DATE_TIME_PICKER, null, 2 );
 		}
 
 		//-------------------------
@@ -338,31 +332,51 @@ package feathers.extension.ahhenderson.themes {
 
 		protected function setTitledTextBlockItemRendererStyles( titledTextBlock:TitledTextBlock ):void {
 
-			setTitledTextBlockStyles( titledTextBlock );
+			setTitledTextBlockLightStyles( titledTextBlock );
 
 		/*titledTextBlock.titleFormat = this.fontLightItemRenderer;
 		titledTextBlock.contentFormat = this.fontLightSmallDetail;*/
 		}
 
-		protected function setTitledTextBlockStyles( styledControl:TitledTextBlock ):void {
-
+		protected function setTitledTextBlockBaseStyles( styledControl:TitledTextBlock ):void {
+			
 			styledControl.minWidth = 150 * this.scale;
 			styledControl.minHeight = 44 * this.scale;
 			styledControl.titleFormat = this.largeLightElementFormat;
 			styledControl.contentFormat = this.smallLightElementFormat;
-
+			
 			//styledControl.titleFormat 
 			/*titledTextBlock.textFontStyle = VzLabel.FONT_SMALL_SEMI_HIGHLIGHT;
 			titledTextBlock.titleFontStyle = VzLabel.FONT_LARGE_DARK;
 			titledTextBlock.gap = 6;*/
 			/*	iconLabel.height = 150*this.scale;
 			iconLabel.width = 30 * this.scale; */
-
+			
+			
 			styledControl.minTouchWidth = 150 * this.scale;
 			styledControl.minTouchHeight = 100 * this.scale;
-
+			
 			// IMPORTANT: recommended for object pooling
 			styledControl.resetObjectFunction = CustomFlatThemePoolFunctions.resetTitledTextBlock;
+		}
+		
+		protected function setTitledTextBlockDarkStyles( styledControl:TitledTextBlock ):void {
+			
+			setTitledTextBlockBaseStyles(styledControl);
+			 
+			
+			styledControl.titleFormat = this.largeDarkElementFormat;
+			styledControl.contentFormat = this.smallDarkElementFormat;
+			  
+		}
+		
+		protected function setTitledTextBlockLightStyles( styledControl:TitledTextBlock ):void {
+
+			setTitledTextBlockBaseStyles(styledControl);
+			
+			styledControl.titleFormat = this.largeLightElementFormat;
+			styledControl.contentFormat = this.smallLightElementFormat;
+ 
 		}
 
 		protected function setDateSelectorStyles( styledControl:DateSelector ):void {
@@ -408,7 +422,72 @@ package feathers.extension.ahhenderson.themes {
 			header.titleProperties.elementFormat = this.headerElementFormat;
 
 		}
-
+ 
+		protected function setPickerListPanelHeaderStyles( header:Header ):void {
+			
+			setHeaderStyles( header );
+			
+			header.padding = 0; //this.smallGutterSize;
+			header.gap = 0; //this.smallGutterSize; 
+			header.paddingLeft = 2 * fmgr.theme.scaledResolution;
+			header.paddingRight = 2 * fmgr.theme.scaledResolution;
+			header.paddingTop = 2 * fmgr.theme.scaledResolution;
+			header.paddingBottom = 2 * fmgr.theme.scaledResolution;
+			
+			header.backgroundSkin = new Quad( 10, 10, PICKER_LIST_PANEL_HEADER_COLOR ); 
+			header.titleProperties.elementFormat = this.headerElementFormatBold;
+			
+		}
+		
+		protected function setSubHeaderBaseStyles( header:Header ):void {
+			
+			setHeaderStyles( header );
+			
+			header.minWidth = roundToNearest(this.headerSize*.75);
+			header.minHeight = roundToNearest(this.headerSize*.75);
+			header.padding = 0; //this.smallGutterSize;
+			header.gap = 0; //this.smallGutterSize; 
+			header.paddingLeft = 2 * fmgr.theme.scaledResolution;
+			header.paddingRight = 2 * fmgr.theme.scaledResolution;
+			header.paddingTop = 2 * fmgr.theme.scaledResolution;
+			header.paddingBottom = 2 * fmgr.theme.scaledResolution;
+			
+			header.backgroundSkin = null; 
+			header.titleProperties.elementFormat = this.lightUIElementFormat; 
+		}
+		
+		protected function setSubHeaderLightStyles( header:Header ):void {
+			
+			setSubHeaderBaseStyles( header );
+			
+			header.backgroundSkin = new Quad(10, 10, 0xFFFFFF); 
+			header.titleProperties.elementFormat = this.darkUIElementFormat; 
+		}
+		
+		protected function setSubHeaderDarkStyles( header:Header ):void {
+			
+			setSubHeaderBaseStyles( header );
+			
+			header.backgroundSkin = new Quad(10, 10, 0xCCCCCC); 
+			header.titleProperties.elementFormat = this.lightUIElementFormat;
+		}
+		
+		protected function setSubHeaderTransparentLightStyles( header:Header ):void {
+			
+			setSubHeaderBaseStyles( header );
+			 
+			header.backgroundSkin = null; 
+			header.titleProperties.elementFormat = this.lightUIElementFormat; 
+		}
+		
+		protected function setSubHeaderTransparentDarkStyles( header:Header ):void {
+			
+			setSubHeaderBaseStyles( header );
+			
+			header.backgroundSkin = null; 
+			header.titleProperties.elementFormat = this.darkUIElementFormat;
+		}
+		
 		/**
 		 *
 		 * @param header
@@ -473,6 +552,38 @@ package feathers.extension.ahhenderson.themes {
 			renderer.iconPosition = Button.ICON_POSITION_LEFT;
 		}
 
+		//VerticalTitledTextBlockItemRenderer
+		
+		
+		protected function setVerticalTitledTextBlockItemRenderer(renderer:BaseTitledTextBlockItemRenderer):void{
+			
+			/*const skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			skinSelector.defaultSelectedValue = this.itemRendererCustom1SelectedSkinTextures;
+			skinSelector.setValueForState( this.itemRendererCustom1SelectedSkinTextures, Button.STATE_DOWN, false );
+			skinSelector.displayObjectProperties = { width: 44 * this.scale, height: 30 * this.scale, textureScale: this.scale };
+			
+			// Update renderer to support state.
+			renderer.stateToSkinFunction = skinSelector.updateValue; */
+		}
+		
+		protected function setHorizontalTitledTextBlockItemRenderer(renderer:BaseTitledTextBlockItemRenderer):void{
+			
+			/*var skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
+			skinSelector.defaultValue = this.itemRendererUpSkinTextures;
+			skinSelector.defaultSelectedValue = this.itemRendererSelectedSkinTextures;
+			skinSelector.setValueForState( this.itemRendererSelectedSkinTextures, Button.STATE_DOWN, false );
+			skinSelector.displayObjectProperties =
+				{ width: this.itemRendererMinSize, height: this.itemRendererMinSize, textureScale: this.contentScaleFactor};*/
+			/*skinSelector.displayObjectProperties =
+			{
+			width: this.gridSize,
+			height: this.gridSize,
+			textureScale: this.scale
+			};*/
+			 
+			/*renderer.stateToSkinFunction = skinSelector.updateValue;*/
+		}
+		
 		protected function setItemRendererArrowLabelStyles( renderer:BaseDefaultItemRenderer ):void {
 
 			setItemRendererFormLabelStyles( renderer );
@@ -625,10 +736,11 @@ package feathers.extension.ahhenderson.themes {
 
 		protected function setPickerListTransparentPopUpPanelStyles( panel:Panel ):void {
 
-			this.setScrollerStyles( panel );
-
+			this.setScrollerStyles( panel ); 
+			
 			//panel.backgroundSkin = new Scale9Image( this.bg_popup, this.scale );
-			//panel.backgroundSkin = new Quad( 10, 10, 0x040404 );
+			//panel.backgroundSkin = new Quad( 10, 10, 0x040404 ); 
+			panel.customHeaderStyleName = FeathersExtLib_StyleNameConstants.PICKER_LIST__PANEL_HEADER;
 			panel.backgroundSkin = new Quad( 10, 10, 0xFFFFFF );
 			panel.backgroundSkin.alpha = 1;
 
@@ -808,8 +920,19 @@ package feathers.extension.ahhenderson.themes {
 			return new DateTimePickerContent();
 		}
 		
-		 
+		//-------------------------
+		// SpinnerList
+		//-------------------------
+		override protected function setSpinnerListItemRendererStyles(renderer:DefaultListItemRenderer):void
+		{
+			super.setSpinnerListItemRendererStyles(renderer);
+			
+			renderer.defaultLabelProperties.elementFormat = this.darkFormTextElementFormat
+			renderer.disabledLabelProperties.elementFormat = this.largeDisabledElementFormat; 
+ 
+		}
 		
+	 
 		//-------------------------
 		// PageIndicator
 		//-------------------------

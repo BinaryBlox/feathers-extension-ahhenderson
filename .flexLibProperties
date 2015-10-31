@@ -55,6 +55,7 @@
     <classEntry path="feathers.extension.ahhenderson.data.service.mvc.controller.DS_GroupedAmfServiceCommand"/>
     <classEntry path="feathers.extension.ahhenderson.enums.CustomComponentPoolType"/>
     <classEntry path="feathers.extension.ahhenderson.enums.FeathersComponentPoolType"/>
+    <classEntry path="feathers.extension.ahhenderson.enums.FontColorType"/>
     <classEntry path="feathers.extension.ahhenderson.enums.HorizontalLocationType"/>
     <classEntry path="feathers.extension.ahhenderson.enums.VerticalLocationType"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.AssetHelper"/>
@@ -103,6 +104,7 @@
     <classEntry path="feathers.extension.ahhenderson.util.FeathersPoolUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.FeathersUtil"/>
     <classEntry path="feathers.extension.ahhenderson.util.ScreenUtil"/>
+    <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopHeaderDrawer"/>
   </includeClasses>
   <includeResources/>
   <namespaceManifests/>

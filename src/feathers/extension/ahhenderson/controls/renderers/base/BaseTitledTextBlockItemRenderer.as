@@ -1,24 +1,24 @@
 package feathers.extension.ahhenderson.controls.renderers.base {
-
-	import flash.events.Event;
+ 
 	import flash.geom.Point;
-	
-	import ahhenderson.core.ui.layout.HorizontalAlign;
 	
 	import feathers.controls.renderers.LayoutGroupListItemRenderer;
 	import feathers.core.FeathersControl;
 	import feathers.core.IFeathersControl;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
-	import feathers.extension.ahhenderson.helpers.LayoutHelper;
+	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.managers.FeathersApplicationManager;
 	import feathers.layout.HorizontalLayout;
 	import feathers.layout.HorizontalLayoutData;
 	import feathers.layout.ILayout;
 	import feathers.layout.ILayoutData;
 	import feathers.layout.VerticalLayout;
+	import feathers.skins.IStyleProvider;
 	import feathers.utils.math.roundToNearest;
 	
 	import starling.display.Image;
+	import starling.display.Quad;
+	import starling.events.Event;
 	import starling.events.Touch;
 	import starling.events.TouchEvent;
 	import starling.events.TouchPhase;
@@ -35,7 +35,9 @@ package feathers.extension.ahhenderson.controls.renderers.base {
 
 		protected var _accessory:IFeathersControl;
 
-		protected var _icon:Image;
+		protected var _labelIcon:Image;
+		
+		protected var _drillDownIcon:Image;
 
 		protected var _padding:Number = 0;
 
@@ -52,13 +54,105 @@ package feathers.extension.ahhenderson.controls.renderers.base {
 		private var _fmgr:FeathersApplicationManager;
 
 		private var _titledTextBlockLayoutData:ILayoutData;
+		
+		private var _customTitleTextBlockStylename:String;
+		
+		public function get customTitleTextBlockStylename():String
+		{
+			return this._customTitleTextBlockStylename;
+		}
+		
+		/**
+		 * The default <code>IStyleProvider</code> for all <code>ToggleButton</code>
+		 * components. If <code>null</code>, falls back to using
+		 * <code>Button.globalStyleProvider</code> instead.
+		 *
+		 * @default null
+		 * @see feathers.core.FeathersControl#styleProvider
+		 * @see feathers.controls.Button#globalStyleProvider
+		 */
+		public static var globalStyleProvider:IStyleProvider;
+		
+		
+		/**
+		 * @private
+		 */
+		override protected function get defaultStyleProvider():IStyleProvider {
+			
+			return BaseTitledTextBlockItemRenderer.globalStyleProvider;
+		}
+		
+		/**
+		 * @private
+		 */
+		public function set customTitleTextBlockStylename(value:String):void
+		{
+			if(this._customTitleTextBlockStylename == value)
+			{
+				return;
+			}
+			
+			this._customTitleTextBlockStylename = value;
+			
+			if(!this._titledTextBlock)
+				return;
+			
+			var doValidation:Boolean;
+			
+			// Remove default if it exists
+			if(this._titledTextBlock.styleNameList.contains(TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER)){
+				this._titledTextBlock.styleNameList.remove(TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER);
+				doValidation=true;
+			}
+			
+			if(!this._titledTextBlock.styleNameList.contains(this._customTitleTextBlockStylename)){
+				this._titledTextBlock.styleNameList.add(this._customTitleTextBlockStylename);
+				doValidation=true;
+			}
+			
+			if(doValidation)
+				this._titledTextBlock.validate();
+		}
 
 		override public function dispose():void {
 
+			removeHandlers();
+			
 			super.dispose();
 
 		}
-
+		
+		override public function set isSelected(value:Boolean):void{
+			
+			if (this._isSelected == value) {
+				return;
+			}
+			
+			//trace("Select class item");
+			if (this.backgroundSkin) {
+				
+				this.backgroundSkin.visible = value
+				/*if (value && !selectedBackground.visible) {
+					 
+				} else {
+					this.selectedBackground.visible = value;  
+				}*/
+			}
+			
+			// Only allow child events from selected item.
+			//this.isQuickHitAreaEnabled = (value) ? false : true;
+			this._isSelected = value;
+			this.dispatchEventWith(Event.CHANGE);
+		}
+		public function removeHandlers():void{
+			this.removeEventListener( TouchEvent.TOUCH, touchHandler );
+			this.removeEventListener( Event.REMOVED_FROM_STAGE, removedFromStageHandler );
+		}
+		
+		public function addHandlers():void{
+			this.addEventListener( TouchEvent.TOUCH, touchHandler );
+			this.addEventListener( Event.REMOVED_FROM_STAGE, removedFromStageHandler );
+		}
 		public function get padding():Number {
 
 			return this._padding;
@@ -88,7 +182,7 @@ package feathers.extension.ahhenderson.controls.renderers.base {
 			return verticalLayout;
 		}
 
-		protected function addIconToDisplayList( icon:Image ):void {
+		protected function addIconToDisplayList( icon:Image, position:int=-1 ):void {
 
 			if ( !icon ) {
 				return;
@@ -98,9 +192,16 @@ package feathers.extension.ahhenderson.controls.renderers.base {
 			icon.width = roundToNearest( icon.width );
 			icon.height = roundToNearest( icon.height );
 
-			this.addChildAt( icon, 0 );
+			if(position>-1){
+				this.addChildAt( icon, position );
+			}
+			else{
+				this.addChild(icon);
+			}
+			
 		}
-
+		 
+ 
 		override protected function commitData():void {
 
 			if ( this._data && this._owner ) {
@@ -110,23 +211,23 @@ package feathers.extension.ahhenderson.controls.renderers.base {
 				this._titledTextBlock.content = this.data.content;
 				this._accessoryPercentWidth = this.data.accessoryPercentWidth;
 
-				// Add icon
+				// Add label icon
 				if ( this.data.icon && this.data.icon as Texture ) {
  
-					if ( this._icon && this.contains( this._icon )) {
+					if ( this._labelIcon && this.contains( this._labelIcon )) {
 
-						if ( this._icon.texture !== ( this.data.icon as Texture )) {
+						if ( this._labelIcon.texture !== ( this.data.icon as Texture )) {
 
-							this.removeChild( this._icon, true );
-							this._icon = new Image( this.data.icon as Texture );
-							addIconToDisplayList( this._icon );
+							this.removeChild( this._labelIcon, true );
+							this._labelIcon = new Image( this.data.icon as Texture );
+							addIconToDisplayList( this._labelIcon, 0 );
 						}
 					} else {
-						this._icon = new Image( this.data.icon as Texture );
-						addIconToDisplayList( this._icon );
+						this._labelIcon = new Image( this.data.icon as Texture );
+						addIconToDisplayList( this._labelIcon, 0 );
 					}
 				}
-
+ 
 				// Add accessory if it exists
 				if ( this.data.accessory && !this.contains( this.data.accessory )) {
 					this.addChild( this.data.accessory )
@@ -140,17 +241,38 @@ package feathers.extension.ahhenderson.controls.renderers.base {
 					// Update layout based on accessory
 					this._titledTextBlock.layoutData = new HorizontalLayoutData( contentWidth, 100 );
 					FeathersControl( this.data.accessory ).layoutData = new HorizontalLayoutData( accessoryWidth, 100 );
-
+ 
 				}
+				
+				// Add drilldown icon
+				if ( this.data.drillDownIcon && this.data.drillDownIcon as Texture ) {
+					
+					if ( this._drillDownIcon && this.contains( this._drillDownIcon )) {
+						
+						if ( this._drillDownIcon.texture !== ( this.data.drillDownIcon as Texture )) {
+							
+							this.removeChild( this._drillDownIcon, true );
+							this._drillDownIcon = new Image( this.data.drillDownIcon as Texture );
+							addIconToDisplayList( this._drillDownIcon, this.numChildren );
+						}
+					} else {
+						this._drillDownIcon = new Image( this.data.drillDownIcon as Texture );
+						addIconToDisplayList( this._drillDownIcon, this.numChildren );
+					}
+				}
+				
 			} else {
 				//this._label.text = null;
 				this._titledTextBlock.title = null;
 				this._titledTextBlock.content = null;
 
-				if ( this._icon && this.contains( this._icon )) {
-					this.removeChild( this._icon, true );
+				if ( this._labelIcon && this.contains( this._labelIcon )) {
+					this.removeChild( this._labelIcon, true );
 				}
 
+				if ( this._drillDownIcon && this.contains( this._drillDownIcon )) {
+					this.removeChild( this._drillDownIcon, true );
+				}
 					//this._titledTextBlock = null;
 			}
 		}
@@ -179,17 +301,29 @@ package feathers.extension.ahhenderson.controls.renderers.base {
 			return _fmgr;
 		}
 
+		protected var selectedBackground:Quad;
+		
 		override protected function initialize():void {
 
-			/*	this.addEventListener( TouchEvent.TOUCH, touchHandler );
-				this.addEventListener( Event.REMOVED_FROM_STAGE, removedFromStageHandler );*/
+			addHandlers()
+				
+			this.backgroundSkin = new Quad(10, 10, 0x000000);
+			this.backgroundSkin.alpha=.1;
+			this.backgroundSkin.visible=false;
+			
 			super.initialize();
 
-			this._titledTextBlock = new TitledTextBlock();
+			this._titledTextBlock =  fmgr.pool.borrowObj(CustomComponentPoolType.TITLED_TEXT_BLOCK);
 			this._titledTextBlock.verticalLayout = setTitledTextBlockLayout();
 
 			this._titledTextBlock.layoutData = this.controlLayoutData;
-			this._titledTextBlock.styleNameList.add( TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER );
+			
+			if(this.customTitleTextBlockStylename && !(this._titledTextBlock.styleNameList.contains(this.customTitleTextBlockStylename))){ 
+				this._titledTextBlock.styleNameList.add( this.customTitleTextBlockStylename );
+			}
+			else{
+				this._titledTextBlock.styleNameList.add( TitledTextBlock.TITLED_TEXT_BLOCK_ITEM_RENDERER );
+			}
 
 			this.addChild( this._titledTextBlock );
 

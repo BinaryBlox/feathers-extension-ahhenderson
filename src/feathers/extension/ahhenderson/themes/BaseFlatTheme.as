@@ -1,4 +1,5 @@
 
+
 /*
 Copyright (c) 2014 Josh Tynjala
 
@@ -38,6 +39,7 @@ package feathers.extension.ahhenderson.themes {
 	import flash.text.engine.RenderingMode;
 	
 	import ahhenderson.core.managers.ObjectPoolManager;
+	import ahhenderson.core.ui.layout.VerticalAlign;
 	
 	import feathers.controls.Alert;
 	import feathers.controls.Button;
@@ -140,6 +142,7 @@ package feathers.extension.ahhenderson.themes {
 		protected static const THEME_STYLE_NAME_VERTICAL_SIMPLE_SCROLL_BAR_THUMB:String = "metal-works-mobile-vertical-simple-scroll-bar-thumb";
 		
 	 
+		protected static var PICKER_LIST_PANEL_HEADER_COLOR:uint =0x404040;
 		
 		protected static var ITEM_RENDERER_BACKGROUND_COLOR:uint = 0xFFFFFF;
 		
@@ -353,6 +356,12 @@ package feathers.extension.ahhenderson.themes {
 		 * @default 
 		 */
 		protected static var BUTTON_SCALE9_GRID:Rectangle = new Rectangle( 8, 8, 184, 84 ); //184, 84 );
+		
+		/**
+		 * 
+		 * @default 
+		 */
+		protected static var TEXT_INPUT_SCALE9_GRID:Rectangle = new Rectangle( 8, 8, 184, 84 ); //184, 84 );
 		  
 		/**
 		 * 
@@ -780,6 +789,8 @@ package feathers.extension.ahhenderson.themes {
  
 		protected var scale9ButtonInset:Number
 		
+		protected var scale9TextInputInset:Number = 2;
+		
 		/**
 		 * The FTE FontDescription used for text of a normal weight.
 		 */
@@ -924,6 +935,21 @@ package feathers.extension.ahhenderson.themes {
 		 */
 		protected var smallDarkElementFormat:ElementFormat;
 
+		/**
+		 * An ElementFormat with a dark tint meant for UI controls.
+		 */
+		protected var darkFormLabelElementFormat:ElementFormat;
+		
+		protected var darkFormTextElementFormat:ElementFormat;
+		
+		protected var darkFormPromptElementFormat:ElementFormat;
+		
+		protected var lightFormLabelElementFormat:ElementFormat;
+		
+		protected var lightFormTextElementFormat:ElementFormat;
+		
+		protected var lightFormPromptElementFormat:ElementFormat;
+		
 		/**
 		 * The texture atlas that contains skins for this theme. This base class
 		 * does not initialize this member variable. Subclasses are expected to
@@ -1502,6 +1528,16 @@ package feathers.extension.ahhenderson.themes {
 			GROUPED_LIST_FOOTER_BACKGROUND_COLOR = getThemePropertyValue(this.themeProperties.GROUPED_LIST_FOOTER_BACKGROUND_COLOR);
 			MODAL_OVERLAY_COLOR = getThemePropertyValue(this.themeProperties.MODAL_OVERLAY_COLOR);
 			MODAL_OVERLAY_ALPHA = getThemePropertyValue(this.themeProperties.MODAL_OVERLAY_ALPHA);
+			PICKER_LIST_PANEL_HEADER_COLOR = getThemePropertyValue(this.themeProperties.PICKER_LIST_PANEL_HEADER_COLOR, 0x404040);
+			
+			// FORM THEME COLORS
+			LIGHT_FORM_LABEL_COLOR  = getThemePropertyValue(this.themeProperties.LIGHT_FORM_LABEL_COLOR, 0xe5e5e5); 
+			LIGHT_FORM_TEXT_COLOR  = getThemePropertyValue(this.themeProperties.LIGHT_FORM_TEXT_COLOR, 0xe5e5e5);
+			LIGHT_FORM_PROMPT_COLOR  = getThemePropertyValue(this.themeProperties.LIGHT_FORM_PROMPT_COLOR, 0xe5e5e5);
+			
+			DARK_FORM_LABEL_COLOR  = getThemePropertyValue(this.themeProperties.DARK_FORM_LABEL_COLOR, 0x444444);
+			DARK_FORM_TEXT_COLOR  = getThemePropertyValue(this.themeProperties.DARK_FORM_TEXT_COLOR, 0x040404);
+			DARK_FORM_PROMPT_COLOR  = getThemePropertyValue(this.themeProperties.DARK_FORM_PROMPT_COLOR, 0xCCCCCC);
 			
 			// THEME FONTS
 			FONT_NAME = this.themeProperties.FONT_NAME;
@@ -1512,6 +1548,7 @@ package feathers.extension.ahhenderson.themes {
 			FONT_SIZE_MEDIUM = this.themeProperties.FONT_SIZE_MEDIUM;
 			FONT_SIZE_LARGE = this.themeProperties.FONT_SIZE_LARGE;
 			FONT_SIZE_XLARGE = this.themeProperties.FONT_SIZE_XLARGE;
+			
 			
 			// NOTE: Dimensions will be set from theme properties later during the initialization
 			
@@ -1594,6 +1631,7 @@ package feathers.extension.ahhenderson.themes {
 			// Spinner List 
 			var defSpinnerListTopBottom:Number = (8 * this.scale) + defPadding;
 			var defSpinnerListItemRendererHeight:Number = (roundToNearest(100 * this.scale)) - (defSpinnerListTopBottom*2);
+			var defTextInputInset:Number = this.scale9TextInputInset * this.scale;
 			
 			SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = new Rectangle(defLeftRightBorder, defSpinnerListTopBottom, 1, defSpinnerListItemRendererHeight);
 			//SPINNER_LIST_SELECTION_OVERLAY_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defItemRendererHeight);
@@ -1603,6 +1641,8 @@ package feathers.extension.ahhenderson.themes {
 			POPUP_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defPanelGutter, defPanelGutter, defPopUpFillSize, defPopUpFillSize );
 			 
 			BUTTON_SCALE9_GRID = DrawingUtils.getScaledRectangle(alteredScale, defBtnInset, defBtnInset, defCtrlSize, defCtrlSize);
+			
+			TEXT_INPUT_SCALE9_GRID= DrawingUtils.getScaledRectangle(alteredScale, defTextInputInset, defTextInputInset, defCtrlSize, defCtrlSize);
 			 
 			BUTTON_SELECTED_SCALE9_GRID = BUTTON_SCALE9_GRID;
 			 
@@ -1747,6 +1787,14 @@ package feathers.extension.ahhenderson.themes {
 			this.largeDarkElementFormat = new ElementFormat( this.regularFontDescription, this.mediumFontSize, DARK_TEXT_COLOR );
 			this.largeLightElementFormat = new ElementFormat( this.regularFontDescription, this.mediumFontSize, LIGHT_TEXT_COLOR );
 			this.largeDisabledElementFormat = new ElementFormat( this.regularFontDescription, this.mediumFontSize, DISABLED_TEXT_COLOR );
+		
+			
+			this.darkFormLabelElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, DARK_FORM_LABEL_COLOR );
+			this.darkFormTextElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, DARK_FORM_TEXT_COLOR );
+			this.darkFormPromptElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, DARK_FORM_PROMPT_COLOR );
+			this.lightFormLabelElementFormat = new ElementFormat( this.boldFontDescription, this.regularFontSize, LIGHT_FORM_LABEL_COLOR );
+			this.lightFormTextElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, LIGHT_FORM_TEXT_COLOR );
+			this.lightFormPromptElementFormat = new ElementFormat( this.regularFontDescription, this.regularFontSize, LIGHT_FORM_PROMPT_COLOR );
 		}
 
 		/**
@@ -2117,7 +2165,7 @@ package feathers.extension.ahhenderson.themes {
 			const skinSelector:SmartDisplayObjectStateValueSelector = new SmartDisplayObjectStateValueSelector();
 			skinSelector.defaultValue = btn_blue_second;
 			skinSelector.setValueForState( this.buttonDisabledSkinTextures, Button.STATE_DISABLED, false );
-			skinSelector.displayObjectProperties = { width: overrideControlSize, height: overrideControlSize, textureScale: this.scale };
+			skinSelector.displayObjectProperties = { width: overrideControlSize, height: overrideControlSize, textureScale: this.contentScaleFactor };
 			button.stateToSkinFunction = skinSelector.updateValue;
 
 			button.minWidth = button.minHeight = overrideControlSize;
@@ -2326,9 +2374,9 @@ package feathers.extension.ahhenderson.themes {
 			button.paddingLeft = this.buttonPaddingLeft;
 			button.paddingRight = this.buttonPaddingRight;
 			
-			button.gap = 0;//this.smallGutterSize;
-			button.minGap = 2;//this.smallGutterSize;
-			button.minWidth = 20;// button.minHeight = this.controlSize;
+			button.gap = 5 * fmgr.theme.scaledResolution;
+			button.minGap = 2 * fmgr.theme.scaledResolution;
+			button.minWidth = 20 * fmgr.theme.scaledResolution;
 			button.iconOffsetY = -1 * fmgr.theme.scaledResolution;
 			//button.paddingLeft = Math.ceil(this.gutterSize * 2);// + this.smallGutterSize;
 			
@@ -3767,19 +3815,20 @@ package feathers.extension.ahhenderson.themes {
 			input.gap = this.smallGutterSize;
 			 
 			//input.padding = this.smallGutterSize;
-			input.paddingTop = this.xSmallGutterSize;
-			input.paddingLeft = roundToNearest(this.gutterSize);
-			input.paddingRight = roundToNearest(this.smallGutterSize);
+			input.verticalAlign = VerticalAlign.MIDDLE;
+			//input.paddingTop = this.xSmallGutterSize;
+			input.paddingLeft = roundToNearest(this.smallGutterSize);
+			input.paddingRight = roundToNearest(this.xSmallGutterSize);
 			input.textEditorProperties.fontFamily = "Helvetica";
 			input.textEditorProperties.fontSize = this.regularFontSize;
-			input.textEditorProperties.color = DARK_TEXT_COLOR;
+			input.textEditorProperties.color = DARK_FORM_TEXT_COLOR;
 			input.textEditorProperties.disabledColor = DISABLED_TEXT_COLOR;
 
 			//input.promptProperties.elementFormat = this.largeDarkElementFormat;
 			
-			input.promptProperties.elementFormat = this.darkElementFormat; 
+			input.promptProperties.elementFormat = this.darkFormPromptElementFormat; 
 			input.promptProperties.disabledElementFormat = this.disabledElementFormat;
-			input.promptProperties.alpha=.6;
+			//input.promptProperties.alpha=.6;
 			 
 			// IMPORTANT: recommended for object pooling
 			input.resetObjectFunction = BaseFlatThemePoolFunctions.resetTextInputObject;
@@ -3888,8 +3937,8 @@ package feathers.extension.ahhenderson.themes {
 
 			toggle.trackLayoutMode = ToggleSwitch.TRACK_LAYOUT_MODE_SINGLE;
 			 
-			toggle.defaultLabelProperties.elementFormat = this.smallLightElementFormat;
-			toggle.onLabelProperties.elementFormat = this.smallLightElementFormat; //this.selectedUIElementFormat;
+			toggle.defaultLabelProperties.elementFormat = this.lightElementFormat;
+			toggle.onLabelProperties.elementFormat = this.lightElementFormat; //this.selectedUIElementFormat;
 			toggle.disabledLabelProperties.elementFormat = this.smallDisabledElementFormat; //this.lightUIDisabledElementFormat;
 
 			toggle.paddingRight = Math.round(this.xSmallGutterSize/2);

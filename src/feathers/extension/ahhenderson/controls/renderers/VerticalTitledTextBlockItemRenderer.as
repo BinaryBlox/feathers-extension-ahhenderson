@@ -10,6 +10,7 @@ package feathers.extension.ahhenderson.controls.renderers {
 	import feathers.layout.ILayout;
 	import feathers.layout.VerticalLayout;
 	import feathers.layout.VerticalLayoutData;
+	import feathers.skins.IStyleProvider;
 
 
 	public class VerticalTitledTextBlockItemRenderer extends BaseTitledTextBlockItemRenderer {
@@ -17,6 +18,26 @@ package feathers.extension.ahhenderson.controls.renderers {
 		private static const HELPER_POINT:Point = new Point();
 
 		public function VerticalTitledTextBlockItemRenderer() {
+		}
+		
+		/**
+		 * The default <code>IStyleProvider</code> for all <code>ToggleButton</code>
+		 * components. If <code>null</code>, falls back to using
+		 * <code>Button.globalStyleProvider</code> instead.
+		 *
+		 * @default null
+		 * @see feathers.core.FeathersControl#styleProvider
+		 * @see feathers.controls.Button#globalStyleProvider
+		 */
+		public static var globalStyleProvider:IStyleProvider;
+		
+		
+		/**
+		 * @private
+		 */
+		override protected function get defaultStyleProvider():IStyleProvider {
+			
+			return VerticalTitledTextBlockItemRenderer.globalStyleProvider;
 		}
 		
 		override protected function postLayout():void{
@@ -30,7 +51,7 @@ package feathers.extension.ahhenderson.controls.renderers {
 			}
 			
 			//this.width = this.owner.width - Main.GAP;
-			this._icon.x = LayoutHelper.getHorizontalAlignX(HorizontalAlign.CENTER, this.actualWidth, this._icon.width);
+			this._labelIcon.x = LayoutHelper.getHorizontalAlignX(HorizontalAlign.CENTER, this.actualWidth, this._labelIcon.width);
 			
 			/*	imageLock.x = this.actualWidth - imageLock.width - Main.GAP * 0.5;
 			imageLock.y = this.actualHeight*0.5 - imageLock.height * 0.5;

@@ -9,6 +9,8 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 
 	import flash.ui.Keyboard;
 	
+	import mx.utils.ObjectUtil;
+	
 	import feathers.controls.Button;
 	import feathers.controls.ToggleButton;
 	import feathers.controls.popups.BottomDrawerPopUpContentManager;
@@ -653,7 +655,8 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 		public function openContent():void {
 
 			this._isCloseContentPending = false;
-
+			this._isSelectedItemChanged = false;
+			
 			if ( this._popUpContentManager.isOpen ) {
 				return;
 			}
@@ -950,6 +953,8 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 			this.invalidate( INVALIDATION_FLAG_STYLES );
 		}
 
+		private var _isSelectedItemChanged:Boolean;
+		
 		/**
 		 * @private
 		 */
@@ -957,10 +962,15 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 
 			if ( this._ignoreSelectionChanges ) {
 				return;
+			} 
+			
+			if(this.selectedItem !== this.pickerContent.selectedItem){
+				this.selectedItem = ObjectUtil.copy(this.pickerContent.selectedItem);
+				this._isSelectedItemChanged = true;
+				return;
 			}
-
-			this.selectedItem = this.pickerContent.selectedItem;
-
+			 
+			this._isSelectedItemChanged = false;
 		}
 
 		/**
@@ -1120,9 +1130,9 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 				this.refreshButtonProperties();
 			}
 			
-			/*if ( pickerContentFactoryInvalid || stylesInvalid ) {
+			if ( pickerContentFactoryInvalid || stylesInvalid ) {
 				this.refreshPickerContentProperties()
-			}*/
+			}
 
 			if ( dataInvalid ) {
 				var oldIgnoreSelectionChanges:Boolean = this._ignoreSelectionChanges;
@@ -1231,7 +1241,16 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 			if ( this._toggleButtonOnOpenAndClose && this.button is IToggle ) {
 				IToggle( this.button ).isSelected = false;
 			}
+			
+			if(_isSelectedItemChanged){
+				this.dispatchEventWith( Event.CHANGE ); 
+				_isSelectedItemChanged = false;
+			}
+			 
+			
 			this.dispatchEventWith( Event.CLOSE );
+			
+			
 		}
 
 		/**
@@ -1249,14 +1268,7 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 		 * @private
 		 */
 		protected function refreshButtonLabel():void {
-		/*		if(this._selectedDate >= 0)
-				{
-					this.button.label = this.itemToLabel(this.selectedItem);
-				}
-				else
-				{
-					
-				}*/
+	
 			this.button.label = this._prompt;
 		}
 
@@ -1278,7 +1290,11 @@ package feathers.extension.ahhenderson.controls.supportClasses {
 
 			for ( var propertyName:String in this._pickerContentProperties ) {
 				var propertyValue:Object = this._pickerContentProperties[ propertyName ];
-				this.pickerContent[ propertyName ] = propertyValue;
+				
+				// If property exists on content, set it
+				if(DisplayObject(this.pickerContent).hasOwnProperty(propertyName)){
+					this.pickerContent[ propertyName ] = propertyValue;
+				} 
 			}
 		}
 

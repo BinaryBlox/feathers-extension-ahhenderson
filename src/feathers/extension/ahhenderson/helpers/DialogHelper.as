@@ -62,6 +62,14 @@ package feathers.extension.ahhenderson.helpers {
 			}
 		}
 		
+		
+		private static function removePopUpDialog():void{
+			 
+			if(PopUpManager.isPopUp(dialog)){
+				PopUpManager.removePopUp(dialog);
+			}
+		}
+		
 		public static function hideLoadingDialog(delay:Number=NaN):void{
 			
 			if(!dialog)
@@ -70,7 +78,7 @@ package feathers.extension.ahhenderson.helpers {
 			// If delay value set
 			if(!isNaN(delay) && delay>0){
 				Starling.juggler.delayCall(
-					function():void { PopUpManager.removePopUp(dialog);   },
+					removePopUpDialog,
 					delay);
 				
 				return;

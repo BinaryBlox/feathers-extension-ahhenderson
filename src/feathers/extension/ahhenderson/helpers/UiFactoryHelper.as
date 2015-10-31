@@ -8,6 +8,8 @@
 package feathers.extension.ahhenderson.helpers {
 
 	import feathers.controls.Button;
+	import feathers.controls.DateTimeSpinner;
+	import feathers.controls.GroupedList;
 	import feathers.controls.Header;
 	import feathers.controls.ImageLoader;
 	import feathers.controls.List;
@@ -21,11 +23,14 @@ package feathers.extension.ahhenderson.helpers {
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
 	import feathers.extension.ahhenderson.controls.DateTimePicker;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
+	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
+	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
 	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.layout.AnchorLayoutData;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 	
+	import starling.display.Quad;
 	import starling.textures.TextureSmoothing;
 
 
@@ -33,19 +38,47 @@ package feathers.extension.ahhenderson.helpers {
 
 		include "_Helpers.inc";
 
-		public static function buttonFactory( label:String = null, customStyleName:String = null ):Button {
+		public static function buttonFactory( label:String = null, customStyleName:String = null, upIcon:String=null, downIcon:String=null ):Button {
 
 			var button:Button = fmgr.pool.borrowObj( FeathersComponentPoolType.BUTTON );
-
+ 
 			if ( label )
 				button.label = label;
-
+			
 			if ( customStyleName )
 				button.styleNameList.add( customStyleName );
+			
+			if ( upIcon ){
+				button.defaultIcon = AssetHelper.getImage(upIcon);
+				
+				if(!downIcon)
+					downIcon = upIcon;
+			}
+				
+			if ( downIcon ){
+				button.downIcon = AssetHelper.getImage(downIcon);
+				button.downIcon.alpha = .6;
+			}
+			
+			
 
 			return button;
 		}
 
+		public static function headerFactory( title:String = null, customStyleName:String = FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_TRANSPARENT_LIGHT ):Header {
+			
+			var control:Header = fmgr.pool.borrowObj( FeathersComponentPoolType.HEADER ) as Header;
+			
+			if ( customStyleName ) {
+				control.styleNameList.add( customStyleName );
+			}
+			
+			if ( title ) {
+				control.title = title;
+			}
+			return control;
+		}
+		
 		public static function defaultFooterFactory( title:String = null, customStyleName:String = null ):Header {
 
 			var footer:Header = fmgr.pool.borrowObj( FeathersComponentPoolType.HEADER ) as Header;
@@ -68,6 +101,28 @@ package feathers.extension.ahhenderson.helpers {
 			return renderer;
 		}
 
+		public static function defaultGroupedListFactory( visible:Boolean = true, selectable:Boolean = false, hasElasticEdges:Boolean = false):GroupedList {
+			
+			var control:GroupedList = new GroupedList();
+			control.visible = visible;
+			control.isSelectable = selectable;
+			control.hasElasticEdges = hasElasticEdges 
+			
+			return control;
+		}
+		
+		 
+		
+		public static function defaultListFactory( visible:Boolean = true, selectable:Boolean = false, hasElasticEdges:Boolean = false):List {
+			
+			var list:List = new List();
+			list.visible = visible;
+			list.isSelectable = selectable;
+			list.hasElasticEdges = hasElasticEdges 
+			
+			return list;
+		}
+		
 		public static function formControlListFactory( visible:Boolean = true, selectable:Boolean = false, hasElasticEdges:Boolean = false,
 													   itemRenderFactory:Function = null ):List {
 
@@ -146,14 +201,96 @@ package feathers.extension.ahhenderson.helpers {
 			return control;
 		}
 		
+		private static function navigationButtonFactory(control:Button,
+														label:String, 
+														customStyle:String=Button.ALTERNATE_STYLE_NAME_QUIET_BUTTON, 
+														icon:String=FlatThemeCustomTextures.ICONS_CONTROL_BUTTON_BACK,
+														horizontalPosition:String = Button.HORIZONTAL_ALIGN_LEFT,
+														iconPosition:String = Button.ICON_POSITION_LEFT,
+														gap:int=0, 
+														minWidth:int=100):void{
+		
+			control.styleNameList.add(customStyle); 
+			control.minWidth = minWidth * fmgr.theme.scaledResolution;
+			control.gap=gap;
+			control.label = label;
+			control.paddingLeft=gap; 
+			control.defaultIcon = AssetHelper.getImage(icon);
+			control.horizontalAlign = horizontalPosition;
+			control.iconPosition = iconPosition;
+		}
+		
+		
+		public static function backButtonFactory(label:String="Back", 
+												 customStyle:String=Button.ALTERNATE_STYLE_NAME_QUIET_BUTTON, 
+												 icon:String=FlatThemeCustomTextures.ICONS_CONTROL_BUTTON_BACK,
+												 gap:int=0, 
+												 minWidth:int=100):Button{
+			
+			var control:Button = fmgr.pool.borrowObj(FeathersComponentPoolType.BUTTON); 
+			 
+			navigationButtonFactory(control, 
+				label, 
+				customStyle, 
+				icon, 
+				Button.HORIZONTAL_ALIGN_LEFT,
+				Button.ICON_POSITION_LEFT,
+				gap, 
+				minWidth);
+			 
+			return control;
+		}
+		
+		public static const HORIZONTAL_SPACER:Number = 20;
+		public static const VERTICAL_SPACER:Number = 20;
+		
+		public static function horizontalSpacerFactory(height:Number=HORIZONTAL_SPACER):Quad{
+	 
+			var value:int = height*fmgr.theme.scaledResolution;
+			var spacer:Quad = new Quad(10, value);
+			spacer.visible = false;
+			 
+			return spacer;
+		}
+		
+		public static function verticalSpacerFactory(width:int=VERTICAL_SPACER):Quad{
+			 
+			var value:int = width*fmgr.theme.scaledResolution;
+			var spacer:Quad = new Quad(value, 10);
+			spacer.visible = false;
+			
+			return spacer;
+		}
+		
+		
+		public static function nextButtonFactory(label:String="Next", 
+												 customStyle:String=Button.ALTERNATE_STYLE_NAME_QUIET_BUTTON, 
+												 icon:String=FlatThemeCustomTextures.ICONS_CONTROL_BUTTON_FORWARD,
+												 gap:int=0, 
+												 minWidth:int=20):Button{
+			
+			var control:Button = fmgr.pool.borrowObj(FeathersComponentPoolType.BUTTON); 
+			
+			navigationButtonFactory(control, 
+				label, 
+				customStyle, 
+				icon, 
+				Button.HORIZONTAL_ALIGN_RIGHT,
+				Button.ICON_POSITION_RIGHT,
+				gap, 
+				minWidth);
+			
+			return control;
+		}
+		
 		public static function dateTimePickerFactory( customStyleName:String = null,  
+												  editMode:String = DateTimePicker.DISPLAY_DATE_MMM_DD_YYYY,
 												  labelField:String = "labelField", 
-												  typicalItem:String ="XXXXXXXXX", 
-												  itemRendererFactory:IListItemRenderer = null,  
-												  prompt:String = "Select Date/Time", 
+												  itemRendererFactory:IListItemRenderer = null,   
+												  prompt:String = null, 
 												  contentHeight:int = 250 ):DateTimePicker {
 
-			var control:DateTimePicker = new DateTimePicker();// = fmgr.pool.borrowObj( FeathersComponentPoolType.PICKER_LIST );
+			var control:DateTimePicker = fmgr.pool.borrowObj( CustomComponentPoolType.DATE_TIME_PICKER );
 
 			// Defaults 
 			//control.listProperties.itemRendererFactory = UiFactoryHelper.defaultItemRendererFactory;
@@ -168,9 +305,27 @@ package feathers.extension.ahhenderson.helpers {
 			}*/
 
 			// Defined
+			if(!prompt){
+				switch(control.editingMode){
+					
+					case DateTimeSpinner.EDITING_MODE_DATE:
+						prompt = "Select Date";
+						break;
+					
+					case DateTimeSpinner.EDITING_MODE_DATE_AND_TIME:
+						prompt = "Select Date/Time";
+						break;
+					case DateTimeSpinner.EDITING_MODE_TIME:
+						prompt = "Select Time";
+						break;
+					default:
+						prompt = "Select Date";
+						break;
+				}
+			}
+			
 			control.prompt = prompt;
 			control.labelField = labelField;
-			control.pickerContentProperties.typicalItem = typicalItem;
 			control.pickerContentProperties.height = contentHeight * fmgr.theme.scaledResolution;
 			 
 			return control;
