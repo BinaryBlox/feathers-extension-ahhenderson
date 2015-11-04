@@ -1,5 +1,6 @@
 package feathers.extension.ahhenderson.controls.screens.drawers {
 
+	import feathers.controls.Header;
 	import feathers.controls.LayoutGroup;
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
 	import feathers.layout.AnchorLayout;
@@ -31,7 +32,7 @@ package feathers.extension.ahhenderson.controls.screens.drawers {
 
 		protected var _customHeaderStyleName:String;
 
-		private var _header:TopDrawerHeader;
+		private var _header:Header;
 
 		public function get customHeaderStyleName():String {
 
@@ -55,7 +56,7 @@ package feathers.extension.ahhenderson.controls.screens.drawers {
 			this.invalidate( INVALIDATION_FLAG_SIZE );
 		}
 
-		public function get header():TopDrawerHeader {
+		public function get header():Header {
 
 			return _header;
 		}
@@ -67,7 +68,7 @@ package feathers.extension.ahhenderson.controls.screens.drawers {
 			this.layout = new AnchorLayout();
 			this.layoutData = new AnchorLayoutData( 0, 0, 0, 0 );
 
-			this._header = new TopDrawerHeader();
+			this._header = new Header();
 			
 			// Custom Header Style
 			if ( this._customHeaderStyleName && !_header.styleNameList.contains( this._customHeaderStyleName )) {

@@ -23,11 +23,15 @@ package feathers.extension.ahhenderson.helpers {
 	import feathers.extension.ahhenderson.constants.FeathersExtLib_StyleNameConstants;
 	import feathers.extension.ahhenderson.controls.DateTimePicker;
 	import feathers.extension.ahhenderson.controls.TitledTextBlock;
+	import feathers.extension.ahhenderson.controls.renderers.HorizontalTitledTextBlockItemRenderer;
+	import feathers.extension.ahhenderson.controls.renderers.VerticalTitledTextBlockItemRenderer;
+	import feathers.extension.ahhenderson.controls.renderers.base.BaseTitledTextBlockItemRenderer;
 	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.enums.FeathersComponentPoolType;
 	import feathers.extension.ahhenderson.themes.constants.FlatThemeCustomTextures;
 	import feathers.extension.ahhenderson.themes.pool.BaseFlatThemePoolFunctions;
 	import feathers.layout.AnchorLayoutData;
+	import feathers.layout.ILayoutData;
 	import feathers.motion.transitions.ScreenSlidingStackTransitionManager;
 	
 	import starling.display.Quad;
@@ -65,7 +69,9 @@ package feathers.extension.ahhenderson.helpers {
 			return button;
 		}
 
-		public static function headerFactory( title:String = null, customStyleName:String = FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_TRANSPARENT_LIGHT ):Header {
+		public static function headerFactory( title:String = null, 
+											  customStyleName:String = FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_TRANSPARENT_LIGHT,
+		layoutData:ILayoutData=null):Header {
 			
 			var control:Header = fmgr.pool.borrowObj( FeathersComponentPoolType.HEADER ) as Header;
 			
@@ -76,6 +82,11 @@ package feathers.extension.ahhenderson.helpers {
 			if ( title ) {
 				control.title = title;
 			}
+			
+			if ( layoutData ) {
+				control.layoutData = layoutData;
+			}
+			
 			return control;
 		}
 		
@@ -158,6 +169,51 @@ package feathers.extension.ahhenderson.helpers {
 			return image;
 		}
 
+		
+		public static function horizontalTitledTextBlockItemRendererFactory():IListItemRenderer{
+			
+			return baseTitledTextBlockItemRendererFactory(HorizontalTitledTextBlockItemRenderer.HORIZONTAL_LAYOUT_TYPE,
+				FeathersExtLib_StyleNameConstants.TITLED_TEXTBOX__DARK_STYLES);
+		}
+		
+		public static function verticalTitledTextBlockItemRendererFactory():IListItemRenderer{
+			
+			return baseTitledTextBlockItemRendererFactory(VerticalTitledTextBlockItemRenderer.VERTICAL_LAYOUT_TYPE,
+				FeathersExtLib_StyleNameConstants.TITLED_TEXTBOX__DARK_STYLES);
+		}
+		
+		private static function baseTitledTextBlockItemRendererFactory( layoutType:String=null, 
+																   customStyleName:String=null, 
+																   isQuickHitAreaEnabled:Boolean=true,
+												customProperties:Object = null):IListItemRenderer {
+			
+			var renderer:IListItemRenderer; 
+			 
+			switch(layoutType){
+				
+				case HorizontalTitledTextBlockItemRenderer.HORIZONTAL_LAYOUT_TYPE:
+					renderer = new HorizontalTitledTextBlockItemRenderer(); 
+					break;
+				
+				case VerticalTitledTextBlockItemRenderer.VERTICAL_LAYOUT_TYPE:
+					renderer = new VerticalTitledTextBlockItemRenderer(); 
+					break;
+				
+				default:
+					renderer = new HorizontalTitledTextBlockItemRenderer();
+					break;
+			}
+			
+			if(!customStyleName) 
+				customStyleName = FeathersExtLib_StyleNameConstants.TITLED_TEXTBOX__DARK_STYLES;
+			 
+			
+			(renderer  as BaseTitledTextBlockItemRenderer).customTitleTextBlockStylename = customStyleName;
+			(renderer  as BaseTitledTextBlockItemRenderer).isQuickHitAreaEnabled = isQuickHitAreaEnabled;
+			
+			return renderer;
+		}
+		
 		public static function panelFactory( title:String = null, customHeaderFactory:String = null ):Panel {
 
 			var panel:Panel = new Panel(); //fmgr.pool.borrowObj(FeathersComponentPoolType.IMAGE_LOADER);

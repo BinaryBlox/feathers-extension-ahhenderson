@@ -23,6 +23,7 @@ package feathers.extension.ahhenderson.controls.renderers {
 		 */
 		public static var globalStyleProvider:IStyleProvider;
 		
+		public static const HORIZONTAL_LAYOUT_TYPE:String = "HORIZONTAL_LAYOUT_TYPE"
 		
 		/**
 		 * @private

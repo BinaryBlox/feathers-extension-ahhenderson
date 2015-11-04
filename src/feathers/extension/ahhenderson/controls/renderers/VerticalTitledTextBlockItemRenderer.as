@@ -17,6 +17,8 @@ package feathers.extension.ahhenderson.controls.renderers {
 
 		private static const HELPER_POINT:Point = new Point();
 
+		public static const VERTICAL_LAYOUT_TYPE:String = "VERTICAL_LAYOUT_TYPE"
+			
 		public function VerticalTitledTextBlockItemRenderer() {
 		}
 		

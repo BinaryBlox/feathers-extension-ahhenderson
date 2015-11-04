@@ -32,7 +32,6 @@ package feathers.extension.ahhenderson.themes {
 	import feathers.extension.ahhenderson.controls.renderers.HorizontalTitledTextBlockItemRenderer;
 	import feathers.extension.ahhenderson.controls.renderers.VerticalTitledTextBlockItemRenderer;
 	import feathers.extension.ahhenderson.controls.renderers.base.BaseTitledTextBlockItemRenderer;
-	import feathers.extension.ahhenderson.controls.screens.drawers.TopDrawerHeader;
 	import feathers.extension.ahhenderson.controls.screens.drawers.TopDrawer;
 	import feathers.extension.ahhenderson.enums.CustomComponentPoolType;
 	import feathers.extension.ahhenderson.helpers.AssetHelper;
@@ -175,14 +174,9 @@ package feathers.extension.ahhenderson.themes {
 			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.PICKER_LIST__PANEL_HEADER, 
 				setPickerListPanelHeaderStyles);
 			
-			// Drawer
-			this.getStyleProviderForClass( TopDrawerHeader ).defaultStyleFunction = this.setTopDrawerHeaderSemiDarkStyles;
-			
-			this.getStyleProviderForClass( TopDrawerHeader).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.DRAWER__TOP_HEADER_SEMI_DARK, 
-				this.setTopDrawerHeaderSemiDarkStyles);
-			
-			this.getStyleProviderForClass( TopDrawerHeader).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.DRAWER__TOP_HEADER_SEMI_LIGHT, 
-				this.setTopDrawerHeaderSemiLightStyles);
+			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.DRAWER__TOP_HEADER_TRANS, 
+				setTopDrawerHeaderTransStyles);
+			 
 			
 			// Header-SubHeader
 			this.getStyleProviderForClass( Header).setFunctionForStyleName(FeathersExtLib_StyleNameConstants.HEADER__SUB_HEADER_LIGHT, 
@@ -431,7 +425,7 @@ package feathers.extension.ahhenderson.themes {
 			
 			styledControl.backgroundSkin = new Quad(10,10,0x000000);
 			styledControl.backgroundSkin.alpha = .5;
-			styledControl.header.styleNameList.add(FeathersExtLib_StyleNameConstants.DRAWER__TOP_HEADER_SEMI_DARK);
+			styledControl.header.styleNameList.add(FeathersExtLib_StyleNameConstants.DRAWER__TOP_HEADER_TRANS);
 			
 		}
 		
@@ -441,7 +435,7 @@ package feathers.extension.ahhenderson.themes {
 			
 			styledControl.backgroundSkin = new Quad(10,10,0xffffff);
 			styledControl.backgroundSkin.alpha = .5;
-			styledControl.header.styleNameList.add(FeathersExtLib_StyleNameConstants.DRAWER__TOP_HEADER_SEMI_LIGHT);
+			styledControl.header.styleNameList.add(FeathersExtLib_StyleNameConstants.DRAWER__TOP_HEADER_TRANS);
 			
 		}
 		
@@ -511,9 +505,20 @@ package feathers.extension.ahhenderson.themes {
 			
 			setSubHeaderBaseStyles(header);
 			 
+			header.verticalAlign = Header.VERTICAL_ALIGN_MIDDLE;
+			
 			header.minHeight =  this.headerSize ; 
 		}
 		
+		protected function setTopDrawerHeaderTransStyles( header:Header ):void {
+			
+			setTopDrawerHeaderBaseStyles( header );
+			
+			header.backgroundSkin = null; 
+			header.titleProperties.elementFormat = this.lightUIElementFormat;
+			
+			
+		}
 		
 		protected function setTopDrawerHeaderSemiDarkStyles( header:Header ):void {
 			

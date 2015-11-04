@@ -38,7 +38,6 @@
     <classEntry path="feathers.extension.ahhenderson.controls.screens.TitledNavigatorScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.dateSelector.DateSelectorScreenConfig"/>
     <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopDrawer"/>
-    <classEntry path="feathers.extension.ahhenderson.controls.screens.drawers.TopDrawerHeader"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorFormScreen"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorFormScreenMediator"/>
     <classEntry path="feathers.extension.ahhenderson.controls.supportClasses.BasePanelNavigatorScreen"/>
@@ -66,6 +65,7 @@
     <classEntry path="feathers.extension.ahhenderson.helpers.LayoutHelper"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.ListHelper"/>
     <classEntry path="feathers.extension.ahhenderson.helpers.UiFactoryHelper"/>
+    <classEntry path="feathers.extension.ahhenderson.interfaces.IDataServiceCommand"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces.IPopUpExtendedContent"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces.IPopUpExtendedContentManager"/>
     <classEntry path="feathers.extension.ahhenderson.interfaces._deprecate.IComponentPopUpContent"/>
