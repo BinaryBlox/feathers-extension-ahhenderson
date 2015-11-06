@@ -239,15 +239,19 @@ package feathers.extension.ahhenderson.managers
 			}
 
 			validateManager();
- 
-			
+  
 			if(resetHeader){
 				
 				this.fmgr.logger.trace(this, "Resetting headers for screen id: " + id);
 				
-				// Clear header items
-				this._rootContainer.header.leftItems=null;
-				this._rootContainer.header.rightItems=null; 
+				var drawer:TopDrawer = getDrawer(LayoutDirectionType.TOP) as TopDrawer;
+				 
+				if (drawer.header){
+					
+					drawer.header.leftItems=null;
+					drawer.header.rightItems=null;
+					drawer.header.centerItems=null;
+				} 
 			}
 			
 			this.fmgr.logger.trace(this, "Showing screen with id: " + id);

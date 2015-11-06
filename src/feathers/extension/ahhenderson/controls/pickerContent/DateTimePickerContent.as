@@ -21,10 +21,14 @@ package feathers.extension.ahhenderson.controls.pickerContent
 		
 		public function set selectedItem(value:Object):void
 		{
-			if(!(value is Date)){
-				throw new Error("DateTimePickerContent.selectedItem - Values must be date");
-				
+			if(!value){ 
+				return;
 			}
+			
+			if(!(value is Date)){
+				throw new Error("DateTimePickerContent.selectedItem - Values must be date"); 
+			}
+			
 			this.value = value as Date;
 			
 		}

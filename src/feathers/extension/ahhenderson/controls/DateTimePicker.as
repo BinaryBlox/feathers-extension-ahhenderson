@@ -123,13 +123,28 @@ package feathers.extension.ahhenderson.controls
 			if(this.pickerContent && this.pickerContent is DateTimePickerContent){
 				
 				// Set default editing mode
-				(this.pickerContent as DateTimePickerContent).editingMode = this.editingMode;
+				(this.pickerContent as DateTimePickerContent).editingMode = this.editingMode; 
 				
+				// Set Selection
 				(this.pickerContent as DateTimePickerContent).selectedItem = this.selectedDate;
+				
 				// Set default date range
 				(this.pickerContent as DateTimePickerContent).minimum = new Date(1900, 0);
-				(this.pickerContent as DateTimePickerContent).maximum = new Date();
+				 
+				var maximumDate:Date = DateUtil.addTo(new Date(), -13);
+				(this.pickerContent as DateTimePickerContent).maximum = maximumDate;
 			}
+		}
+		
+		override public function set selectedItem(value:Object):void{
+			
+			if(this.pickerContent){
+				this.pickerContent.selectedItem = value;
+			}
+			
+			super.selectedItem = value;
+			 
+			refreshButtonLabel();
 		}
 		
 		/**
