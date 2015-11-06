@@ -2,7 +2,7 @@ import feathers.extension.ahhenderson.data.service.helpers.DS_FacadeHelper;
 import ahhenderson.core.mvc.patterns.facade.FacadeMessage;
 import ahhenderson.core.mvc.patterns.facade.FacadeMessageFilter;
 	
-override protected function sendFacadeMessage(messageId:String, messageBody:Object=null, messageFilter:FacadeMessageFilter=null, ...args):void{ 
+override public function sendFacadeMessage(messageId:String, messageBody:Object=null, messageFilter:FacadeMessageFilter=null, ...args):void{ 
 			
 	if(!messageFilter)
 		messageFilter = this.messageFilter;
@@ -13,7 +13,7 @@ override protected function sendFacadeMessage(messageId:String, messageBody:Obje
 	
 }
 
-override protected function sendDelayedFacadeMessage(delay:int, message:FacadeMessage):void{
+override public function sendDelayedFacadeMessage(delay:int, message:FacadeMessage):void{
 	
 	if(!message)
 		return 
@@ -26,7 +26,7 @@ override protected function sendDelayedFacadeMessage(delay:int, message:FacadeMe
 	super.sendDelayedFacadeMessage(delay, message);
 }
 
-override protected function sendFacadeMessageObject(message:FacadeMessage):void{
+override public function sendFacadeMessageObject(message:FacadeMessage):void{
 	
 	if(!message.messageFilter)
 		message.messageFilter = this.messageFilter;

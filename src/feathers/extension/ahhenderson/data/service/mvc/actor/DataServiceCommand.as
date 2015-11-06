@@ -29,34 +29,36 @@ package feathers.extension.ahhenderson.data.service.mvc.actor {
 
 		override public function executeCommand( message:IFacadeMessage ):void {
  
+			// Add facade listener 
+			this.fmgr.facade.addEventListener( GlobalFacadeMessageEvent.GLOBAL_MESSAGE_MANAGER_EVENT, onFacadeMessageEvent );
+			
 			startServiceCommand( message );
 		}
 
 		public function handleServiceCommandResult( message:IFacadeMessage ):void {
 
-			
-			endServiceCommand();
+			 
 
 		}
 
 		public function startServiceCommand( message:IFacadeMessage ):void {
 
-			// Add facade listener
-			this.fmgr.facade.addEventListener( GlobalFacadeMessageEvent.GLOBAL_MESSAGE_MANAGER_EVENT, onFacadeMessageEvent );
 			
 
 		}
 
 		private function onFacadeMessageEvent( e:GlobalFacadeMessageEvent ):void {
 
-			handleFacadeMessage( e.message );
+			handleServiceCommandResult( e.message );
 
 		}
 		
-		protected function displayFaultMessage( facadeMessage:IFacadeMessage, title:String="Service Error", alertCloseFunction:Function=null):void{
+		protected function displayFaultAndEndServiceCommand( facadeMessage:IFacadeMessage, title:String="Service Error", alertCloseFunction:Function=null):void{
+			 
+			//  End service command
+			endServiceCommand();
 			
-			DialogHelper.hideLoadingDialog();
-			
+			// Display Alerts
 			if(!facadeMessage.messageBody as Fault ){
 				DialogHelper.showAlert( "Error",
 					"Item is not a Fault",

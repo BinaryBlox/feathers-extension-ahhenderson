@@ -124,6 +124,11 @@ package feathers.extension.ahhenderson.controls
 				
 				// Set default editing mode
 				(this.pickerContent as DateTimePickerContent).editingMode = this.editingMode;
+				
+				(this.pickerContent as DateTimePickerContent).selectedItem = this.selectedDate;
+				// Set default date range
+				(this.pickerContent as DateTimePickerContent).minimum = new Date(1900, 0);
+				(this.pickerContent as DateTimePickerContent).maximum = new Date();
 			}
 		}
 		

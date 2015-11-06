@@ -267,6 +267,43 @@ package feathers.extension.ahhenderson.managers
 			
 		}
 		
+		 
+		public function clearHeaderItems(position:String):void{
+			
+			validateManager();
+			
+			if(!position){
+				fmgr.logger.log("{0}: Postion param is null", "clearHeaderItems");
+				return;
+			}
+			
+			var drawer:TopDrawer = getDrawer(LayoutDirectionType.TOP) as TopDrawer;
+			var propertyName:String;
+			
+			if(!drawer || !drawer.header) 
+				return;
+		  
+			switch(position){
+				
+				case HorizontalAlign.LEFT:
+					propertyName = "leftItems"
+					break;
+				
+				case HorizontalAlign.RIGHT:
+					propertyName = "rightItems";
+					break;
+				
+				case HorizontalAlign.CENTER:
+					propertyName = "centerItems";
+					break;
+			}
+			
+			if (propertyName && drawer.header.hasOwnProperty(propertyName)){
+				 
+				drawer.header[propertyName]=null;  
+			}
+		}
+		
 		public function toggleDrawer(location:LayoutDirectionType, duration:Number=NaN):void
 		{
  
